@@ -17,9 +17,15 @@ func _physics_process(_delta):
 	if input_vec.y != 0:
 		if not $Engine.playing:
 			$Engine.play()
+			$BackChassis/Bell3/Particles.emitting = true
+			$BackChassis/Bell4/Particles2.emitting = true
 		$Engine.pitch_scale = 0.2+0.1*linear_velocity.length()
+		#$BackChassis/Bell3/Particles.lifetime = 1 + linear_velocity.length()
+		#$BackChassis/Bell4/Particles2.lifetime = 1 + linear_velocity.length()
 	if input_vec.y == 0 and $Engine.playing:
 		$Engine.stop()
+		$BackChassis/Bell3/Particles.emitting = false
+		$BackChassis/Bell4/Particles2.emitting = false
 
 	music_filter.cutoff_hz = 500 + 50 * linear_velocity.length_squared()
 	#if Input.is_action_just_pressed("ui_accept"):
