@@ -20,8 +20,6 @@ func _physics_process(_delta):
 			$BackChassis/Bell3/Particles.emitting = true
 			$BackChassis/Bell4/Particles2.emitting = true
 		$Engine.pitch_scale = 0.2+0.1*linear_velocity.length()
-		#$BackChassis/Bell3/Particles.lifetime = 1 + linear_velocity.length()
-		#$BackChassis/Bell4/Particles2.lifetime = 1 + linear_velocity.length()
 	if input_vec.y == 0 and $Engine.playing:
 		$Engine.stop()
 		$BackChassis/Bell3/Particles.emitting = false

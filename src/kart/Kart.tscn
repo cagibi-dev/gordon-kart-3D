@@ -30,8 +30,8 @@ size = Vector3( 0.3, 0.1, 0 )
 [sub_resource type="SphereMesh" id=5]
 radius = 0.05
 height = 0.1
-radial_segments = 5
-rings = 5
+radial_segments = 4
+rings = 2
 
 [sub_resource type="PlaneMesh" id=6]
 size = Vector2( 0.05, 0.06 )
@@ -42,7 +42,7 @@ size = Vector2( 0.3, 0.05 )
 [sub_resource type="CapsuleMesh" id=8]
 radius = 0.25
 mid_height = 0.3
-radial_segments = 6
+radial_segments = 4
 rings = 1
 
 [sub_resource type="CubeMesh" id=9]
@@ -82,6 +82,7 @@ radial_segments = 5
 rings = 3
 
 [node name="Kart" type="VehicleBody"]
+collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -250,7 +251,7 @@ mesh = SubResource( 15 )
 material/0 = null
 
 [node name="Particles" type="Particles" parent="BackChassis/Bell3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 emitting = false
 amount = 20
 local_coords = false
@@ -263,7 +264,7 @@ mesh = SubResource( 15 )
 material/0 = null
 
 [node name="Particles2" type="Particles" parent="BackChassis/Bell4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 emitting = false
 amount = 20
 local_coords = false

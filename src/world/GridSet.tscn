@@ -3,9 +3,13 @@
 [ext_resource path="res://materials/Green.material" type="Material" id=1]
 [ext_resource path="res://materials/Yellow.material" type="Material" id=2]
 
-[sub_resource type="PrismMesh" id=1]
+[sub_resource type="CylinderMesh" id=1]
 material = ExtResource( 1 )
-size = Vector3( 0.5, 1, 0.5 )
+top_radius = 0.001
+bottom_radius = 0.4
+height = 1.0
+radial_segments = 4
+rings = 1
 
 [sub_resource type="CubeMesh" id=2]
 material = ExtResource( 2 )
