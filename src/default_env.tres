@@ -12,7 +12,6 @@ gradient = SubResource( 1 )
 [resource]
 background_mode = 2
 background_sky = ExtResource( 1 )
-ambient_light_color = Color( 1, 1, 1, 1 )
 fog_color = Color( 0.141176, 0.380392, 0.498039, 1 )
 fog_depth_begin = 20.0
 adjustment_enabled = true
