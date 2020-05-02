@@ -1,0 +1,19 @@
+[gd_resource type="Environment" load_steps=4 format=2]
+
+[ext_resource path="res://sky.tres" type="ProceduralSky" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.230769, 0.468531, 0.72028, 1 )
+colors = PoolColorArray( 0.137739, 0.0050354, 0.429688, 1, 0.530962, 0.377612, 0.438713, 1, 0.792614, 0.772105, 0.638195, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[resource]
+background_mode = 2
+background_sky = ExtResource( 1 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+fog_color = Color( 0.141176, 0.380392, 0.498039, 1 )
+fog_depth_begin = 20.0
+adjustment_enabled = true
+adjustment_color_correction = SubResource( 2 )
