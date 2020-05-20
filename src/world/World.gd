@@ -8,11 +8,13 @@ var can_finish := false
 func _input(event):
 	if event.is_action_pressed("ui_accept") and $Kart/StartCamera.current:
 		$Camera.set_deferred("current", true)
-		$HUD/TopHud/Label.text = "Touches fléchées : se déplacer"
+		$HUD/TopHud/Label.text = "Arrow keys to move"
 		$HUD/BottomHud/Scores/Current.text = ""
 		$HUD/BottomHud/Scores/Best.text = ""
 		$HUD/TopHud/Disappear.play("disappear")
 		AudioServer.set_bus_effect_enabled(1, 0, true)
+	if event.is_action_pressed("ui_cancel"):
+		get_tree().reload_current_scene()
 
 func _process(delta: float):
 	if running:
@@ -26,7 +28,7 @@ func _on_FinishLine_body_entered(_body):
 	if can_finish:
 		if running and current_time < best_time:
 			best_time = current_time
-			$HUD/BottomHud/Scores/Best.text = "Meilleur temps: " + str(stepify(best_time, 0.01)) + " s"
+			$HUD/BottomHud/Scores/Best.text = "Best time: " + str(stepify(best_time, 0.01)) + " s"
 			$FinishLine/Explosion.play()
 		else:
 			$EndTurn.play()
