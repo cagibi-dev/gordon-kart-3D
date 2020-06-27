@@ -7,6 +7,10 @@ var music_filter: AudioEffectLowPassFilter
 func _ready():
 	music_filter = AudioServer.get_bus_effect(1, 0)
 
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		$HeadLights.visible = not $HeadLights.visible
+
 func _physics_process(_delta):
 	var input_vec := Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 			Input.get_action_strength("accelerate") - Input.get_action_strength("brake"))

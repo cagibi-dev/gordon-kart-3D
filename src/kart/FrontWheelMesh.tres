@@ -8,3 +8,4 @@ top_radius = 0.2
 bottom_radius = 0.2
 height = 0.2
 radial_segments = 5
+rings = 1
