@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/jump.wav-6179f06cf1da47a35d4d396a19a93e24.sample"
+
+[deps]
+
+source_file="res://kart/jump.wav"
+dest_files=[ "res://.import/jump.wav-6179f06cf1da47a35d4d396a19a93e24.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

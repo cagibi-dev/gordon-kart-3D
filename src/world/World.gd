@@ -13,8 +13,8 @@ func _input(event):
 		$HUD/BottomHud/Scores/Best.text = ""
 		$HUD/TopHud/Disappear.play("disappear")
 		AudioServer.set_bus_effect_enabled(1, 0, true)
-	if event.is_action_pressed("ui_cancel"):
-		get_tree().reload_current_scene()
+	#if event.is_action_pressed("ui_cancel"):
+	#	get_tree().reload_current_scene()
 
 func _process(delta: float):
 	if running:
