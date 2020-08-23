@@ -8,7 +8,7 @@ var can_finish := false
 func _input(event):
 	if event.is_action_pressed("ui_accept") and $Kart/StartCamera.current:
 		$Camera.set_deferred("current", true)
-		$HUD/TopHud/Label.text = "Arrow keys to move"
+		$HUD/TopHud/Label.text = "Move: arrow keys / left stick"
 		$HUD/BottomHud/Scores/Current.text = ""
 		$HUD/BottomHud/Scores/Best.text = ""
 		$HUD/TopHud/Disappear.play("disappear")

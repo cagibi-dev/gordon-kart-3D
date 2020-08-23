@@ -30,7 +30,7 @@ func _physics_process(delta):
 		thrust = lerp(thrust, 0, 0.05)
 	else:
 		thrust = lerp(thrust, full_thrust * input_vec.y, 0.01)
-		thrust -= steering * delta
+		thrust -= 3*steering * delta
 	$ThrustBar.value = thrust
 	#thrust = full_thrust * input_vec.y
 	#steering = steer_angle * input_vec.x
