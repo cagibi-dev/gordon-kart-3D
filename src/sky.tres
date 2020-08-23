@@ -10,6 +10,7 @@ ground_bottom_color = Color( 0.207843, 0.356863, 0.364706, 1 )
 ground_horizon_color = Color( 0.372549, 0.694118, 0.603922, 1 )
 ground_curve = 0.1
 sun_latitude = 5.0
+sun_longitude = 15.0
 sun_angle_min = 5.0
 sun_angle_max = 15.0
 sun_curve = 0.5
