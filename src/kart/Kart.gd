@@ -8,18 +8,31 @@ var velocity := Vector3.ZERO
 var gravity := 20.0
 var jump_speed := 10.0
 var music_filter: AudioEffectLowPassFilter
+var last_transform := Transform.IDENTITY  # respawn point
 
 func _ready():
 	music_filter = AudioServer.get_bus_effect(1, 0)
 	$ThrustBar.max_value = full_thrust
+	last_transform = transform
 
 func _input(event):
 	if event.is_action_pressed("jump") and is_on_floor():
 		velocity.y = jump_speed
 		$Jump.play()
+		last_transform = transform
+
+func reset():
+	thrust = 0
+	steering = 0
+	velocity = Vector3.ZERO
+	transform = last_transform
+	$Dead.play()
 
 func _physics_process(delta):
 	velocity.y -= gravity * delta
+
+	if translation.y < -10:
+		reset()
 
 	var input_vec := Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 			Input.get_action_strength("accelerate"))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://materials/Yellow.material" type="Material" id=1]
 [ext_resource path="res://kart/Kart.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://kart/jump.wav" type="AudioStream" id=9]
 [ext_resource path="res://kart/thrustbar-empty.png" type="Texture" id=10]
 [ext_resource path="res://kart/thrustbar-full.png" type="Texture" id=11]
+[ext_resource path="res://kart/dead.ogg" type="AudioStream" id=12]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.35, 0.5, 0.9 )
@@ -284,3 +285,7 @@ fill_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Dead" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -3.0
