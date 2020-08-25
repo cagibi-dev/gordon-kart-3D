@@ -65,6 +65,6 @@ func _physics_process(delta):
 		$BackChassis/Bell3/Particles.emitting = false
 		$BackChassis/Bell4/Particles2.emitting = false
 
-	music_filter.cutoff_hz = min(500 + 50 * velocity.length_squared(), 22000)
+	music_filter.cutoff_hz = min(500 + 50 * ideal_vel.length_squared(), 22000)
 
 	velocity = move_and_slide(velocity, Vector3.UP)
