@@ -8,7 +8,7 @@ var can_finish := false
 func _input(event):
 	if event.is_action_pressed("ui_accept") and $Kart/StartCamera.current:
 		$Camera.set_deferred("current", true)
-		$HUD/TopHud/Label.text = "Move: arrow keys / left stick"
+		$HUD/TopHud/Rows/Label.text = "Move: arrow keys / left stick"
 		$HUD/BottomHud/Scores/Current.text = ""
 		$HUD/BottomHud/Scores/Best.text = ""
 		$HUD/TopHud/Disappear.play("disappear")
@@ -41,3 +41,19 @@ func _on_FinishLine_body_exited(_body):
 
 func _on_Midway_body_entered(_body):
 	can_finish = true
+
+
+func _on_MusicOnOff_toggled(button_pressed):
+	AudioServer.set_bus_mute(1, not button_pressed)
+
+
+func _on_CrowdOnOff_toggled(button_pressed):
+	$Crowd.playing = button_pressed
+
+
+func _on_LightOnOff_toggled(button_pressed):
+	$DirectionalLight.visible = button_pressed
+
+
+func _on_AudioOnOff_toggled(button_pressed):
+	AudioServer.set_bus_mute(0, not button_pressed)
