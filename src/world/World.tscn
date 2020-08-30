@@ -182,9 +182,11 @@ margin_top = 4.0
 margin_right = 1208.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 20, 0 )
+focus_mode = 0
 size_flags_vertical = 4
 toggle_mode = true
 pressed = true
+enabled_focus_mode = 0
 texture_normal = SubResource( 8 )
 texture_pressed = SubResource( 9 )
 
@@ -194,9 +196,11 @@ margin_top = 4.0
 margin_right = 1232.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 20, 0 )
+focus_mode = 0
 size_flags_vertical = 4
 toggle_mode = true
 pressed = true
+enabled_focus_mode = 0
 texture_normal = SubResource( 10 )
 texture_pressed = SubResource( 11 )
 
@@ -206,9 +210,11 @@ margin_top = 4.0
 margin_right = 1256.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 20, 0 )
+focus_mode = 0
 size_flags_vertical = 4
 toggle_mode = true
 pressed = true
+enabled_focus_mode = 0
 texture_normal = SubResource( 12 )
 texture_pressed = SubResource( 13 )
 
@@ -218,9 +224,11 @@ margin_top = 4.0
 margin_right = 1280.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 20, 0 )
+focus_mode = 0
 size_flags_vertical = 4
 toggle_mode = true
 pressed = true
+enabled_focus_mode = 0
 texture_normal = SubResource( 14 )
 texture_pressed = SubResource( 15 )
 
