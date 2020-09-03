@@ -1,13 +1,12 @@
 [gd_resource type="Environment" load_steps=3 format=2]
 
-[ext_resource path="res://sky_sunset.tres" type="ProceduralSky" id=1]
+[ext_resource path="res://sky_night.tres" type="ProceduralSky" id=1]
 [ext_resource path="res://world/palette_gradient.tres" type="Texture" id=2]
 
 [resource]
 background_mode = 2
 background_sky = ExtResource( 1 )
 ambient_light_energy = 0.8
-fog_enabled = true
 fog_color = Color( 0.141176, 0.380392, 0.498039, 1 )
 fog_depth_begin = 50.0
 fog_depth_end = 200.0
@@ -23,5 +22,4 @@ dof_blur_far_transition = 10.0
 dof_blur_far_quality = 0
 dof_blur_near_quality = 0
 glow_bloom = 0.2
-adjustment_enabled = true
 adjustment_color_correction = ExtResource( 2 )

@@ -31,7 +31,7 @@ func _on_FinishLine_body_entered(_body):
 			$HUD/BottomHud/Scores/Best.text = "Best time: " + str(stepify(best_time, 0.01)) + " s"
 			$FinishLine/Explosion.play()
 		else:
-			$EndTurn.play()
+			$FinishLine/EndTurn.play()
 		current_time = 0.0
 		running = false
 		can_finish = false
@@ -52,7 +52,7 @@ func _on_CrowdOnOff_toggled(button_pressed):
 
 
 func _on_LightOnOff_toggled(button_pressed):
-	$DirectionalLight.visible = button_pressed
+	$Lights.visible = button_pressed
 
 
 func _on_AudioOnOff_toggled(button_pressed):
