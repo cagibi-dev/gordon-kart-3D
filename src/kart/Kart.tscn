@@ -266,9 +266,11 @@ stream = ExtResource( 7 )
 unit_db = 6.0
 max_db = 0.0
 autoplay = true
+bus = "Sfx"
 
 [node name="Jump" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 9 )
+bus = "Sfx"
 
 [node name="ThrustBar" type="TextureProgress" parent="."]
 anchor_top = 1.0
@@ -289,3 +291,4 @@ __meta__ = {
 [node name="Dead" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
 volume_db = -3.0
+bus = "Sfx"

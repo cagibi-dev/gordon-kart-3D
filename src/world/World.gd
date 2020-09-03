@@ -48,7 +48,7 @@ func _on_MusicOnOff_toggled(button_pressed):
 
 
 func _on_CrowdOnOff_toggled(button_pressed):
-	$Crowd.playing = button_pressed
+	AudioServer.set_bus_mute(3, not button_pressed)
 
 
 func _on_LightOnOff_toggled(button_pressed):
@@ -56,4 +56,4 @@ func _on_LightOnOff_toggled(button_pressed):
 
 
 func _on_AudioOnOff_toggled(button_pressed):
-	AudioServer.set_bus_mute(0, not button_pressed)
+	AudioServer.set_bus_mute(2, not button_pressed)
