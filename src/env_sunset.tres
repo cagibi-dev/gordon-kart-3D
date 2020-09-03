@@ -1,7 +1,13 @@
-[gd_resource type="Environment" load_steps=3 format=2]
+[gd_resource type="Environment" load_steps=4 format=2]
 
 [ext_resource path="res://sky_sunset.tres" type="ProceduralSky" id=1]
-[ext_resource path="res://world/palette_gradient.tres" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.258741, 0.552448, 0.825175, 1 )
+colors = PoolColorArray( 0.0204195, 0.0017692, 0.150971, 1, 0.171424, 0.0484543, 0.427734, 1, 0.595703, 0.303151, 0.23037, 1, 0.773438, 0.630342, 0.395782, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
 [resource]
 background_mode = 2
@@ -24,4 +30,4 @@ dof_blur_far_quality = 0
 dof_blur_near_quality = 0
 glow_bloom = 0.2
 adjustment_enabled = true
-adjustment_color_correction = ExtResource( 2 )
+adjustment_color_correction = SubResource( 2 )

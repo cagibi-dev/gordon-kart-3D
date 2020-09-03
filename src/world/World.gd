@@ -57,3 +57,11 @@ func _on_LightOnOff_toggled(button_pressed):
 
 func _on_AudioOnOff_toggled(button_pressed):
 	AudioServer.set_bus_mute(2, not button_pressed)
+
+
+func _on_Portal_body_entered(body: PhysicsBody):
+	if body.filename == "res://kart/Kart.tscn":
+		if get_tree().current_scene.filename != "res://world/NightWorld.tscn":
+			get_tree().change_scene("res://world/NightWorld.tscn")
+		else:
+			get_tree().change_scene("res://world/World.tscn")

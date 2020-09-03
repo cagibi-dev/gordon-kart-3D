@@ -12,6 +12,7 @@ var last_transform := Transform.IDENTITY  # respawn point
 
 func _ready():
 	music_filter = AudioServer.get_bus_effect(1, 0)
+	AudioServer.set_bus_effect_enabled(1, 0, false)
 	$ThrustBar.max_value = full_thrust
 	last_transform = transform
 
