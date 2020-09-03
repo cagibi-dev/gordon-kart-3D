@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Rocket_Glider_Fluidvolt.ogg-5a5981a5c7e61ca840b708aacb3e5160.oggstr"
+
+[deps]
+
+source_file="res://music/Rocket_Glider_Fluidvolt.ogg"
+dest_files=[ "res://.import/Rocket_Glider_Fluidvolt.ogg-5a5981a5c7e61ca840b708aacb3e5160.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
