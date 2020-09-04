@@ -13,8 +13,6 @@ func _input(event):
 		$HUD/BottomHud/Scores/Best.text = ""
 		$HUD/TopHud/Disappear.play("disappear")
 		AudioServer.set_bus_effect_enabled(1, 0, true)
-	#if event.is_action_pressed("ui_cancel"):
-	#	get_tree().reload_current_scene()
 
 func _process(delta: float):
 	if running:
@@ -28,7 +26,7 @@ func _on_FinishLine_body_entered(_body):
 	if can_finish:
 		if running and current_time < best_time:
 			best_time = current_time
-			$HUD/BottomHud/Scores/Best.text = "Best time: " + str(stepify(best_time, 0.01)) + " s"
+			$HUD/BottomHud/Scores/Best.text = "Best time: " + nice_stringify(best_time) + " s"
 			$FinishLine/Explosion.play()
 		else:
 			$FinishLine/EndTurn.play()
@@ -59,9 +57,10 @@ func _on_AudioOnOff_toggled(button_pressed):
 	AudioServer.set_bus_mute(2, not button_pressed)
 
 
-func _on_Portal_body_entered(body: PhysicsBody):
-	if body.filename == "res://kart/Kart.tscn":
-		if get_tree().current_scene.filename != "res://world/NightWorld.tscn":
-			get_tree().change_scene("res://world/NightWorld.tscn")
-		else:
-			get_tree().change_scene("res://world/World.tscn")
+func _on_Portal_body_entered(_body):
+	var err
+	if get_tree().current_scene.filename != "res://world/NightWorld.tscn":
+		err = get_tree().change_scene("res://world/NightWorld.tscn")
+	else:
+		err = get_tree().change_scene("res://world/World.tscn")
+	assert(err == OK)

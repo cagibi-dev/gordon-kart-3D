@@ -35,7 +35,8 @@ func _physics_process(delta):
 	if translation.y < -10:
 		reset()
 
-	var input_vec := Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+	var input_vec := Vector2(
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 			Input.get_action_strength("accelerate"))
 	
 	steering = lerp(steering, steer_angle * input_vec.x, 0.1)
@@ -46,11 +47,7 @@ func _physics_process(delta):
 		thrust = lerp(thrust, full_thrust * input_vec.y, 0.01)
 		thrust -= 3*abs(steering) * delta * sign(thrust)
 	$ThrustBar.value = thrust
-	#thrust = full_thrust * input_vec.y
-	#steering = steer_angle * input_vec.x
 	var ideal_vel = Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * thrust
-	#velocity.x = lerp(velocity.x, ideal_vel.x, 0.02)
-	#velocity.z = lerp(velocity.z, ideal_vel.z, 0.02)
 	velocity.x = ideal_vel.x
 	velocity.z = ideal_vel.z
 	rotate_y(-steering * delta)
