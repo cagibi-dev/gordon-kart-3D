@@ -29,6 +29,9 @@ func reset():
 	transform = last_transform
 	$Dead.play()
 
+func boost():
+	thrust += 4
+
 func _physics_process(delta):
 	velocity.y -= gravity * delta
 

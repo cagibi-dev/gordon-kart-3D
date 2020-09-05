@@ -1,7 +1,13 @@
 extends Area
 
 
-func _on_body_entered(_body):
-	collision_mask = 0
-	visible = 0
+func _on_body_entered(body):
+	if body.has_method("boost"):
+		body.boost()
+	$CollisionShape.disabled = true
+	visible = false
 	$Sound.play()
+
+func _on_finished():
+	$CollisionShape.disabled = false
+	visible = true

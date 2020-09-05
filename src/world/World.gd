@@ -1,5 +1,7 @@
 extends WorldEnvironment
 
+signal finished
+
 var best_time := 999999.0
 var current_time := 0.0
 var running := false
@@ -33,6 +35,7 @@ func _on_FinishLine_body_entered(_body):
 		current_time = 0.0
 		running = false
 		can_finish = false
+		emit_signal("finished")
 
 func _on_FinishLine_body_exited(_body):
 	running = true

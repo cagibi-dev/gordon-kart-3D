@@ -4,12 +4,13 @@
 [ext_resource path="res://items/Pizza.gd" type="Script" id=2]
 [ext_resource path="res://items/item.wav" type="AudioStream" id=3]
 
-[sub_resource type="SphereShape" id=3]
+[sub_resource type="SphereShape" id=1]
+radius = 1.5
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="CubeMesh" id=2]
 size = Vector3( 1, 0.1, 1 )
 
-[sub_resource type="CylinderMesh" id=2]
+[sub_resource type="CylinderMesh" id=3]
 material = ExtResource( 1 )
 top_radius = 0.4
 bottom_radius = 0.4
@@ -39,23 +40,23 @@ collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="Model" type="Spatial" parent="."]
 
 [node name="BoxBase" type="MeshInstance" parent="Model"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.2, 0 )
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="BoxTop" type="MeshInstance" parent="Model"]
 transform = Transform( 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -0.4, 0.2, 0 )
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Pizza" type="MeshInstance" parent="Model"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.1, 0 )
-mesh = SubResource( 2 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="Anim" type="AnimationPlayer" parent="."]
