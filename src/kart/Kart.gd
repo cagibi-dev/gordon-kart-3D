@@ -77,7 +77,12 @@ func _physics_process(delta):
 
 	music_filter.cutoff_hz = min(500 + 50 * ideal_vel.length_squared(), 22000)
 
-	velocity = move_and_slide(velocity, Vector3.UP)
+	velocity = move_and_slide(velocity, Vector3.UP, false, 4, 0.8, false)
+
+	for i in get_slide_count():
+		var collision := get_slide_collision(i)
+		if collision.collider is RigidBody:
+			collision.collider.apply_central_impulse(-collision.normal * 2)
 
 
 func _on_World_finished():

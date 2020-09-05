@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://materials/Grey.material" type="Material" id=1]
+[ext_resource path="res://materials/White.material" type="Material" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.8, 0.8, 0.8 )
+
+[sub_resource type="CubeMesh" id=2]
+material = ExtResource( 2 )
+size = Vector3( 1.5, 1.5, 1.5 )
+
+[sub_resource type="CubeMesh" id=3]
+material = ExtResource( 1 )
+size = Vector3( 1.6, 0.3, 1.6 )
+
+[node name="Crate" type="RigidBody"]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="Bulk" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Top" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Bottom" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Diagonal" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.642788, -0.766044, 0, 0.766044, 0.642788, 0, 0, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Diagonal2" type="MeshInstance" parent="."]
+transform = Transform( 0.642788, -0.766044, 0, 0.766044, 0.642788, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 3 )
+material/0 = null
