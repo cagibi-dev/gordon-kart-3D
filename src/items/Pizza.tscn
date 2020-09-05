@@ -68,4 +68,5 @@ anims/turn = SubResource( 4 )
 [node name="Sound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 3 )
 unit_size = 4.0
+bus = "Sfx"
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
