@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://materials/Yellow.material" type="Material" id=1]
 [ext_resource path="res://kart/Kart.gd" type="Script" id=2]
@@ -15,45 +15,6 @@
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.35, 0.5, 0.9 )
-
-[sub_resource type="CapsuleMesh" id=2]
-radius = 0.2
-mid_height = 0.2
-radial_segments = 5
-rings = 1
-
-[sub_resource type="SphereMesh" id=3]
-radius = 0.25
-height = 0.5
-radial_segments = 5
-rings = 3
-
-[sub_resource type="PrismMesh" id=4]
-size = Vector3( 0.3, 0.1, 0 )
-
-[sub_resource type="SphereMesh" id=5]
-radius = 0.05
-height = 0.1
-radial_segments = 5
-rings = 2
-
-[sub_resource type="PlaneMesh" id=6]
-size = Vector2( 0.05, 0.06 )
-
-[sub_resource type="QuadMesh" id=7]
-size = Vector2( 0.3, 0.05 )
-
-[sub_resource type="CapsuleMesh" id=8]
-radius = 0.25
-mid_height = 0.3
-radial_segments = 4
-rings = 1
-
-[sub_resource type="CubeMesh" id=9]
-size = Vector3( 0.1, 0.1, 0.05 )
-
-[sub_resource type="CubeMesh" id=10]
-size = Vector3( 0.2, 0.2, 0.6 )
 
 [sub_resource type="CubeMesh" id=11]
 size = Vector3( 0.6, 0.2, 1 )
@@ -85,6 +46,100 @@ height = 0.4
 radial_segments = 5
 rings = 3
 
+[sub_resource type="CapsuleMesh" id=2]
+radius = 0.2
+mid_height = 0.2
+radial_segments = 5
+rings = 1
+
+[sub_resource type="SphereMesh" id=3]
+radius = 0.25
+height = 0.5
+radial_segments = 5
+rings = 3
+
+[sub_resource type="PrismMesh" id=4]
+size = Vector3( 0.3, 0.1, 0 )
+
+[sub_resource type="SphereMesh" id=5]
+radius = 0.05
+height = 0.1
+radial_segments = 5
+rings = 2
+
+[sub_resource type="PlaneMesh" id=6]
+size = Vector2( 0.05, 0.06 )
+
+[sub_resource type="QuadMesh" id=7]
+size = Vector2( 0.3, 0.05 )
+
+[sub_resource type="CubeMesh" id=8]
+size = Vector3( 0.1, 0.1, 0.05 )
+
+[sub_resource type="CapsuleMesh" id=9]
+radius = 0.25
+mid_height = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CubeMesh" id=10]
+size = Vector3( 0.2, 0.2, 0.6 )
+
+[sub_resource type="Animation" id=17]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Vehicle/Gordon/LeftArm:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 8.809, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Vehicle/Gordon/RightArm:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 8.809, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "win"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Vehicle/Gordon/LeftArm:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 8.809, 0, 0 ), Vector3( 8.809, 90, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Vehicle/Gordon/RightArm:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 8.809, 0, 0 ), Vector3( 8.809, -90, 0 ) ]
+}
+
 [node name="Kart" type="KinematicBody"]
 collision_layer = 2
 script = ExtResource( 2 )
@@ -93,152 +148,59 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
 shape = SubResource( 1 )
 
-[node name="Gordon" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
+[node name="Vehicle" type="Spatial" parent="."]
 
-[node name="Head" type="MeshInstance" parent="Gordon"]
-transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0.799188, 0.158734 )
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="Head2" type="MeshInstance" parent="Gordon/Head"]
-transform = Transform( 1, 0, 0, 0, 0.660814, 0.75055, 0, -0.75055, 0.660814, 0, 0.0222683, -0.111683 )
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="Mouth" type="MeshInstance" parent="Gordon/Head/Head2"]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.2, 0.1 )
-mesh = SubResource( 4 )
-material/0 = ExtResource( 3 )
-
-[node name="Eye" type="MeshInstance" parent="Gordon"]
-transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0.0640398, 0.975645, 0.0234904 )
-mesh = SubResource( 5 )
-material/0 = null
-
-[node name="Eye3" type="MeshInstance" parent="Gordon/Eye"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0514732, -0.000861049 )
-mesh = SubResource( 6 )
-material/0 = ExtResource( 3 )
-
-[node name="Eye2" type="MeshInstance" parent="Gordon"]
-transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, -0.0634833, 0.975645, 0.0234904 )
-mesh = SubResource( 5 )
-material/0 = null
-
-[node name="Eye4" type="MeshInstance" parent="Gordon/Eye2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00667426, 0.0514732, -0.000861049 )
-mesh = SubResource( 6 )
-material/0 = ExtResource( 3 )
-
-[node name="Eye3" type="MeshInstance" parent="Gordon"]
-transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0.9, 0 )
-mesh = SubResource( 5 )
-material/0 = ExtResource( 1 )
-
-[node name="EyeBrows" type="MeshInstance" parent="Gordon"]
-transform = Transform( 1, 0, 0, 0, -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 1.05, 0.04 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 3 )
-
-[node name="Body" type="MeshInstance" parent="Gordon"]
-transform = Transform( 1, 0, 0, 0, 0.677428, 0.735589, 0, -0.735589, 0.677428, 0, 0.308424, 0.0653615 )
-mesh = SubResource( 8 )
-material/0 = ExtResource( 4 )
-
-[node name="Ear" type="MeshInstance" parent="Gordon"]
-transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0.15, 1, 0.2 )
-mesh = SubResource( 9 )
-material/0 = null
-
-[node name="Ear2" type="MeshInstance" parent="Gordon"]
-transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -0.15, 1, 0.2 )
-mesh = SubResource( 9 )
-material/0 = null
-
-[node name="Leg" type="MeshInstance" parent="Gordon"]
-transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, 0.170666, 0.107213, -0.307724 )
-mesh = SubResource( 10 )
-material/0 = ExtResource( 3 )
-
-[node name="Leg2" type="MeshInstance" parent="Gordon"]
-transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, -0.145681, 0.107213, -0.307724 )
-mesh = SubResource( 10 )
-material/0 = ExtResource( 3 )
-
-[node name="Arm" type="MeshInstance" parent="Gordon"]
-transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, 0.2, 0.432, -0.031 )
-mesh = SubResource( 10 )
-material/0 = null
-
-[node name="Arm2" type="MeshInstance" parent="Gordon"]
-transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, -0.2, 0.432, -0.031 )
-mesh = SubResource( 10 )
-material/0 = null
-
-[node name="FrontWheel" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1.49012e-08, -0.6 )
-
-[node name="Mesh" type="MeshInstance" parent="FrontWheel"]
-transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+[node name="RightFrontWheel" type="MeshInstance" parent="Vehicle"]
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.5, -1.49012e-08, -0.6 )
 mesh = ExtResource( 6 )
 material/0 = null
 
-[node name="FrontWheel2" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -1.49012e-08, -0.6 )
-
-[node name="Mesh" type="MeshInstance" parent="FrontWheel2"]
-transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+[node name="LeftFrontWheel" type="MeshInstance" parent="Vehicle"]
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.5, -1.49012e-08, -0.6 )
 mesh = ExtResource( 6 )
 material/0 = null
 
-[node name="RearWheel" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.1, 0.6 )
-
-[node name="Mesh" type="MeshInstance" parent="RearWheel"]
-transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+[node name="RightRearWheel" type="MeshInstance" parent="Vehicle"]
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0.1, 0.6 )
 mesh = ExtResource( 5 )
 material/0 = null
 
-[node name="RearWheel2" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.1, 0.6 )
-
-[node name="Mesh" type="MeshInstance" parent="RearWheel2"]
-transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+[node name="LeftRearWheel" type="MeshInstance" parent="Vehicle"]
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.5, 0.1, 0.6 )
 mesh = ExtResource( 5 )
 material/0 = null
 
-[node name="Chassis" type="MeshInstance" parent="."]
+[node name="Chassis" type="MeshInstance" parent="Vehicle"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.49012e-08, 0 )
 mesh = SubResource( 11 )
 material/0 = ExtResource( 4 )
 
-[node name="FrontChassis" type="MeshInstance" parent="."]
+[node name="FrontChassis" type="MeshInstance" parent="Vehicle"]
 transform = Transform( 1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0.3, -0.7 )
 mesh = SubResource( 12 )
 material/0 = null
 
-[node name="BackChassis" type="MeshInstance" parent="."]
+[node name="BackChassis" type="MeshInstance" parent="Vehicle"]
 transform = Transform( 1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0.4, 0.6 )
 mesh = SubResource( 13 )
 material/0 = ExtResource( 4 )
 
-[node name="Bell" type="MeshInstance" parent="BackChassis"]
+[node name="SmallRightBell" type="MeshInstance" parent="Vehicle/BackChassis"]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 0.15, 0.2, 0.25 )
 mesh = SubResource( 14 )
 material/0 = ExtResource( 3 )
 
-[node name="Bell2" type="MeshInstance" parent="BackChassis"]
+[node name="SmallLeftBell" type="MeshInstance" parent="Vehicle/BackChassis"]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, -0.15, 0.2, 0.25 )
 mesh = SubResource( 14 )
 material/0 = ExtResource( 3 )
 
-[node name="Bell3" type="MeshInstance" parent="BackChassis"]
+[node name="BigLeftBell" type="MeshInstance" parent="Vehicle/BackChassis"]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, -0.25, -0.05, 0.3 )
 mesh = SubResource( 15 )
 material/0 = null
 
-[node name="Particles" type="Particles" parent="BackChassis/Bell3"]
+[node name="Particles" type="Particles" parent="Vehicle/BackChassis/BigLeftBell"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 emitting = false
 amount = 20
@@ -247,12 +209,12 @@ local_coords = false
 process_material = ExtResource( 8 )
 draw_pass_1 = SubResource( 16 )
 
-[node name="Bell4" type="MeshInstance" parent="BackChassis"]
+[node name="BigRightBell" type="MeshInstance" parent="Vehicle/BackChassis"]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 0.25, -0.05, 0.3 )
 mesh = SubResource( 15 )
 material/0 = null
 
-[node name="Particles2" type="Particles" parent="BackChassis/Bell4"]
+[node name="Particles2" type="Particles" parent="Vehicle/BackChassis/BigRightBell"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 emitting = false
 amount = 20
@@ -261,7 +223,91 @@ local_coords = false
 process_material = ExtResource( 8 )
 draw_pass_1 = SubResource( 16 )
 
+[node name="Gordon" type="Spatial" parent="Vehicle"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
+
+[node name="Head" type="MeshInstance" parent="Vehicle/Gordon"]
+transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0.799188, 0.158734 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Head2" type="MeshInstance" parent="Vehicle/Gordon/Head"]
+transform = Transform( 1, 0, 0, 0, 0.660814, 0.75055, 0, -0.75055, 0.660814, 0, 0.0222683, -0.111683 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Mouth" type="MeshInstance" parent="Vehicle/Gordon/Head/Head2"]
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.2, 0.1 )
+mesh = SubResource( 4 )
+material/0 = ExtResource( 3 )
+
+[node name="RightEye" type="MeshInstance" parent="Vehicle/Gordon/Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0640398, 0.176306, 0.135441 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Pupil" type="MeshInstance" parent="Vehicle/Gordon/Head/RightEye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0514732, -0.000861049 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 3 )
+
+[node name="LeftEye" type="MeshInstance" parent="Vehicle/Gordon/Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0634833, 0.176306, 0.135441 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Pupil" type="MeshInstance" parent="Vehicle/Gordon/Head/LeftEye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00667426, 0.0514732, -0.000861049 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 3 )
+
+[node name="Nose" type="MeshInstance" parent="Vehicle/Gordon/Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179417, 0.0562935 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 1 )
+
+[node name="EyeBrows" type="MeshInstance" parent="Vehicle/Gordon/Head"]
+transform = Transform( 1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 0, 0.179603, 0.211535 )
+mesh = SubResource( 7 )
+material/0 = ExtResource( 3 )
+
+[node name="RightEar" type="MeshInstance" parent="Vehicle/Gordon/Head"]
+transform = Transform( 0.707107, -0.707107, 0, 0.183013, 0.183013, -0.965926, 0.683013, 0.683013, 0.258819, 0.15, 0.012114, 0.20465 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="LeftEar" type="MeshInstance" parent="Vehicle/Gordon/Head"]
+transform = Transform( 0.707107, -0.707107, 0, 0.183013, 0.183013, -0.965926, 0.683013, 0.683013, 0.258819, -0.15, 0.012114, 0.20465 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="Body" type="MeshInstance" parent="Vehicle/Gordon"]
+transform = Transform( 1, 0, 0, 0, 0.677428, 0.735589, 0, -0.735589, 0.677428, 0, 0.308424, 0.0653615 )
+mesh = SubResource( 9 )
+material/0 = ExtResource( 4 )
+
+[node name="RightLeg" type="MeshInstance" parent="Vehicle/Gordon"]
+transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, 0.170666, 0.107213, -0.307724 )
+mesh = SubResource( 10 )
+material/0 = ExtResource( 3 )
+
+[node name="LeftLeg" type="MeshInstance" parent="Vehicle/Gordon"]
+transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, -0.145681, 0.107213, -0.307724 )
+mesh = SubResource( 10 )
+material/0 = ExtResource( 3 )
+
+[node name="RightArm" type="MeshInstance" parent="Vehicle/Gordon"]
+transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, 0.2, 0.432, -0.031 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="LeftArm" type="MeshInstance" parent="Vehicle/Gordon"]
+transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, -0.2, 0.432, -0.031 )
+mesh = SubResource( 10 )
+material/0 = null
+
 [node name="Engine" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1 )
 stream = ExtResource( 7 )
 unit_db = 6.0
 max_db = 0.0
@@ -292,3 +338,8 @@ __meta__ = {
 stream = ExtResource( 12 )
 volume_db = -3.0
 bus = "Sfx"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/idle = SubResource( 17 )
+anims/win = SubResource( 18 )

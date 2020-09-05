@@ -1,7 +1,7 @@
 extends KinematicBody
 
 export (float) var full_thrust := 25.0
-export (float) var steer_angle := 3.0
+export (float) var steer_angle := 2.0
 var thrust := 0.0
 var steering := 0.0
 var velocity := Vector3.ZERO
@@ -9,6 +9,7 @@ var gravity := 20.0
 var jump_speed := 10.0
 var music_filter: AudioEffectLowPassFilter
 var last_transform := Transform.IDENTITY  # respawn point
+onready var engine_particles := [$Vehicle/BackChassis/BigLeftBell/Particles, $Vehicle/BackChassis/BigRightBell/Particles2]
 
 func _ready():
 	music_filter = AudioServer.get_bus_effect(1, 0)
@@ -41,6 +42,9 @@ func _physics_process(delta):
 	var input_vec := Vector2(
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 			Input.get_action_strength("accelerate"))
+
+	var previous_thrust := thrust
+	var previous_steering := steering
 	
 	steering = lerp(steering, steer_angle * input_vec.x, 0.1)
 
@@ -48,24 +52,34 @@ func _physics_process(delta):
 		thrust = lerp(thrust, 0, 0.05)
 	else:
 		thrust = lerp(thrust, full_thrust * input_vec.y, 0.01)
-		thrust -= 3*abs(steering) * delta * sign(thrust)
+		thrust -= 1*abs(steering) * delta * sign(thrust)
 	$ThrustBar.value = thrust
 	var ideal_vel = Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * thrust
 	velocity.x = ideal_vel.x
 	velocity.z = ideal_vel.z
 	rotate_y(-steering * delta)
+	
+	#test
+	$Vehicle.rotation.x = lerp_angle($Vehicle.rotation.x, (thrust - previous_thrust), 0.2)
+	$Vehicle.rotation.y = lerp_angle($Vehicle.rotation.y, -(steering)*0.5, 0.5)
 
 	if input_vec.y != 0:
 		if not $Engine.playing:
 			$Engine.play()
-			$BackChassis/Bell3/Particles.emitting = true
-			$BackChassis/Bell4/Particles2.emitting = true
+			for p in engine_particles:
+				p.emitting = true
 		$Engine.pitch_scale = 0.2+0.05*velocity.length()
 	if input_vec.y == 0 and $Engine.playing:
 		$Engine.stop()
-		$BackChassis/Bell3/Particles.emitting = false
-		$BackChassis/Bell4/Particles2.emitting = false
+		for p in engine_particles:
+			p.emitting = false
 
 	music_filter.cutoff_hz = min(500 + 50 * ideal_vel.length_squared(), 22000)
 
 	velocity = move_and_slide(velocity, Vector3.UP)
+
+
+func _on_World_finished():
+	$AnimationPlayer.play("win")
+	yield(get_tree().create_timer(3), "timeout")
+	$AnimationPlayer.play("idle")
