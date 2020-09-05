@@ -15,6 +15,11 @@ func _input(event):
 		$HUD/BottomHud/Scores/Best.text = ""
 		$HUD/TopHud/Disappear.play("disappear")
 		AudioServer.set_bus_effect_enabled(1, 0, true)
+	if event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_prev"):
+		if $Camera.current:
+			$Kart/FirstPersonCamera.current = true
+		elif $Kart/FirstPersonCamera.current:
+			$Camera.current = true
 
 func _process(delta: float):
 	if running:

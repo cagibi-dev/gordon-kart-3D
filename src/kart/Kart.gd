@@ -59,9 +59,10 @@ func _physics_process(delta):
 	velocity.z = ideal_vel.z
 	rotate_y(-steering * delta)
 	
-	#test
-	$Vehicle.rotation.x = lerp_angle($Vehicle.rotation.x, (thrust - previous_thrust), 0.2)
-	$Vehicle.rotation.y = lerp_angle($Vehicle.rotation.y, -(steering)*0.5, 0.5)
+	# Drift effect
+	$Vehicle.rotation.y = lerp_angle($Vehicle.rotation.y, -(steering)*0.2, 0.5)
+	# Steering wheel turn
+	$Vehicle/FrontChassis/SteeringWheel.rotation.y = -3*steering*delta
 
 	if input_vec.y != 0:
 		if not $Engine.playing:
