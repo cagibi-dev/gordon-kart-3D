@@ -6,7 +6,7 @@
 offsets = PoolRealArray( 0.0884354, 0.258503, 0.748299, 1 )
 colors = PoolColorArray( 0.0595703, 0.0937881, 0.25, 1, 0.120697, 0.182543, 0.441406, 1, 0.742018, 0.804688, 0.440063, 1, 1, 1, 1, 1 )
 
-[sub_resource type="GradientTexture" id=4]
+[sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
 
 [resource]
@@ -29,4 +29,4 @@ dof_blur_far_quality = 0
 dof_blur_near_quality = 0
 glow_bloom = 0.2
 adjustment_enabled = true
-adjustment_color_correction = SubResource( 4 )
+adjustment_color_correction = SubResource( 2 )

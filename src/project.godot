@@ -15,9 +15,14 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Gordon Kart 2000"
+config/name="Gordon Kart 3D"
+config/description="Low poly racing game with the Nantes University's mascot"
 run/main_scene="res://world/World.tscn"
+boot_splash/image="res://splashscreen.png"
+boot_splash/use_filter=false
+boot_splash/bg_color=Color( 0.2, 0.247059, 0.34902, 1 )
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 
