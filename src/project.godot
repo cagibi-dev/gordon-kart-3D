@@ -115,9 +115,14 @@ jump={
 
 [layer_names]
 
+3d_render/layer_1="general"
 3d_physics/layer_1="environment"
+3d_render/layer_2="sunset"
 3d_physics/layer_2="kart"
+3d_render/layer_3="dusk"
 3d_physics/layer_3="items"
+3d_render/layer_4="night"
+3d_render/layer_5="day"
 
 [rendering]
 
@@ -132,5 +137,5 @@ quality/depth_prepass/enable=false
 quality/subsurface_scattering/quality=0
 environment/default_clear_color=Color( 0.372549, 0.694118, 0.603922, 1 )
 quality/depth/hdr=false
-environment/default_environment="res://env_sunset.tres"
+environment/default_environment="res://env_dusk.tres"
 quality/dynamic_fonts/use_oversampling=false

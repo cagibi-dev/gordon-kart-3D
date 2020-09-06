@@ -1,0 +1,172 @@
+[gd_scene format=2]
+
+[node name="Lights" type="Spatial"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.965926, 0.0669873, 0.25, 0, -0.965926, 0.258819, 0.258819, -0.25, -0.933013, 0, 5, -12 )
+visible = false
+layers = 2
+light_energy = 0.5
+light_bake_mode = 0
+light_cull_mask = 4294967267
+shadow_enabled = true
+
+[node name="CenterLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 24, 0 )
+layers = 12
+spot_range = 40.0
+
+[node name="HouseLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 13, 44 )
+layers = 12
+light_color = Color( 0.921569, 0.807843, 0.196078, 1 )
+omni_range = 15.0
+omni_attenuation = 0.2
+
+[node name="PublicLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 6, -27 )
+layers = 12
+omni_range = 15.0
+omni_attenuation = 5.0
+
+[node name="PublicLight2" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 6, -11 )
+layers = 12
+omni_range = 15.0
+omni_attenuation = 5.0
+
+[node name="PublicLight3" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 6, 13 )
+layers = 12
+omni_range = 15.0
+omni_attenuation = 5.0
+
+[node name="TunnelLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 21, 3, 24 )
+layers = 12
+light_color = Color( 0.937255, 0.709804, 0.105882, 1 )
+shadow_enabled = true
+
+[node name="TunnelLight2" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 17, 3, 33 )
+layers = 12
+light_color = Color( 0.937255, 0.709804, 0.105882, 1 )
+shadow_enabled = true
+
+[node name="TunnelLight3" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 11, 3, 27 )
+layers = 12
+light_color = Color( 0.937255, 0.709804, 0.105882, 1 )
+shadow_enabled = true
+
+[node name="TunnelLight4" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 7, 3, 38 )
+layers = 12
+light_color = Color( 0.937255, 0.709804, 0.105882, 1 )
+shadow_enabled = true
+
+[node name="TunnelLight5" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -2, 3, 34 )
+layers = 12
+light_color = Color( 0.937255, 0.709804, 0.105882, 1 )
+shadow_enabled = true
+
+[node name="GateLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 28, 5, -32 )
+layers = 12
+light_color = Color( 0.345098, 0.937255, 0.105882, 1 )
+shadow_enabled = true
+omni_range = 8.0
+
+[node name="GateLight2" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 28, 5, -43 )
+layers = 12
+light_color = Color( 0.937255, 0.262745, 0.105882, 1 )
+shadow_enabled = true
+omni_range = 8.0
+
+[node name="PanelLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 1, 5, -29 )
+layers = 12
+light_color = Color( 1, 0, 0.447059, 1 )
+shadow_enabled = true
+spot_range = 30.0
+spot_attenuation = 0.1
+spot_angle_attenuation = 2.0
+
+[node name="StreetLight" type="SpotLight" parent="."]
+transform = Transform( 0.965926, 1.54268e-08, -0.258819, 0.258819, -5.75737e-08, 0.965926, 0, -1, -5.96046e-08, 31, 16, -1 )
+layers = 12
+light_color = Color( 0.988235, 0.780392, 0.341176, 1 )
+light_energy = 2.0
+shadow_enabled = true
+spot_range = 30.0
+spot_attenuation = 0.5
+spot_angle = 60.0
+spot_angle_attenuation = 0.5
+
+[node name="StreetLight2" type="SpotLight" parent="."]
+transform = Transform( 0.866025, -2.98023e-08, 0.5, -0.5, -5.16191e-08, 0.866025, 0, -1, -5.96046e-08, 51, 12, -25 )
+layers = 12
+light_color = Color( 0.988235, 0.780392, 0.341176, 1 )
+shadow_enabled = true
+spot_range = 25.0
+spot_attenuation = 0.5
+spot_angle = 60.0
+spot_angle_attenuation = 0.5
+
+[node name="StreetLight3" type="SpotLight" parent="."]
+transform = Transform( 0.866025, -2.98023e-08, 0.5, -0.5, -5.16191e-08, 0.866025, 0, -1, -5.96046e-08, -29, 14, 33 )
+layers = 12
+light_color = Color( 0.988235, 0.780392, 0.341176, 1 )
+shadow_enabled = true
+spot_range = 40.0
+spot_attenuation = 0.5
+spot_angle = 60.0
+spot_angle_attenuation = 0.5
+
+[node name="DramaticLight" type="SpotLight" parent="."]
+transform = Transform( -1, -5.32907e-15, 8.9407e-08, -8.9407e-08, 5.96046e-08, -1, 0, -1, -5.96046e-08, -34, -68, -93 )
+layers = 12
+light_color = Color( 0.427451, 0.913725, 0.152941, 1 )
+light_energy = 4.0
+spot_range = 200.0
+spot_attenuation = 0.5
+spot_angle = 30.0
+spot_angle_attenuation = 0.5
+
+[node name="DramaticLight2" type="SpotLight" parent="."]
+transform = Transform( -1, -5.32907e-15, 8.9407e-08, -8.9407e-08, 5.96046e-08, -1, 0, -1, -5.96046e-08, -76, -27, 40 )
+layers = 12
+light_color = Color( 0.427451, 0.913725, 0.152941, 1 )
+light_energy = 4.0
+spot_range = 120.0
+spot_attenuation = 0.5
+spot_angle = 60.0
+spot_angle_attenuation = 0.5
+
+[node name="NeonLight" type="SpotLight" parent="."]
+transform = Transform( -1, -5.32907e-15, 8.9407e-08, 3.9081e-15, 1, 1.03316e-07, -8.9407e-08, 1.03316e-07, -1, -4, 16, 50 )
+layers = 12
+light_color = Color( 1, 0.054902, 0.784314, 1 )
+light_energy = 2.0
+spot_range = 10.0
+spot_attenuation = 0.05
+spot_angle = 75.0
+spot_angle_attenuation = 10.0
+
+[node name="FinishLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -46, 1, 6 )
+layers = 12
+light_color = Color( 1, 0, 0, 1 )
+shadow_enabled = true
+omni_range = 4.0
+omni_attenuation = 0.2
+
+[node name="FinishLight2" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -29, 1, 6 )
+layers = 12
+light_color = Color( 1, 0, 0, 1 )
+shadow_enabled = true
+omni_range = 4.0
+omni_attenuation = 0.2

@@ -321,6 +321,36 @@ transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, -
 mesh = SubResource( 16 )
 material/0 = ExtResource( 14 )
 
+[node name="LeftFrontLight" type="SpotLight" parent="Vehicle"]
+transform = Transform( 0.965926, 7.71341e-09, 0.258819, 0, 1, -2.98023e-08, -0.258819, 2.87868e-08, 0.965926, -0.5, 0.5, -1 )
+layers = 12
+light_color = Color( 0.313726, 0.992157, 0.882353, 1 )
+light_cull_mask = 4294967277
+spot_range = 40.0
+spot_angle = 25.0
+
+[node name="RightFrontLight" type="SpotLight" parent="Vehicle"]
+transform = Transform( 0.965926, -7.71341e-09, -0.258819, 0, 1, -2.98023e-08, 0.258819, 2.87868e-08, 0.965926, 0.5, 0.5, -1 )
+layers = 12
+light_color = Color( 0.313726, 0.992157, 0.882353, 1 )
+light_cull_mask = 4294967277
+spot_range = 40.0
+spot_angle = 25.0
+
+[node name="RearLight" type="OmniLight" parent="Vehicle"]
+transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.5, 1.5 )
+layers = 12
+light_color = Color( 1, 0, 0, 1 )
+light_cull_mask = 4294967277
+omni_range = 3.0
+
+[node name="PanelLight" type="OmniLight" parent="Vehicle"]
+transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.723874, -0.353929 )
+layers = 12
+light_color = Color( 1, 0.701961, 0, 1 )
+light_cull_mask = 4294967277
+omni_range = 1.0
+
 [node name="Engine" type="AudioStreamPlayer3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1 )
 stream = ExtResource( 7 )
