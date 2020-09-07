@@ -119,6 +119,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector3( 8.809, 0, 0 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Vehicle/Gordon/LeftArm:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -0.2, 0.432, -0.031 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Vehicle/Gordon/RightArm:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.2, 0.432, -0.031 ) ]
+}
 
 [sub_resource type="Animation" id=18]
 resource_name = "win"
@@ -146,6 +170,30 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector3( 8.809, 0, 0 ), Vector3( 8.809, -90, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Vehicle/Gordon/LeftArm:translation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.2, 0.432, -0.031 ), Vector3( -0.5, 0.432, 0.2 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Vehicle/Gordon/RightArm:translation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.2, 0.432, -0.031 ), Vector3( 0.5, 0.432, 0.2 ) ]
 }
 
 [node name="Kart" type="KinematicBody"]
