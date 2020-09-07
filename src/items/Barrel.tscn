@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://materials/Grey.material" type="Material" id=1]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 0.9
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 0.8
+height = 1.0
+radial_segments = 7
+
+[sub_resource type="CylinderMesh" id=3]
+material = ExtResource( 1 )
+height = 0.3
+radial_segments = 7
+
+[node name="Barrel" type="RigidBody"]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="BulkTop" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="BulkBottom" type="MeshInstance" parent="."]
+transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -0.5, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="RingTop" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="RingBottom" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65, 0 )
+mesh = SubResource( 3 )
+material/0 = null
