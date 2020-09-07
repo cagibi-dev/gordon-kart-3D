@@ -42,9 +42,6 @@ func _physics_process(delta):
 	var input_vec := Vector2(
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 			Input.get_action_strength("accelerate"))
-
-	var previous_thrust := thrust
-	var previous_steering := steering
 	
 	steering = lerp(steering, steer_angle * input_vec.x, 0.1)
 

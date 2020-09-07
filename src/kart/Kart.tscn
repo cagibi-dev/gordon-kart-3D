@@ -355,7 +355,7 @@ omni_range = 1.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1 )
 stream = ExtResource( 7 )
 unit_db = 6.0
-max_db = 0.0
+max_db = -6.0
 autoplay = true
 bus = "Sfx"
 

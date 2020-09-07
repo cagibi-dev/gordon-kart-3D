@@ -142,5 +142,5 @@ quality/depth_prepass/enable=false
 quality/subsurface_scattering/quality=0
 environment/default_clear_color=Color( 0.372549, 0.694118, 0.603922, 1 )
 quality/depth/hdr=false
-environment/default_environment="res://env_dusk.tres"
+environment/default_environment="res://env_sunset.tres"
 quality/dynamic_fonts/use_oversampling=false
