@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://materials/Yellow.material" type="Material" id=1]
 [ext_resource path="res://kart/Kart.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://kart/dead.ogg" type="AudioStream" id=12]
 [ext_resource path="res://kart/steering-wheel.png" type="Texture" id=13]
 [ext_resource path="res://materials/White.material" type="Material" id=14]
+[ext_resource path="res://kart/control-panel.png" type="Texture" id=15]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.35, 0.5, 0.9 )
@@ -25,17 +26,31 @@ size = Vector3( 0.6, 0.2, 1 )
 material = ExtResource( 14 )
 size = Vector3( 0.7, 0.6, 0.5 )
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="CylinderMesh" id=4]
+material = ExtResource( 3 )
+top_radius = 0.1
+bottom_radius = 0.15
+height = 0.2
+radial_segments = 5
+
+[sub_resource type="SpatialMaterial" id=20]
+flags_unshaded = true
+
+[sub_resource type="QuadMesh" id=21]
+material = SubResource( 20 )
+size = Vector2( 0.2, 0.2 )
+
+[sub_resource type="CubeMesh" id=5]
 size = Vector3( 0.7, 0.8, 0.4 )
 
-[sub_resource type="CylinderMesh" id=5]
+[sub_resource type="CylinderMesh" id=6]
 top_radius = 0.1
 bottom_radius = 0.05
 height = 0.2
 radial_segments = 5
 rings = 1
 
-[sub_resource type="CylinderMesh" id=6]
+[sub_resource type="CylinderMesh" id=7]
 material = ExtResource( 3 )
 top_radius = 0.15
 bottom_radius = 0.1
@@ -43,58 +58,189 @@ height = 0.3
 radial_segments = 7
 rings = 1
 
-[sub_resource type="SphereMesh" id=7]
+[sub_resource type="SphereMesh" id=8]
 radius = 0.2
 height = 0.4
 radial_segments = 5
 rings = 3
 
-[sub_resource type="CapsuleMesh" id=8]
+[sub_resource type="Animation" id=24]
+resource_name = "off"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("LeftBlinker:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RightBlinker:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "on"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("LeftBlinker:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RightBlinker:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "turn_left"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("LeftBlinker:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RightBlinker:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "turn_right"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("LeftBlinker:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RightBlinker:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="SpatialMaterial" id=22]
+flags_unshaded = true
+albedo_color = Color( 1, 0.72549, 0, 1 )
+
+[sub_resource type="QuadMesh" id=23]
+material = SubResource( 22 )
+size = Vector2( 0.2, 0.1 )
+
+[sub_resource type="SpatialMaterial" id=28]
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="QuadMesh" id=29]
+material = SubResource( 28 )
+size = Vector2( 0.25, 0.08 )
+
+[sub_resource type="CapsuleMesh" id=9]
 material = ExtResource( 14 )
 radius = 0.2
 mid_height = 0.2
 radial_segments = 5
 rings = 1
 
-[sub_resource type="SphereMesh" id=9]
+[sub_resource type="SphereMesh" id=10]
 material = ExtResource( 14 )
 radius = 0.25
 height = 0.5
 radial_segments = 5
 rings = 3
 
-[sub_resource type="PrismMesh" id=10]
+[sub_resource type="PrismMesh" id=11]
 size = Vector3( 0.3, 0.1, 0 )
 
-[sub_resource type="SphereMesh" id=11]
+[sub_resource type="SphereMesh" id=12]
 material = ExtResource( 14 )
 radius = 0.05
 height = 0.1
 radial_segments = 5
 rings = 2
 
-[sub_resource type="PlaneMesh" id=12]
+[sub_resource type="PlaneMesh" id=13]
 size = Vector2( 0.05, 0.06 )
 
-[sub_resource type="QuadMesh" id=13]
+[sub_resource type="QuadMesh" id=14]
 size = Vector2( 0.3, 0.05 )
 
-[sub_resource type="CubeMesh" id=14]
+[sub_resource type="CubeMesh" id=15]
 material = ExtResource( 14 )
 size = Vector3( 0.1, 0.1, 0.05 )
 
-[sub_resource type="CapsuleMesh" id=15]
+[sub_resource type="CapsuleMesh" id=16]
 material = ExtResource( 14 )
 radius = 0.25
 mid_height = 0.3
 radial_segments = 4
 rings = 1
 
-[sub_resource type="CubeMesh" id=16]
+[sub_resource type="CubeMesh" id=17]
 size = Vector3( 0.2, 0.2, 0.6 )
 
-[sub_resource type="Animation" id=17]
-resource_name = "idle"
+[sub_resource type="Animation" id=18]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Vehicle/Gordon/LeftArm:rotation_degrees")
 tracks/0/interp = 1
@@ -144,8 +290,7 @@ tracks/3/keys = {
 "values": [ Vector3( 0.2, 0.432, -0.031 ) ]
 }
 
-[sub_resource type="Animation" id=18]
-resource_name = "win"
+[sub_resource type="Animation" id=19]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Vehicle/Gordon/LeftArm:rotation_degrees")
@@ -243,24 +388,69 @@ pixel_size = 0.03
 shaded = true
 texture = ExtResource( 13 )
 
+[node name="LeftHeadLight" type="MeshInstance" parent="Vehicle/FrontChassis"]
+transform = Transform( 1, 0, 0, 0, 0.258819, -0.965925, 0, 0.965925, 0.258819, -0.3, -0.1, -0.25 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Light" type="SpotLight" parent="Vehicle/FrontChassis/LeftHeadLight"]
+transform = Transform( 0.965926, 1.49101e-08, 0.258819, -0.25, -0.258819, 0.933013, 0.0669873, -0.965927, -0.25, 0, -0.2, -5.96046e-08 )
+layers = 12
+light_color = Color( 0.992157, 0.901961, 0.313726, 1 )
+light_cull_mask = 4294967277
+spot_range = 40.0
+spot_angle = 25.0
+
+[node name="LightSource" type="MeshInstance" parent="Vehicle/FrontChassis/LeftHeadLight"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.11, 0 )
+layers = 12
+mesh = SubResource( 21 )
+material/0 = null
+
+[node name="RightHeadLight" type="MeshInstance" parent="Vehicle/FrontChassis"]
+transform = Transform( 1, 0, 0, 0, 0.258819, -0.965925, 0, 0.965925, 0.258819, 0.3, -0.1, -0.25 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Light" type="SpotLight" parent="Vehicle/FrontChassis/RightHeadLight"]
+transform = Transform( 0.965926, -7.71341e-09, -0.258819, 0.25, -0.258819, 0.933013, -0.0669874, -0.965927, -0.25, 0, -0.2, -1.19209e-07 )
+layers = 12
+light_color = Color( 0.992157, 0.901961, 0.313726, 1 )
+light_cull_mask = 4294967277
+spot_range = 40.0
+spot_angle = 25.0
+
+[node name="LightSource" type="MeshInstance" parent="Vehicle/FrontChassis/RightHeadLight"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -0.11, 0 )
+layers = 12
+mesh = SubResource( 21 )
+material/0 = null
+
+[node name="ControlPanel" type="Sprite3D" parent="Vehicle/FrontChassis"]
+transform = Transform( 1, 0, 0, 0, -5.96046e-08, 0.999999, 0, -0.999999, -5.96046e-08, 0, 0.32, 0 )
+layers = 12
+cast_shadow = 0
+pixel_size = 0.03
+texture = ExtResource( 15 )
+
 [node name="BackChassis" type="MeshInstance" parent="Vehicle"]
 transform = Transform( 1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0.4, 0.6 )
-mesh = SubResource( 4 )
+mesh = SubResource( 5 )
 material/0 = ExtResource( 4 )
 
 [node name="SmallRightBell" type="MeshInstance" parent="Vehicle/BackChassis"]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 0.15, 0.2, 0.25 )
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 material/0 = ExtResource( 3 )
 
 [node name="SmallLeftBell" type="MeshInstance" parent="Vehicle/BackChassis"]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, -0.15, 0.2, 0.25 )
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 material/0 = ExtResource( 3 )
 
 [node name="BigLeftBell" type="MeshInstance" parent="Vehicle/BackChassis"]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, -0.25, -0.05, 0.3 )
-mesh = SubResource( 6 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="Particles" type="Particles" parent="Vehicle/BackChassis/BigLeftBell"]
@@ -270,11 +460,11 @@ amount = 20
 visibility_aabb = AABB( -1, -1, -1, 2, 2, 2 )
 local_coords = false
 process_material = ExtResource( 8 )
-draw_pass_1 = SubResource( 7 )
+draw_pass_1 = SubResource( 8 )
 
 [node name="BigRightBell" type="MeshInstance" parent="Vehicle/BackChassis"]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 0.25, -0.05, 0.3 )
-mesh = SubResource( 6 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="Particles2" type="Particles" parent="Vehicle/BackChassis/BigRightBell"]
@@ -284,113 +474,128 @@ amount = 20
 visibility_aabb = AABB( -1, -1, -1, 2, 2, 2 )
 local_coords = false
 process_material = ExtResource( 8 )
-draw_pass_1 = SubResource( 7 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="Blinkers" type="AnimationPlayer" parent="Vehicle/BackChassis"]
+autoplay = "off"
+anims/off = SubResource( 24 )
+anims/on = SubResource( 25 )
+anims/turn_left = SubResource( 26 )
+anims/turn_right = SubResource( 27 )
+
+[node name="LeftBlinker" type="MeshInstance" parent="Vehicle/BackChassis"]
+transform = Transform( 1, 0, 0, 0, 0.965925, 0.258819, 0, -0.258819, 0.965925, -0.2, 0.4, 0.25 )
+mesh = SubResource( 23 )
+material/0 = null
+
+[node name="RightBlinker" type="MeshInstance" parent="Vehicle/BackChassis"]
+transform = Transform( 1, 0, 0, 0, 0.965925, 0.258819, 0, -0.258819, 0.965925, 0.2, 0.4, 0.25 )
+mesh = SubResource( 23 )
+material/0 = null
+
+[node name="LeftRearLight" type="MeshInstance" parent="Vehicle/BackChassis"]
+transform = Transform( 1, 0, 0, 0, 0.965925, 0.258819, 0, -0.258819, 0.965925, -0.2, 0.4, 0.22 )
+layers = 12
+mesh = SubResource( 29 )
+material/0 = null
+
+[node name="RightRearLight" type="MeshInstance" parent="Vehicle/BackChassis"]
+transform = Transform( 1, 0, 0, 0, 0.965925, 0.258819, 0, -0.258819, 0.965925, 0.2, 0.4, 0.22 )
+layers = 12
+mesh = SubResource( 29 )
+material/0 = null
 
 [node name="Gordon" type="Spatial" parent="Vehicle"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
 
 [node name="Head" type="MeshInstance" parent="Vehicle/Gordon"]
 transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0.799188, 0.158734 )
-mesh = SubResource( 8 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="Head2" type="MeshInstance" parent="Vehicle/Gordon/Head"]
 transform = Transform( 1, 0, 0, 0, 0.660814, 0.75055, 0, -0.75055, 0.660814, 0, 0.0222683, -0.111683 )
-mesh = SubResource( 9 )
+mesh = SubResource( 10 )
 material/0 = null
 
 [node name="Mouth" type="MeshInstance" parent="Vehicle/Gordon/Head/Head2"]
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.2, 0.1 )
-mesh = SubResource( 10 )
+mesh = SubResource( 11 )
 material/0 = ExtResource( 3 )
 
 [node name="RightEye" type="MeshInstance" parent="Vehicle/Gordon/Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0640398, 0.176306, 0.135441 )
-mesh = SubResource( 11 )
+mesh = SubResource( 12 )
 material/0 = null
 
 [node name="Pupil" type="MeshInstance" parent="Vehicle/Gordon/Head/RightEye"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0514732, -0.000861049 )
-mesh = SubResource( 12 )
+mesh = SubResource( 13 )
 material/0 = ExtResource( 3 )
 
 [node name="LeftEye" type="MeshInstance" parent="Vehicle/Gordon/Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0634833, 0.176306, 0.135441 )
-mesh = SubResource( 11 )
+mesh = SubResource( 12 )
 material/0 = null
 
 [node name="Pupil" type="MeshInstance" parent="Vehicle/Gordon/Head/LeftEye"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00667426, 0.0514732, -0.000861049 )
-mesh = SubResource( 12 )
+mesh = SubResource( 13 )
 material/0 = ExtResource( 3 )
 
 [node name="Nose" type="MeshInstance" parent="Vehicle/Gordon/Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179417, 0.0562935 )
-mesh = SubResource( 11 )
+mesh = SubResource( 12 )
 material/0 = ExtResource( 1 )
 
 [node name="EyeBrows" type="MeshInstance" parent="Vehicle/Gordon/Head"]
 transform = Transform( 1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 0, 0.179603, 0.211535 )
-mesh = SubResource( 13 )
+mesh = SubResource( 14 )
 material/0 = ExtResource( 3 )
 
 [node name="RightEar" type="MeshInstance" parent="Vehicle/Gordon/Head"]
 transform = Transform( 0.707107, -0.707107, 0, 0.183013, 0.183013, -0.965926, 0.683013, 0.683013, 0.258819, 0.15, 0.012114, 0.20465 )
-mesh = SubResource( 14 )
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="LeftEar" type="MeshInstance" parent="Vehicle/Gordon/Head"]
 transform = Transform( 0.707107, -0.707107, 0, 0.183013, 0.183013, -0.965926, 0.683013, 0.683013, 0.258819, -0.15, 0.012114, 0.20465 )
-mesh = SubResource( 14 )
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="Body" type="MeshInstance" parent="Vehicle/Gordon"]
 transform = Transform( 1, 0, 0, 0, 0.677428, 0.735589, 0, -0.735589, 0.677428, 0, 0.308424, 0.0653615 )
-mesh = SubResource( 15 )
+mesh = SubResource( 16 )
 material/0 = ExtResource( 4 )
 
 [node name="RightLeg" type="MeshInstance" parent="Vehicle/Gordon"]
 transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, 0.170666, 0.107213, -0.307724 )
-mesh = SubResource( 16 )
+mesh = SubResource( 17 )
 material/0 = ExtResource( 3 )
 
 [node name="LeftLeg" type="MeshInstance" parent="Vehicle/Gordon"]
 transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, -0.145681, 0.107213, -0.307724 )
-mesh = SubResource( 16 )
+mesh = SubResource( 17 )
 material/0 = ExtResource( 3 )
 
 [node name="RightArm" type="MeshInstance" parent="Vehicle/Gordon"]
 transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, 0.2, 0.432, -0.031 )
-mesh = SubResource( 16 )
+mesh = SubResource( 17 )
 material/0 = ExtResource( 14 )
 
 [node name="LeftArm" type="MeshInstance" parent="Vehicle/Gordon"]
 transform = Transform( 1, 0, 0, 0, 0.988204, -0.153141, 0, 0.153141, 0.988204, -0.2, 0.432, -0.031 )
-mesh = SubResource( 16 )
+mesh = SubResource( 17 )
 material/0 = ExtResource( 14 )
 
-[node name="LeftFrontLight" type="SpotLight" parent="Vehicle"]
-transform = Transform( 0.965926, 7.71341e-09, 0.258819, 0, 1, -2.98023e-08, -0.258819, 2.87868e-08, 0.965926, -0.5, 0.5, -1 )
-layers = 12
-light_color = Color( 0.313726, 0.992157, 0.882353, 1 )
-light_cull_mask = 4294967277
-spot_range = 40.0
-spot_angle = 25.0
-
-[node name="RightFrontLight" type="SpotLight" parent="Vehicle"]
-transform = Transform( 0.965926, -7.71341e-09, -0.258819, 0, 1, -2.98023e-08, 0.258819, 2.87868e-08, 0.965926, 0.5, 0.5, -1 )
-layers = 12
-light_color = Color( 0.313726, 0.992157, 0.882353, 1 )
-light_cull_mask = 4294967277
-spot_range = 40.0
-spot_angle = 25.0
-
-[node name="RearLight" type="OmniLight" parent="Vehicle"]
-transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.5, 1.5 )
+[node name="RearLight" type="SpotLight" parent="Vehicle"]
+transform = Transform( 1, 0, 0, 0, -0.965926, 0.258819, 0, -0.258819, -0.965926, 0, 0.5, 1 )
 layers = 12
 light_color = Color( 1, 0, 0, 1 )
+light_energy = 2.0
 light_cull_mask = 4294967277
-omni_range = 3.0
+spot_range = 4.0
+spot_angle = 60.0
 
 [node name="PanelLight" type="OmniLight" parent="Vehicle"]
 transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0.723874, -0.353929 )
@@ -434,5 +639,5 @@ bus = "Sfx"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/idle = SubResource( 17 )
-anims/win = SubResource( 18 )
+anims/idle = SubResource( 18 )
+anims/win = SubResource( 19 )

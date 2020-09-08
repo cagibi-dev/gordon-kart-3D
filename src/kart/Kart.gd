@@ -44,12 +44,22 @@ func _physics_process(delta):
 			Input.get_action_strength("accelerate"))
 	
 	steering = lerp(steering, steer_angle * input_vec.x, 0.1)
+	$Vehicle/FrontChassis/SteeringWheel.rotation.z = -steering
 
 	if Input.is_action_pressed("brake"):
 		thrust = lerp(thrust, 0, 0.05)
+		set_blink("on")
 	else:
 		thrust = lerp(thrust, full_thrust * input_vec.y, 0.01)
 		thrust -= 1*abs(steering) * delta * sign(thrust)
+		
+		if steering > 0.1:
+			set_blink("turn_right")
+		elif steering < -0.1:
+			set_blink("turn_left")
+		else:
+			set_blink("off")
+
 	$ThrustBar.value = thrust
 	var ideal_vel = Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * thrust
 	velocity.x = ideal_vel.x
@@ -86,3 +96,8 @@ func _on_World_finished():
 	$AnimationPlayer.play("win")
 	yield(get_tree().create_timer(3), "timeout")
 	$AnimationPlayer.play("idle")
+
+func set_blink(anim_name):
+	if $Vehicle/BackChassis/Blinkers.current_animation != anim_name:
+		$Vehicle/BackChassis/Blinkers.play(anim_name)
+
