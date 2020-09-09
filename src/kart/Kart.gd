@@ -7,6 +7,7 @@ var steering := 0.0
 var velocity := Vector3.ZERO
 var gravity := 20.0
 var jump_speed := 10.0
+var is_grounded := true
 var music_filter: AudioEffectLowPassFilter
 var last_transform := Transform.IDENTITY  # respawn point
 onready var engine_particles := [$Vehicle/BackChassis/BigLeftBell/Particles, $Vehicle/BackChassis/BigRightBell/Particles2]
@@ -16,12 +17,6 @@ func _ready():
 	AudioServer.set_bus_effect_enabled(1, 0, false)
 	$ThrustBar.max_value = full_thrust
 	last_transform = transform
-
-func _input(event):
-	if event.is_action_pressed("jump") and is_on_floor():
-		velocity.y = jump_speed
-		$Jump.play()
-		last_transform = transform
 
 func reset():
 	thrust = 0
@@ -38,6 +33,12 @@ func _physics_process(delta):
 
 	if translation.y < -10:
 		reset()
+
+	if Input.is_action_pressed("jump") and is_grounded:
+		velocity.y = jump_speed
+		$Jump.play()
+		last_transform = transform
+		is_grounded = false
 
 	var input_vec := Vector2(
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
@@ -91,6 +92,12 @@ func _physics_process(delta):
 		if collision.collider is RigidBody:
 			collision.collider.apply_central_impulse(-collision.normal * 2)
 
+	if is_grounded and not is_on_floor() and $AirborneTimer.is_stopped():
+		$AirborneTimer.start()
+	if is_on_floor() and not is_grounded:
+		is_grounded = true
+		$AirborneTimer.stop()
+
 
 func _on_World_finished():
 	$AnimationPlayer.play("win")
@@ -101,3 +108,5 @@ func set_blink(anim_name):
 	if $Vehicle/BackChassis/Blinkers.current_animation != anim_name:
 		$Vehicle/BackChassis/Blinkers.play(anim_name)
 
+func _on_AirborneTimer_timeout():
+	is_grounded = false
