@@ -10,7 +10,7 @@ var jump_speed := 10.0
 var is_grounded := true
 var music_filter: AudioEffectLowPassFilter
 var last_transform := Transform.IDENTITY  # respawn point
-onready var engine_particles := [$Vehicle/BackChassis/BigLeftBell/Particles, $Vehicle/BackChassis/BigRightBell/Particles2]
+onready var engine_particles := [$Vehicle/BackChassis/BigLeftBell/Boost, $Vehicle/BackChassis/BigRightBell/Boost]
 
 func _ready():
 	music_filter = AudioServer.get_bus_effect(1, 0)
@@ -45,7 +45,12 @@ func _physics_process(delta):
 			Input.get_action_strength("accelerate"))
 	
 	steering = lerp(steering, steer_angle * input_vec.x, 0.1)
+	# Steering effect (overdone for aesthetics)
 	$Vehicle/FrontChassis/SteeringWheel.rotation.z = -steering
+	$Vehicle/LeftRearWheel.rotation.y = steering/2
+	$Vehicle/RightRearWheel.rotation.y = steering/2
+	$Vehicle/LeftFrontWheel.rotation.y = -steering/2
+	$Vehicle/RightFrontWheel.rotation.y = -steering/2
 
 	if Input.is_action_pressed("brake"):
 		thrust = lerp(thrust, 0, 0.05)
@@ -54,9 +59,9 @@ func _physics_process(delta):
 		thrust = lerp(thrust, full_thrust * input_vec.y, 0.01)
 		thrust -= 1*abs(steering) * delta * sign(thrust)
 		
-		if steering > 0.1:
+		if steering > 0.5:
 			set_blink("turn_right")
-		elif steering < -0.1:
+		elif steering < -0.5:
 			set_blink("turn_left")
 		else:
 			set_blink("off")

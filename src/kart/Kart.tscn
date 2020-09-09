@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://materials/Yellow.material" type="Material" id=1]
 [ext_resource path="res://kart/Kart.gd" type="Script" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://kart/RearWheelMesh.tres" type="CylinderMesh" id=5]
 [ext_resource path="res://kart/FrontWheelMesh.tres" type="CylinderMesh" id=6]
 [ext_resource path="res://kart/engine.wav" type="AudioStream" id=7]
-[ext_resource path="res://kart/Smoke.material" type="Material" id=8]
 [ext_resource path="res://kart/jump.wav" type="AudioStream" id=9]
 [ext_resource path="res://kart/thrustbar-empty.png" type="Texture" id=10]
 [ext_resource path="res://kart/thrustbar-full.png" type="Texture" id=11]
@@ -15,9 +14,10 @@
 [ext_resource path="res://kart/steering-wheel.png" type="Texture" id=13]
 [ext_resource path="res://materials/White.material" type="Material" id=14]
 [ext_resource path="res://kart/control-panel.png" type="Texture" id=15]
+[ext_resource path="res://kart/BoostSmoke.tres" type="Material" id=16]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.35, 0.5, 0.9 )
+extents = Vector3( 0.35, 0.6, 0.9 )
 
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 0.6, 0.2, 1 )
@@ -58,10 +58,20 @@ height = 0.3
 radial_segments = 7
 rings = 1
 
-[sub_resource type="SphereMesh" id=10]
+[sub_resource type="SpatialMaterial" id=30]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_specular_mode = 4
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="SphereMesh" id=31]
+material = SubResource( 30 )
 radius = 0.2
 height = 0.4
-radial_segments = 5
+radial_segments = 4
 rings = 3
 
 [sub_resource type="Animation" id=11]
@@ -352,7 +362,7 @@ shape = SubResource( 1 )
 [node name="Vehicle" type="Spatial" parent="."]
 
 [node name="RightFrontWheel" type="MeshInstance" parent="Vehicle"]
-transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.5, -1.49012e-08, -0.6 )
+transform = Transform( -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0, 1, 0.5, -1.49012e-08, -0.6 )
 mesh = ExtResource( 6 )
 material/0 = null
 
@@ -453,28 +463,30 @@ transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, -0.25, -0.0
 mesh = SubResource( 9 )
 material/0 = null
 
-[node name="Particles" type="Particles" parent="Vehicle/BackChassis/BigLeftBell"]
+[node name="Boost" type="Particles" parent="Vehicle/BackChassis/BigLeftBell"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 emitting = false
 amount = 20
+lifetime = 0.25
 visibility_aabb = AABB( -1, -1, -1, 2, 2, 2 )
 local_coords = false
-process_material = ExtResource( 8 )
-draw_pass_1 = SubResource( 10 )
+process_material = ExtResource( 16 )
+draw_pass_1 = SubResource( 31 )
 
 [node name="BigRightBell" type="MeshInstance" parent="Vehicle/BackChassis"]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 0.25, -0.05, 0.3 )
 mesh = SubResource( 9 )
 material/0 = null
 
-[node name="Particles2" type="Particles" parent="Vehicle/BackChassis/BigRightBell"]
+[node name="Boost" type="Particles" parent="Vehicle/BackChassis/BigRightBell"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 emitting = false
 amount = 20
+lifetime = 0.25
 visibility_aabb = AABB( -1, -1, -1, 2, 2, 2 )
 local_coords = false
-process_material = ExtResource( 8 )
-draw_pass_1 = SubResource( 10 )
+process_material = ExtResource( 16 )
+draw_pass_1 = SubResource( 31 )
 
 [node name="Blinkers" type="AnimationPlayer" parent="Vehicle/BackChassis"]
 autoplay = "off"
