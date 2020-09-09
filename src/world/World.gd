@@ -70,20 +70,19 @@ func _on_LightOnOff_toggled(button_pressed):
 func _on_AudioOnOff_toggled(button_pressed):
 	AudioServer.set_bus_mute(2, not button_pressed)
 
-
 func _on_TimeOfDay_item_selected(index):
 	var cameras := [$Kart/StartCamera, $Kart/FirstPersonCamera, $Camera]
 	for c in cameras:
 		c.cull_mask &= ~30
 		c.cull_mask |= int(pow(2, index+1))
 		if index == 0:
-			c.environment = preload("res://env_sunset.tres")
+			c.environment = preload("res://world/environments/env_sunset.tres")
 		if index == 1:
-			c.environment = preload("res://env_dusk.tres")
+			c.environment = preload("res://world/environments/env_dusk.tres")
 		if index == 2:
-			c.environment = preload("res://env_night.tres")
+			c.environment = preload("res://world/environments/env_night.tres")
 		if index == 3:
-			c.environment = preload("res://env_day.tres")
+			c.environment = preload("res://world/environments/env_day.tres")
 	$Lights/SunLight.hide()
 	$Lights/DayLight.hide()
 	match index:

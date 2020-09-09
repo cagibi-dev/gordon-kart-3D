@@ -1,6 +1,6 @@
 [gd_resource type="Environment" load_steps=4 format=2]
 
-[ext_resource path="res://sky_sunset.tres" type="ProceduralSky" id=1]
+[ext_resource path="res://world/environments/sky_sunset.tres" type="ProceduralSky" id=1]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.258741, 0.552448, 0.825175, 1 )

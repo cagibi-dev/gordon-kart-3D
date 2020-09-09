@@ -1,7 +1,8 @@
 [gd_resource type="Environment" load_steps=3 format=2]
 
-[ext_resource path="res://sky_sunset.tres" type="ProceduralSky" id=1]
+[ext_resource path="res://world/environments/sky_sunset.tres" type="ProceduralSky" id=1]
 [ext_resource path="res://world/palette_gradient.tres" type="Texture" id=2]
+
 
 [resource]
 background_mode = 2

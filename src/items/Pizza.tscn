@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://materials/Red.material" type="Material" id=1]
 [ext_resource path="res://items/Pizza.gd" type="Script" id=2]
 [ext_resource path="res://items/item.wav" type="AudioStream" id=3]
 [ext_resource path="res://materials/White.material" type="Material" id=4]
+[ext_resource path="res://items/pizza_trademark.png" type="Texture" id=5]
 
 [sub_resource type="SphereShape" id=1]
 radius = 1.5
@@ -55,6 +56,13 @@ material/0 = null
 transform = Transform( 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -0.4, 0.2, 0 )
 mesh = SubResource( 2 )
 material/0 = null
+
+[node name="Trademark" type="Sprite3D" parent="Model/BoxTop"]
+transform = Transform( -1.62921e-07, -1, 0, -1.62921e-07, 2.65431e-14, -1, 1, -1.62921e-07, -1.62921e-07, 0, -0.1, 0 )
+modulate = Color( 0.988235, 0.419608, 0.47451, 1 )
+pixel_size = 0.014
+shaded = true
+texture = ExtResource( 5 )
 
 [node name="Pizza" type="MeshInstance" parent="Model"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.1, 0 )
