@@ -83,6 +83,7 @@ material/0 = ExtResource( 4 )
 
 [node name="Hair2" type="MeshInstance" parent="Head/Hair"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.103314, -0.353253 )
+visible = false
 mesh = SubResource( 9 )
 material/0 = ExtResource( 4 )
 
