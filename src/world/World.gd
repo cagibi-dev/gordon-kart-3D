@@ -57,6 +57,9 @@ func _on_Midway_body_entered(_body):
 	can_finish = true
 	if not $Crowd.playing:
 		$Crowd.play()
+		for person in $Crowd.get_children():
+			if person is RigidBody:  # AudiencePerson
+				person.get_node("JumpTimer").start()
 
 
 func _on_MusicOnOff_toggled(button_pressed):
