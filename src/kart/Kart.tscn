@@ -14,7 +14,8 @@
 [ext_resource path="res://kart/steering-wheel.png" type="Texture" id=13]
 [ext_resource path="res://materials/White.material" type="Material" id=14]
 [ext_resource path="res://kart/control-panel.png" type="Texture" id=15]
-[ext_resource path="res://kart/BoostSmoke.tres" type="Material" id=16]
+[ext_resource path="res://kart/Smoke.tres" type="Material" id=16]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.35, 0.6, 0.9 )
