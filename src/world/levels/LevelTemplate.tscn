@@ -1,0 +1,359 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://kart/Kart.tscn" type="PackedScene" id=1]
+[ext_resource path="res://music/Buster_Prototype_Fluidvolt.ogg" type="AudioStream" id=2]
+[ext_resource path="res://materials/DarkGreen.material" type="Material" id=3]
+[ext_resource path="res://world/GridSet.meshlib" type="MeshLibrary" id=4]
+[ext_resource path="res://world/World.gd" type="Script" id=6]
+[ext_resource path="res://world/bonus.wav" type="AudioStream" id=7]
+[ext_resource path="res://world/explosion.ogg" type="AudioStream" id=8]
+[ext_resource path="res://world/crowd/raving-crowd.ogg" type="AudioStream" id=9]
+[ext_resource path="res://menu/CoolPanel.material" type="Material" id=10]
+[ext_resource path="res://materials/Red.material" type="Material" id=11]
+[ext_resource path="res://menu/settings.png" type="Texture" id=12]
+[ext_resource path="res://world/crowd/AudiencePerson.tscn" type="PackedScene" id=15]
+
+[sub_resource type="Animation" id=1]
+resource_name = "wow"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:fov")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 60.0, 80.0 ]
+}
+
+[sub_resource type="CubeMesh" id=2]
+material = ExtResource( 3 )
+size = Vector3( 100, 0, 100 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 50, 50, 50 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "disappear"
+length = 4.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Rows/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 5, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 12 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 12 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 12 )
+region = Rect2( 16, 48, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 48, 16, 16 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 10, 2, 1 )
+
+[sub_resource type="QuadMesh" id=12]
+material = ExtResource( 11 )
+size = Vector2( 20, 0.5 )
+
+[sub_resource type="BoxShape" id=13]
+extents = Vector3( 6, 2, 6 )
+
+[node name="World" type="Spatial"]
+script = ExtResource( 6 )
+
+[node name="Kart" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, 7 )
+
+[node name="CameraPosition" type="Position3D" parent="Kart"]
+transform = Transform( 1, 0, 0, 0, 0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 1.5, 3 )
+
+[node name="StartCamera" type="Camera" parent="Kart"]
+transform = Transform( -0.866026, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866026, -0.5, 0.8, -1.2 )
+cull_mask = 1048547
+current = true
+fov = 60.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Kart/StartCamera"]
+autoplay = "wow"
+anims/wow = SubResource( 1 )
+
+[node name="FirstPersonCamera" type="Camera" parent="Kart"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.1 )
+cull_mask = 3
+fov = 90.0
+near = 0.1
+far = 150.0
+
+[node name="Camera" type="InterpolatedCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -37.1494, 2, 11 )
+cull_mask = 1048547
+fov = 90.0
+near = 0.5
+far = 150.0
+target = NodePath("../Kart/CameraPosition")
+speed = 15.0
+enabled = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -12.0
+pitch_scale = 0.8
+autoplay = true
+bus = "Music"
+
+[node name="Floor" type="StaticBody" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="Floor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -49.9, 0 )
+shape = SubResource( 3 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TopHud" type="ColorRect" parent="HUD"]
+material = ExtResource( 10 )
+anchor_right = 1.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+color = Color( 0.372549, 0.694118, 0.603922, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Disappear" type="AnimationPlayer" parent="HUD/TopHud"]
+anims/disappear = SubResource( 4 )
+
+[node name="Rows" type="HBoxContainer" parent="HUD/TopHud"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/TopHud/Rows"]
+margin_top = 5.0
+margin_right = 1132.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "G O R D O N K A R T        Enter: start"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MusicOnOff" type="TextureButton" parent="HUD/TopHud/Rows"]
+margin_left = 1136.0
+margin_top = 4.0
+margin_right = 1156.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 0 )
+focus_mode = 0
+size_flags_vertical = 4
+toggle_mode = true
+pressed = true
+enabled_focus_mode = 0
+texture_normal = SubResource( 5 )
+texture_pressed = SubResource( 6 )
+
+[node name="AudioOnOff" type="TextureButton" parent="HUD/TopHud/Rows"]
+margin_left = 1160.0
+margin_top = 4.0
+margin_right = 1180.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 0 )
+focus_mode = 0
+size_flags_vertical = 4
+toggle_mode = true
+pressed = true
+enabled_focus_mode = 0
+texture_normal = SubResource( 7 )
+texture_pressed = SubResource( 8 )
+
+[node name="LightOnOff" type="TextureButton" parent="HUD/TopHud/Rows"]
+margin_left = 1184.0
+margin_top = 4.0
+margin_right = 1204.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 0 )
+focus_mode = 0
+size_flags_vertical = 4
+toggle_mode = true
+pressed = true
+enabled_focus_mode = 0
+texture_normal = SubResource( 9 )
+texture_pressed = SubResource( 10 )
+
+[node name="TimeOfDay" type="OptionButton" parent="HUD/TopHud/Rows"]
+margin_left = 1208.0
+margin_right = 1280.0
+margin_bottom = 24.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "sunset"
+flat = true
+align = 1
+
+[node name="BottomHud" type="ColorRect" parent="HUD"]
+material = ExtResource( 10 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+rect_min_size = Vector2( 0, 24 )
+color = Color( 0.372549, 0.694118, 0.603922, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scores" type="HBoxContainer" parent="HUD/BottomHud"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_right = -10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Current" type="Label" parent="HUD/BottomHud/Scores"]
+margin_top = 5.0
+margin_right = 1035.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "cagibi.itch.io"
+
+[node name="Best" type="Label" parent="HUD/BottomHud/Scores"]
+margin_left = 1039.0
+margin_top = 5.0
+margin_right = 1260.0
+margin_bottom = 19.0
+text = "Music: Buster Prototype (Fluidvolt)"
+
+[node name="FinishLine" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, 5 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="Explosion" type="AudioStreamPlayer" parent="FinishLine"]
+stream = ExtResource( 8 )
+volume_db = -6.0
+bus = "Sfx"
+
+[node name="EndTurn" type="AudioStreamPlayer" parent="FinishLine"]
+stream = ExtResource( 7 )
+volume_db = -6.0
+bus = "Sfx"
+
+[node name="CollisionShape" type="CollisionShape" parent="FinishLine"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+shape = SubResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="FinishLine"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5 )
+mesh = SubResource( 12 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Midway" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 2, 19 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Midway"]
+shape = SubResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource( 4 )
+cell_scale = 2.0
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( -40, 0, -19 )
+}
+
+[node name="Crowd" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 7, 1 )
+stream = ExtResource( 9 )
+unit_size = 5.0
+max_db = 0.0
+max_distance = 40.0
+bus = "Sfx"
+area_mask = 0
+
+[node name="AudiencePerson" parent="Crowd" instance=ExtResource( 15 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, -2, 22 )
+
+[node name="Lights" type="Spatial" parent="."]
+
+[node name="SunLight" type="DirectionalLight" parent="Lights"]
+transform = Transform( 0.965926, 0.0669873, 0.25, 0, -0.965926, 0.258819, 0.258819, -0.25, -0.933013, 0, 5, -12 )
+layers = 2
+light_energy = 0.5
+light_cull_mask = 4293918723
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_depth_range = 1
+
+[node name="DayLight" type="DirectionalLight" parent="Lights"]
+transform = Transform( 0.683013, -0.426777, -0.592752, 0.00623605, -0.808101, 0.589011, -0.73038, -0.405999, -0.549282, 6.57236, 5, -12 )
+visible = false
+layers = 16
+light_color = Color( 0.635294, 0.831373, 0.94902, 1 )
+light_cull_mask = 4293918737
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_depth_range = 1
+
+[node name="Items" type="Spatial" parent="."]
+[connection signal="finished" from="." to="Kart" method="_on_World_finished"]
+[connection signal="toggled" from="HUD/TopHud/Rows/MusicOnOff" to="." method="_on_MusicOnOff_toggled"]
+[connection signal="toggled" from="HUD/TopHud/Rows/AudioOnOff" to="." method="_on_AudioOnOff_toggled"]
+[connection signal="toggled" from="HUD/TopHud/Rows/LightOnOff" to="." method="_on_LightOnOff_toggled"]
+[connection signal="item_selected" from="HUD/TopHud/Rows/TimeOfDay" to="." method="_on_TimeOfDay_item_selected"]
+[connection signal="body_entered" from="FinishLine" to="." method="_on_FinishLine_body_entered"]
+[connection signal="body_exited" from="FinishLine" to="." method="_on_FinishLine_body_exited"]
+[connection signal="body_entered" from="Midway" to="." method="_on_Midway_body_entered"]

@@ -1,8 +1,6 @@
-[gd_resource type="Environment" load_steps=3 format=2]
+[gd_resource type="Environment" load_steps=2 format=2]
 
 [ext_resource path="res://world/environments/sky_sunset.tres" type="ProceduralSky" id=1]
-[ext_resource path="res://world/palette_gradient.tres" type="Texture" id=2]
-
 
 [resource]
 background_mode = 2
@@ -25,4 +23,3 @@ dof_blur_far_quality = 0
 dof_blur_near_quality = 0
 glow_bloom = 0.2
 adjustment_enabled = true
-adjustment_color_correction = ExtResource( 2 )

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://materials/Green.material" type="Material" id=1]
 [ext_resource path="res://materials/Yellow.material" type="Material" id=2]
 [ext_resource path="res://materials/Grey.material" type="Material" id=3]
+[ext_resource path="res://materials/DarkGreen.material" type="Material" id=4]
 
-[sub_resource type="CylinderMesh" id=10]
+[sub_resource type="CylinderMesh" id=1]
 material = ExtResource( 1 )
 top_radius = 0.001
 bottom_radius = 0.4
@@ -12,42 +13,59 @@ height = 1.0
 radial_segments = 4
 rings = 1
 
-[sub_resource type="CubeMesh" id=11]
+[sub_resource type="CubeMesh" id=2]
 material = ExtResource( 2 )
 size = Vector3( 1, 1, 1 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.5, 0.5, 0.5 )
 
-[sub_resource type="CubeMesh" id=12]
+[sub_resource type="CubeMesh" id=4]
 material = ExtResource( 3 )
 size = Vector3( 0.5, 1, 0.5 )
 
-[sub_resource type="BoxShape" id=9]
+[sub_resource type="BoxShape" id=5]
 extents = Vector3( 0.25, 0.5, 0.25 )
+
+[sub_resource type="CubeMesh" id=6]
+material = ExtResource( 4 )
+size = Vector3( 16, 0.95, 16 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 8, 0.5, 8 )
 
 [node name="GridSet" type="Spatial"]
 
 [node name="Grass" type="MeshInstance" parent="."]
-mesh = SubResource( 10 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Cube" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
-mesh = SubResource( 11 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Cube"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube/StaticBody"]
-shape = SubResource( 5 )
+shape = SubResource( 3 )
 
 [node name="Pillar" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
-mesh = SubResource( 12 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Pillar"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Pillar/StaticBody"]
-shape = SubResource( 9 )
+shape = SubResource( 5 )
+
+[node name="Floor" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Floor"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody"]
+shape = SubResource( 7 )
