@@ -8,5 +8,6 @@ src/export_presets.cfg
 .mono/
 data_*/
 
-# Executables
+# Other
 bin/
+rnd/
