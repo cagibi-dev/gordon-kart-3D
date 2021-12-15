@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/motif-4x4-dithering.png-e1ce0d05336aaa210ef35e5b6afc2ce2.stex"
+path="res://.import/brick.png-87de667246ec2d966c096227354ebbbe.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://materials/motif-4x4-dithering.png"
-dest_files=[ "res://.import/motif-4x4-dithering.png-e1ce0d05336aaa210ef35e5b6afc2ce2.stex" ]
+source_file="res://materials/brick.png"
+dest_files=[ "res://.import/brick.png-87de667246ec2d966c096227354ebbbe.stex" ]
 
 [params]
 
