@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://kart/Gordon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://kart/Kart.gd" type="Script" id=2]
@@ -6,10 +6,8 @@
 [ext_resource path="res://materials/Red.material" type="Material" id=4]
 [ext_resource path="res://kart/RearWheelMesh.tres" type="CylinderMesh" id=5]
 [ext_resource path="res://kart/FrontWheelMesh.tres" type="CylinderMesh" id=6]
-[ext_resource path="res://kart/engine.wav" type="AudioStream" id=7]
+[ext_resource path="res://kart/engine_loop_cc0.wav" type="AudioStream" id=7]
 [ext_resource path="res://kart/jump.wav" type="AudioStream" id=9]
-[ext_resource path="res://kart/thrustbar-empty.png" type="Texture" id=10]
-[ext_resource path="res://kart/thrustbar-full.png" type="Texture" id=11]
 [ext_resource path="res://kart/dead.ogg" type="AudioStream" id=12]
 [ext_resource path="res://kart/steering-wheel.png" type="Texture" id=13]
 [ext_resource path="res://materials/White.material" type="Material" id=14]
@@ -491,29 +489,13 @@ omni_range = 1.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1 )
 stream = ExtResource( 7 )
 unit_db = 6.0
-max_db = -6.0
+max_db = 0.0
 autoplay = true
 bus = "Sfx"
 
 [node name="Jump" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 9 )
 bus = "Sfx"
-
-[node name="ThrustBar" type="TextureProgress" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 16.0
-margin_top = -200.0
-margin_right = 40.0
-margin_bottom = -120.0
-rect_scale = Vector2( 2, 2 )
-step = 0.1
-texture_under = ExtResource( 10 )
-texture_progress = ExtResource( 11 )
-fill_mode = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Dead" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
@@ -528,4 +510,5 @@ anims/win = SubResource( 21 )
 [node name="AirborneTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
 [connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]

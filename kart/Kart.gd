@@ -1,11 +1,11 @@
 extends KinematicBody
 
-export (float) var full_thrust := 25.0
+export (float) var full_thrust := 30.0
 export (float) var steer_angle := 2.0
 var thrust := 0.0
 var steering := 0.0
 var velocity := Vector3.ZERO
-var gravity := 20.0
+var gravity := 9.81
 var jump_speed := 10.0
 var is_grounded := true
 var music_filter: AudioEffectLowPassFilter
@@ -15,7 +15,6 @@ onready var engine_particles := [$Vehicle/BackChassis/BigLeftBell/Boost, $Vehicl
 func _ready():
 	music_filter = AudioServer.get_bus_effect(1, 0)
 	AudioServer.set_bus_effect_enabled(1, 0, false)
-	$ThrustBar.max_value = full_thrust
 	last_transform = transform
 
 func reset():
@@ -56,7 +55,7 @@ func _physics_process(delta):
 		thrust = lerp(thrust, 0, 0.05)
 		set_blink("on")
 	else:
-		thrust = lerp(thrust, full_thrust * input_vec.y, 0.01)
+		thrust = lerp(thrust, full_thrust * input_vec.y, 0.005)
 		thrust -= 1*abs(steering) * delta * sign(thrust)
 		
 		if steering > 0.5:
@@ -66,7 +65,6 @@ func _physics_process(delta):
 		else:
 			set_blink("off")
 
-	$ThrustBar.value = thrust
 	var ideal_vel = Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * thrust
 	velocity.x = ideal_vel.x
 	velocity.z = ideal_vel.z

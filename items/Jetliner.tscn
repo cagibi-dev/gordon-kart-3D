@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://items/Jetliner.obj" type="ArrayMesh" id=1]
+
+[sub_resource type="CapsuleShape" id=1]
+height = 14.0
+
+[node name="Jetliner" type="KinematicBody"]
+
+[node name="Shape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="Jetliner" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0 )
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null

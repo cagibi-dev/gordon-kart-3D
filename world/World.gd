@@ -41,6 +41,9 @@ func _on_FinishLine_body_entered(_body):
 			best_time = current_time
 			$HUD/BottomHud/Scores/Best.text = "Best time: " + nice_stringify(best_time) + " s"
 			$FinishLine/Explosion.play()
+			Engine.time_scale = 0.1
+			yield(get_tree().create_timer(0.1), "timeout")
+			Engine.time_scale = 1
 		else:
 			$FinishLine/EndTurn.play()
 		current_time = 0.0
@@ -55,11 +58,6 @@ func _on_FinishLine_body_exited(_body):
 
 func _on_Midway_body_entered(_body):
 	can_finish = true
-	if not $Crowd.playing:
-		$Crowd.play()
-		for person in $Crowd.get_children():
-			if person is RigidBody:  # AudiencePerson
-				person.get_node("JumpTimer").start()
 
 
 func _on_MusicOnOff_toggled(button_pressed):

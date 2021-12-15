@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://materials/Grey.material" type="Material" id=1]
 [ext_resource path="res://materials/Red.material" type="Material" id=2]
-[ext_resource path="res://materials/Brick.material" type="Material" id=3]
 [ext_resource path="res://materials/White.material" type="Material" id=4]
 
 [sub_resource type="CapsuleMesh" id=1]
@@ -90,7 +89,7 @@ material/0 = ExtResource( 1 )
 [node name="Nose" type="MeshInstance" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179417, 0.0562935 )
 mesh = SubResource( 4 )
-material/0 = ExtResource( 3 )
+material/0 = null
 
 [node name="EyeBrows" type="MeshInstance" parent="Head"]
 transform = Transform( 1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 0, 0.179603, 0.211535 )

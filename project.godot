@@ -19,7 +19,7 @@ config/description="Low poly racing game with the Nantes University's mascot"
 run/main_scene="res://world/World.tscn"
 boot_splash/image="res://splashscreen.png"
 boot_splash/use_filter=false
-boot_splash/bg_color=Color( 0.2, 0.247059, 0.34902, 1 )
+boot_splash/bg_color=Color( 0.0627451, 0.0313726, 0.12549, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
