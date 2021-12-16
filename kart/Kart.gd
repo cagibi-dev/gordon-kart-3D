@@ -1,6 +1,6 @@
 extends KinematicBody
 
-export (float) var full_thrust := 30.0
+export (float) var full_thrust := 25.0
 export (float) var steer_angle := 2.0
 var thrust := 0.0
 var steering := 0.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=161 format=2]
+[gd_scene load_steps=163 format=2]
 
 [ext_resource path="res://urbankit/props/metal.material" type="Material" id=1]
 [ext_resource path="res://urbankit/props/signs.material" type="Material" id=2]
@@ -547,7 +547,7 @@ surfaces/1 = {
 [sub_resource type="ArrayMesh" id=34]
 resource_name = "grass_Mesh grass"
 surfaces/0 = {
-"aabb": AABB( -0.5, 0, -0.5, 1, 1e-05, 1.00001 ),
+"aabb": AABB( -0.5, 0, -0.5, 1, 0, 1 ),
 "array_data": PoolByteArray( 0, 184, 0, 0, 0, 56, 0, 60, 0, 0, 255, 127, 255, 127, 255, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 184, 0, 0, 0, 184, 0, 60, 0, 0, 255, 127, 255, 127, 255, 63, 0, 0, 128, 191, 0, 0, 0, 0, 0, 56, 0, 0, 0, 56, 0, 60, 0, 0, 255, 127, 255, 127, 255, 63, 0, 0, 80, 38, 0, 0, 128, 63, 0, 56, 0, 0, 0, 184, 0, 60, 0, 0, 255, 127, 255, 127, 255, 63, 0, 0, 80, 38, 0, 0, 0, 0 ),
 "array_index_data": PoolByteArray( 2, 0, 0, 0, 1, 0, 1, 0, 3, 0, 2, 0 ),
 "blend_shape_data": [  ],
@@ -558,6 +558,9 @@ surfaces/0 = {
 "skeleton_aabb": [  ],
 "vertex_count": 4
 }
+
+[sub_resource type="ConvexPolygonShape" id=144]
+points = PoolVector3Array( -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0, 0.5 )
 
 [sub_resource type="ArrayMesh" id=35]
 resource_name = "roadAsphalt_center_Mesh roadAsphalt_center"
@@ -849,6 +852,9 @@ surfaces/0 = {
 "skeleton_aabb": [  ],
 "vertex_count": 24
 }
+
+[sub_resource type="ConcavePolygonShape" id=145]
+data = PoolVector3Array( 0.25, 0.05, 0.25, -0.25, 0.05, 0.25, -0.25, 0.05, -0.25, -0.25, 0.05, -0.25, 0.25, 0.05, -0.25, 0.25, 0.05, 0.25, 0.25, 0, -0.25, -0.25, 0, -0.25, -0.25, 0, 0.25, -0.25, 0, 0.25, 0.25, 0, 0.25, 0.25, 0, -0.25, 0.25, 0.05, 0.25, 0.25, 0, 0.25, -0.25, 0, 0.25, -0.25, 0, 0.25, -0.25, 0.05, 0.25, 0.25, 0.05, 0.25, 0.25, 0, -0.25, 0.25, 0, 0.25, 0.25, 0.05, 0.25, 0.25, 0.05, 0.25, 0.25, 0.05, -0.25, 0.25, 0, -0.25, -0.25, 0.05, -0.25, -0.25, 0, -0.25, 0.25, 0, -0.25, 0.25, 0, -0.25, 0.25, 0.05, -0.25, -0.25, 0.05, -0.25, -0.25, 0.05, -0.25, -0.25, 0.05, 0.25, -0.25, 0, 0.25, -0.25, 0, 0.25, -0.25, 0, -0.25, -0.25, 0.05, -0.25 )
 
 [sub_resource type="ArrayMesh" id=52]
 resource_name = "roofMetal_poles_Mesh roofMetal_poles"
@@ -2950,11 +2956,21 @@ mesh = SubResource( 34 )
 skeleton = NodePath("")
 material/0 = null
 
+[node name="StaticBody" type="StaticBody" parent="grass"]
+
+[node name="CollisionShape" type="CollisionShape" parent="grass/StaticBody"]
+shape = SubResource( 144 )
+
 [node name="roadAsphalt_center" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6 )
 mesh = SubResource( 35 )
 skeleton = NodePath("")
 material/0 = null
+
+[node name="StaticBody2" type="StaticBody" parent="roadAsphalt_center"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadAsphalt_center/StaticBody2"]
+shape = SubResource( 144 )
 
 [node name="roadAsphalt_cornerInner" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 10 )
@@ -2963,12 +2979,22 @@ skeleton = NodePath("")
 material/0 = null
 material/1 = null
 
+[node name="StaticBody3" type="StaticBody" parent="roadAsphalt_cornerInner"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadAsphalt_cornerInner/StaticBody3"]
+shape = SubResource( 144 )
+
 [node name="roadAsphalt_cornerOuter" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 12 )
 mesh = SubResource( 38 )
 skeleton = NodePath("")
 material/0 = null
 material/1 = null
+
+[node name="StaticBody4" type="StaticBody" parent="roadAsphalt_cornerOuter"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadAsphalt_cornerOuter/StaticBody4"]
+shape = SubResource( 144 )
 
 [node name="roadAsphalt_damaged" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 14 )
@@ -2977,11 +3003,21 @@ skeleton = NodePath("")
 material/0 = null
 material/1 = null
 
+[node name="StaticBody5" type="StaticBody" parent="roadAsphalt_damaged"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadAsphalt_damaged/StaticBody5"]
+shape = SubResource( 144 )
+
 [node name="roadAsphalt_pavement" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 16 )
 mesh = SubResource( 40 )
 skeleton = NodePath("")
 material/0 = null
+
+[node name="StaticBody6" type="StaticBody" parent="roadAsphalt_pavement"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadAsphalt_pavement/StaticBody6"]
+shape = SubResource( 144 )
 
 [node name="roadAsphalt_side" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 18 )
@@ -2990,11 +3026,21 @@ skeleton = NodePath("")
 material/0 = null
 material/1 = null
 
+[node name="StaticBody7" type="StaticBody" parent="roadAsphalt_side"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadAsphalt_side/StaticBody7"]
+shape = SubResource( 144 )
+
 [node name="roadDirt_center" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 2 )
 mesh = SubResource( 43 )
 skeleton = NodePath("")
 material/0 = null
+
+[node name="StaticBody8" type="StaticBody" parent="roadDirt_center"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadDirt_center/StaticBody8"]
+shape = SubResource( 144 )
 
 [node name="roadDirt_cornerInner" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 6 )
@@ -3003,12 +3049,22 @@ skeleton = NodePath("")
 material/0 = null
 material/1 = null
 
+[node name="StaticBody9" type="StaticBody" parent="roadDirt_cornerInner"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadDirt_cornerInner/StaticBody9"]
+shape = SubResource( 144 )
+
 [node name="roadDirt_cornerOuter" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 8 )
 mesh = SubResource( 46 )
 skeleton = NodePath("")
 material/0 = null
 material/1 = null
+
+[node name="StaticBody10" type="StaticBody" parent="roadDirt_cornerOuter"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadDirt_cornerOuter/StaticBody10"]
+shape = SubResource( 144 )
 
 [node name="roadDirt_damaged" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 10 )
@@ -3017,11 +3073,21 @@ skeleton = NodePath("")
 material/0 = null
 material/1 = null
 
+[node name="StaticBody11" type="StaticBody" parent="roadDirt_damaged"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadDirt_damaged/StaticBody11"]
+shape = SubResource( 144 )
+
 [node name="roadDirt_pavement" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 12 )
 mesh = SubResource( 48 )
 skeleton = NodePath("")
 material/0 = null
+
+[node name="StaticBody12" type="StaticBody" parent="roadDirt_pavement"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadDirt_pavement/StaticBody12"]
+shape = SubResource( 144 )
 
 [node name="roadDirt_side" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 14 )
@@ -3030,11 +3096,21 @@ skeleton = NodePath("")
 material/0 = null
 material/1 = null
 
+[node name="StaticBody" type="StaticBody" parent="roadDirt_side"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadDirt_side/StaticBody"]
+shape = SubResource( 144 )
+
 [node name="roadDirt_tile" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 18 )
 mesh = SubResource( 51 )
 skeleton = NodePath("")
 material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="roadDirt_tile"]
+
+[node name="CollisionShape" type="CollisionShape" parent="roadDirt_tile/StaticBody"]
+shape = SubResource( 145 )
 
 [node name="roofMetal_poles" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 20 )
