@@ -5,7 +5,7 @@ export (float) var steer_angle := 2.0
 var thrust := 0.0
 var steering := 0.0
 var velocity := Vector3.ZERO
-var gravity := 9.81
+var gravity := 20.0
 var jump_speed := 10.0
 var is_grounded := true
 var music_filter: AudioEffectLowPassFilter
@@ -80,7 +80,7 @@ func _physics_process(delta):
 			$Engine.play()
 			for p in engine_particles:
 				p.emitting = true
-		$Engine.pitch_scale = 0.2+0.05*velocity.length()
+		$Engine.pitch_scale = 0.2+0.005*(velocity * Vector3(1, 0, 1)).length_squared()
 	if input_vec.y == 0 and $Engine.playing:
 		$Engine.stop()
 		for p in engine_particles:

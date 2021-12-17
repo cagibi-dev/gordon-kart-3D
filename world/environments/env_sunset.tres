@@ -1,6 +1,6 @@
-[gd_resource type="Environment" load_steps=4 format=2]
+[gd_resource type="Environment" load_steps=5 format=2]
 
-[ext_resource path="res://world/environments/sky_sunset.tres" type="ProceduralSky" id=1]
+[ext_resource path="res://world/environments/day-skybox.png" type="Texture" id=1]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.258741, 0.552448, 0.825175, 1 )
@@ -9,9 +9,13 @@ colors = PoolColorArray( 0.0204195, 0.0017692, 0.150971, 1, 0.171424, 0.0484543,
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
 
+[sub_resource type="PanoramaSky" id=3]
+radiance_size = 0
+panorama = ExtResource( 1 )
+
 [resource]
 background_mode = 2
-background_sky = ExtResource( 1 )
+background_sky = SubResource( 3 )
 fog_color = Color( 0.141176, 0.380392, 0.498039, 1 )
 fog_depth_begin = 50.0
 fog_depth_end = 200.0
@@ -27,5 +31,4 @@ dof_blur_far_transition = 10.0
 dof_blur_far_quality = 0
 dof_blur_near_quality = 0
 glow_bloom = 0.2
-adjustment_enabled = true
 adjustment_color_correction = SubResource( 2 )
