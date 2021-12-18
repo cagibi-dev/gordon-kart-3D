@@ -168,3 +168,15 @@ pitch_scale = 0.5
 [node name="Brake" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 9 )
 attenuation_model = 3
+
+[node name="Fuel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+rect_min_size = Vector2( 0, 32 )
+text = "FUEL: 0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

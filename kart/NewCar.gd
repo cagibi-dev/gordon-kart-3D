@@ -27,7 +27,13 @@ func _physics_process(delta: float) -> void:
 
 	# accelerate according to gear
 	var acc := Input.get_action_strength("accelerate") - Input.get_action_strength("accelerate_backwards")
-	fuel -= abs(acc) * delta
+	if fuel <= 0:
+		acc = 0
+		$Fuel.text = "OUT OF FUEL"
+	else:
+		fuel -= abs(acc) * delta
+		$Fuel.text = "FUEL: " + str(round(fuel))
+
 	if acc != 0 and not $Engine.playing:
 		$Engine.play()
 	if acc == 0 and $Engine.playing:

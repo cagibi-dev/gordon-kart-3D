@@ -2,11 +2,12 @@ extends Area
 
 
 func _on_body_entered(body: Node) -> void:
-	if visible:
-		body.fuel += 5
-		monitoring = false
-		hide()
-		$Got.play()
+	body.fuel += 20
+	if body.fuel > 100:
+		body.fuel = 100
+	set_deferred("monitoring", false)
+	hide()
+	$Got.play()
 
 func turn() -> void:
 	show()
