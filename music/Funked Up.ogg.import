@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Funked Up.ogg-82091d1d01d9278f034bde4b30032fa6.oggstr"
+
+[deps]
+
+source_file="res://music/Funked Up.ogg"
+dest_files=[ "res://.import/Funked Up.ogg-82091d1d01d9278f034bde4b30032fa6.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

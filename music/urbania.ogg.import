@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/urbania.ogg-92ca255e0e9d8c246a3974e4e5897637.oggstr"
+
+[deps]
+
+source_file="res://music/urbania.ogg"
+dest_files=[ "res://.import/urbania.ogg-92ca255e0e9d8c246a3974e4e5897637.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
