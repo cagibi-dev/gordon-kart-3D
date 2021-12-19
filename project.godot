@@ -142,7 +142,7 @@ common/enable_object_picking=false
 [rendering]
 
 quality/directional_shadow/size=2048
-quality/shadow_atlas/size=2048
+quality/shadow_atlas/size=512
 quality/shadows/filter_mode=0
 quality/reflections/texture_array_reflections=false
 quality/reflections/high_quality_ggx=false

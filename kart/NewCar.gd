@@ -3,6 +3,7 @@ extends VehicleBody
 
 var gear := 1
 var fuel := 100.0
+var can_acc := true
 var music_filter: AudioEffectLowPassFilter
 onready var start_pos := transform
 
@@ -27,11 +28,13 @@ func _physics_process(delta: float) -> void:
 
 	# accelerate according to gear
 	var acc := Input.get_action_strength("accelerate") - Input.get_action_strength("accelerate_backwards")
+	if not can_acc:
+		acc = 0
 	if fuel <= 0:
 		acc = 0
 		$Fuel.text = "OUT OF FUEL"
 	else:
-		fuel -= abs(acc) * delta
+		fuel -= 0.8 * abs(acc) * delta
 		$Fuel.text = "FUEL: " + str(round(fuel))
 
 	if acc != 0 and not $Engine.playing:
@@ -40,6 +43,7 @@ func _physics_process(delta: float) -> void:
 		$Engine.stop()
 
 	var vel: float = abs($WheelFL.get_rpm() + $WheelFR.get_rpm()) / 48
+	$Dashboard/Speed.text = str(floor(vel*3.6)) + " km/h"
 	music_filter.cutoff_hz = min(500 + 400 * vel, 22000)
 	match gear:
 		1:
@@ -66,14 +70,31 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("gear_down") and gear > 1:
-		gear -= 1
+		set_gear(gear - 1)
 		$GearDown.play()
+
 	if event.is_action_pressed("gear_up") and gear < 3:
-		gear += 1
+		set_gear(gear + 1)
 		$GearUp.play()
+
 	if Input.is_action_pressed("gear_down") and Input.is_action_pressed("gear_up"):
-		transform = start_pos
+		respawn()
+
+
+func set_gear(new_gear: int):
+	gear = new_gear
+	$Dashboard/G1.modulate.a = 1.0 if gear == 1 else 0.3
+	$Dashboard/G2.modulate.a = 1.0 if gear == 2 else 0.3
+	$Dashboard/G3.modulate.a = 1.0 if gear == 3 else 0.3
+	# delay if gearing while accelerating (more interesting)
+	if Input.is_action_pressed("accelerate"):
+		can_acc = false
+		yield(get_tree().create_timer(0.25), "timeout")
+		can_acc = true
 
 
 func respawn():
 	transform = start_pos
+	get_parent().can_finish = false # FIXME
+	if fuel == 0:
+		fuel = 10

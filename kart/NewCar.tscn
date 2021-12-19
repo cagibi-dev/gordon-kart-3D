@@ -180,3 +180,75 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Dashboard" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -102.0
+margin_bottom = 19.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gear" type="Label" parent="Dashboard"]
+margin_left = 545.0
+margin_top = 51.0
+margin_right = 599.0
+margin_bottom = 70.0
+text = "gear:  "
+
+[node name="G1" type="Label" parent="Dashboard"]
+margin_left = 603.0
+margin_top = 51.0
+margin_right = 607.0
+margin_bottom = 70.0
+text = "1"
+
+[node name="G2" type="Label" parent="Dashboard"]
+modulate = Color( 1, 1, 1, 0.317647 )
+margin_left = 611.0
+margin_top = 51.0
+margin_right = 621.0
+margin_bottom = 70.0
+text = "2"
+
+[node name="G3" type="Label" parent="Dashboard"]
+modulate = Color( 1, 1, 1, 0.317647 )
+margin_left = 625.0
+margin_top = 51.0
+margin_right = 635.0
+margin_bottom = 70.0
+text = "3"
+
+[node name="Control" type="Control" parent="Dashboard"]
+margin_left = 639.0
+margin_right = 679.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 40, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Speed" type="Label" parent="Dashboard"]
+margin_left = 683.0
+margin_top = 51.0
+margin_right = 734.0
+margin_bottom = 70.0
+text = "0 km/h"
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.996195, 0.0871556, 0, -0.0871556, -0.996195, 0, 1, 2 )
+layers = 12
+light_color = Color( 1, 0.819608, 0, 1 )
+light_energy = 2.0
+spot_range = 15.0
+spot_angle_attenuation = 0.5
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2 )
+layers = 12
+light_color = Color( 1, 0.188235, 0.0823529, 1 )
+omni_range = 4.0
+omni_attenuation = 0.6

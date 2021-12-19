@@ -102,4 +102,10 @@ anims/float = SubResource( 4 )
 stream = ExtResource( 3 )
 unit_size = 8.0
 
+[node name="OmniLight" type="OmniLight" parent="."]
+layers = 12
+light_color = Color( 0, 1, 0.976471, 1 )
+omni_range = 4.0
+omni_attenuation = 0.6
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

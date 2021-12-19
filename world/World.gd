@@ -19,6 +19,14 @@ var playlist := [
 ]
 var current_song := 0
 
+var daylist := [
+	preload("res://world/environments/env_sunset.tres"),
+	preload("res://world/environments/env_dusk.tres"),
+	preload("res://world/environments/env_night.tres"),
+	preload("res://world/environments/env_day.tres"),
+]
+var time_of_day := 0
+
 
 func _input(event):
 	if event.is_action_pressed("ui_accept") and $Kart/StartCamera.current:
@@ -61,8 +69,11 @@ func _on_FinishLine_body_entered(_body):
 		emit_signal("finished")
 
 
-func _on_FinishLine_body_exited(_body):
+func _on_FinishLine_body_exited(body: CollisionObject):
 	running = true
+	body.fuel += 10
+	if body.fuel > 100:
+		body.fuel = 100
 	for n in get_tree().get_nodes_in_group("turn_local"):
 		n.turn()
 
@@ -72,7 +83,7 @@ func _on_Midway_body_entered(_body):
 
 
 func _on_LightOnOff_toggled(button_pressed):
-	$SunLight.visible = button_pressed
+	$Lights.visible = button_pressed
 
 
 func _on_AudioOnOff_toggled(button_pressed):
@@ -87,3 +98,22 @@ func _on_Music_pressed() -> void:
 	$Music.stream = playlist[current_song][0]
 	$HUD/TopHud/Rows/Label.text = playlist[current_song][1]
 	$Music.play()
+
+
+func _on_TimeOfDay_pressed() -> void:
+	time_of_day += 1
+	if time_of_day >= len(daylist):
+		time_of_day = 0
+	for cam in [$CamPivot/Camera, $Kart/FirstPersonCamera, $Kart/StartCamera]:
+		cam.environment = daylist[time_of_day]
+		cam.cull_mask &= ~30
+		cam.cull_mask |= int(pow(2, time_of_day+1))
+		print(int(pow(2, time_of_day+1)))
+
+	$Lights/SunLight.hide()
+	$Lights/DayLight.hide()
+	match time_of_day:
+		0: # sunset
+			$Lights/SunLight.show()
+		3: # day
+			$Lights/DayLight.show()
