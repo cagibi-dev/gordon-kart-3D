@@ -31,13 +31,17 @@ var time_of_day := 0
 func _input(event):
 	if event.is_action_pressed("ui_accept") and $Kart/StartCamera.current:
 		$CamPivot/Camera.set_deferred("current", true)
-		$HUD/Controls.hide()
 		AudioServer.set_bus_effect_enabled(1, 0, true)
 	if event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_prev"):
 		if $CamPivot/Camera.current:
 			$Kart/FirstPersonCamera.current = true
 		elif $Kart/FirstPersonCamera.current:
 			$CamPivot/Camera.current = true
+	
+	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "gear_down", "gear_up", "ui_focus_next", "brake", "reset"]
+	var bs := $HUD/LiveControls.get_children()
+	for i in range(len(bs)):
+		bs[i].frame = 1 if Input.is_action_pressed(acts[i]) else 0
 
 
 func _process(delta: float):

@@ -77,7 +77,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		set_gear(gear + 1)
 		$GearUp.play()
 
-	if Input.is_action_pressed("gear_down") and Input.is_action_pressed("gear_up"):
+	if Input.is_action_pressed("reset"):
 		respawn()
 
 
@@ -96,5 +96,5 @@ func set_gear(new_gear: int):
 func respawn():
 	transform = start_pos
 	get_parent().can_finish = false # FIXME
-	if fuel == 0:
+	if fuel < 0.2:
 		fuel = 10

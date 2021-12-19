@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://items/barrels/Barrel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://items/crate/crate.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://kart/NewCar.tscn" type="PackedScene" id=15]
 [ext_resource path="res://items/Vinyl.tscn" type="PackedScene" id=16]
 [ext_resource path="res://materials/dither.shader" type="Shader" id=17]
+[ext_resource path="res://menu/controls.png" type="Texture" id=18]
 
 [sub_resource type="Animation" id=1]
 resource_name = "wow"
@@ -237,36 +238,70 @@ size_flags_vertical = 4
 enabled_focus_mode = 0
 texture_normal = SubResource( 18 )
 
-[node name="Controls" type="PanelContainer" parent="HUD"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -250.0
-margin_top = -86.5
-margin_right = -40.0
-margin_bottom = 86.5
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="LiveControls" type="Node2D" parent="HUD"]
+position = Vector2( 590, 260 )
 
-[node name="Controls" type="Label" parent="HUD/Controls"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 213.0
-margin_bottom = 180.0
-text = "Controls:
+[node name="B1" type="Sprite" parent="HUD/LiveControls"]
+texture = ExtResource( 18 )
+vframes = 2
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 32 )
 
-A D --- turn
-Q E --- clutch
-W --- accelerate
-S --- reverse
-SPACE --- Brake
-Q && E --- self destruct"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="B2" type="Sprite" parent="HUD/LiveControls"]
+position = Vector2( 4, 18 )
+texture = ExtResource( 18 )
+vframes = 2
+region_enabled = true
+region_rect = Rect2( 0, 32, 16, 32 )
+
+[node name="B3" type="Sprite" parent="HUD/LiveControls"]
+position = Vector2( 22, 18 )
+texture = ExtResource( 18 )
+vframes = 2
+region_enabled = true
+region_rect = Rect2( 32, 0, 16, 32 )
+
+[node name="B4" type="Sprite" parent="HUD/LiveControls"]
+position = Vector2( -14, 18 )
+texture = ExtResource( 18 )
+vframes = 2
+region_enabled = true
+region_rect = Rect2( 16, 0, 16, 32 )
+
+[node name="B5" type="Sprite" parent="HUD/LiveControls"]
+position = Vector2( -18, 0 )
+texture = ExtResource( 18 )
+vframes = 2
+region_enabled = true
+region_rect = Rect2( 64, 0, 16, 32 )
+
+[node name="B6" type="Sprite" parent="HUD/LiveControls"]
+position = Vector2( 18, 0 )
+texture = ExtResource( 18 )
+vframes = 2
+region_enabled = true
+region_rect = Rect2( 48, 0, 16, 32 )
+
+[node name="B7" type="Sprite" parent="HUD/LiveControls"]
+position = Vector2( -40, 0 )
+texture = ExtResource( 18 )
+vframes = 2
+region_enabled = true
+region_rect = Rect2( 16, 32, 24, 32 )
+
+[node name="B8" type="Sprite" parent="HUD/LiveControls"]
+position = Vector2( 24, 54 )
+texture = ExtResource( 18 )
+vframes = 2
+region_enabled = true
+region_rect = Rect2( 40, 32, 40, 32 )
+
+[node name="B9" type="Sprite" parent="HUD/LiveControls"]
+position = Vector2( 36, 0 )
+texture = ExtResource( 18 )
+vframes = 2
+region_enabled = true
+region_rect = Rect2( 80, 0, 16, 32 )
 
 [node name="BottomHud" type="ColorRect" parent="HUD"]
 material = ExtResource( 10 )
@@ -472,7 +507,6 @@ __meta__ = {
 
 [node name="SunLight" type="DirectionalLight" parent="Lights"]
 transform = Transform( 0.965926, 0.0669873, 0.25, 0, -0.965926, 0.258819, 0.258819, -0.25, -0.933013, 0, 10, 0 )
-visible = false
 layers = 2
 light_cull_mask = 4293918723
 shadow_enabled = true
