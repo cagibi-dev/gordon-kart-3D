@@ -7,6 +7,9 @@ var current_time := 0.0
 var running := false
 var can_finish := false
 
+# available cameras
+onready var cams := [$CamPivot/Camera, $Kart/FirstPersonCamera, $Kart/StartCamera]
+
 var playlist := [
 	[null, "silence"],
 	[preload("res://music/Buster_Prototype_Fluidvolt.ogg"), "Buster Prototype (© Fluidvolt)"],
@@ -29,23 +32,29 @@ var time_of_day := 0
 
 
 func _input(event):
+	if not event.is_action_type():
+		return
+
 	if event.is_action_pressed("brake") and $Kart/StartCamera.current:
+		# START THE GAME
 		$CamPivot/Camera.set_deferred("current", true)
 		AudioServer.set_bus_effect_enabled(1, 0, true)
 		$HUD/Start.hide()
+		# we don't need his face anymore.
+		$Kart/Gordon.hide_face()
 	if event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_prev"):
 		if $CamPivot/Camera.current:
 			$Kart/FirstPersonCamera.current = true
 		elif $Kart/FirstPersonCamera.current:
 			$CamPivot/Camera.current = true
-	
+
 	if event.is_action_pressed("set_sfx"):
 		AudioServer.set_bus_mute(2, not AudioServer.is_bus_mute(2))
 	if event.is_action_pressed("set_music"):
 		next_music()
 	if event.is_action_pressed("set_env"):
 		next_env()
-	
+
 	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "gear_down", "gear_up", "ui_focus_next", "brake", "reset", "set_sfx", "set_music", "set_env"]
 	var bs := $HUD/LiveControls.get_children()
 	for i in range(len(bs)):
@@ -83,9 +92,7 @@ func _on_FinishLine_body_entered(_body):
 
 func _on_FinishLine_body_exited(body: CollisionObject):
 	running = true
-	body.fuel += 10
-	if body.fuel > 100:
-		body.fuel = 100
+	body.refuel(10)
 	for n in get_tree().get_nodes_in_group("turn_local"):
 		n.turn()
 
@@ -105,21 +112,14 @@ func next_music() -> void:
 
 
 func next_env() -> void:
-	var cams := [$CamPivot/Camera, $Kart/FirstPersonCamera, $Kart/StartCamera]
 	if time_of_day == 3:
 		if get_viewport().debug_draw == Viewport.DEBUG_DRAW_DISABLED:
 			# bonus: low perf mode
 			get_viewport().debug_draw = Viewport.DEBUG_DRAW_UNSHADED
-			for cam in cams:
-				cam.near *= 2
-				cam.far *= 0.5
 			$HUD/TopHud/Label.text = "low perf mode"
 			return
 		else:
 			get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED
-			for cam in cams:
-				cam.near *= 0.5
-				cam.far *= 2
 	time_of_day += 1
 	if time_of_day >= len(daylist):
 		time_of_day = 0

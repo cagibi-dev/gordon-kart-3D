@@ -14,3 +14,4 @@ sun_latitude = 20.0
 sun_angle_min = 3.0
 sun_angle_max = 5.0
 sun_curve = 0.2
+texture_size = 0

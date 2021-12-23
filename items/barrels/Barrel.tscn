@@ -101,11 +101,13 @@ anims/float = SubResource( 4 )
 [node name="Got" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 3 )
 unit_size = 8.0
+bus = "Sfx"
 
 [node name="OmniLight" type="OmniLight" parent="."]
 layers = 12
 light_color = Color( 0, 1, 0.976471, 1 )
 omni_range = 4.0
-omni_attenuation = 0.6
+omni_attenuation = 0.5
+omni_shadow_mode = 0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

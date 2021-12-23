@@ -164,10 +164,12 @@ bus = "Sfx"
 stream = ExtResource( 8 )
 attenuation_model = 3
 pitch_scale = 0.5
+bus = "Sfx"
 
 [node name="Brake" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 9 )
 attenuation_model = 3
+bus = "Sfx"
 
 [node name="Fuel" type="Label" parent="."]
 anchor_top = 1.0
@@ -241,14 +243,16 @@ text = "0 km/h"
 [node name="SpotLight" type="SpotLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.996195, 0.0871556, 0, -0.0871556, -0.996195, 0, 1, 2 )
 layers = 12
-light_color = Color( 1, 0.819608, 0, 1 )
+light_color = Color( 1, 0.913725, 0.521569, 1 )
 light_energy = 2.0
-spot_range = 15.0
+spot_range = 20.0
+spot_attenuation = 0.5
 spot_angle_attenuation = 0.5
 
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2 )
 layers = 12
 light_color = Color( 1, 0.188235, 0.0823529, 1 )
-omni_range = 4.0
-omni_attenuation = 0.6
+light_energy = 1.5
+omni_attenuation = 0.5
+omni_shadow_mode = 0

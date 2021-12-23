@@ -62,7 +62,7 @@ func _physics_process(delta: float) -> void:
 		3:
 			engine_force = 1000 * acc
 			$Engine.pitch_scale = 0.5+vel/18.0
-	
+
 	# Respawn if out of bounds or self-destructing
 	if translation.y < -20:
 		respawn()
@@ -98,3 +98,13 @@ func respawn():
 	get_parent().can_finish = false # FIXME
 	if fuel < 0.2:
 		fuel = 10
+
+
+func refuel(amount: int):
+	fuel += amount
+	if fuel > 100:
+		fuel = 100
+
+
+func boost(amount: float):
+	linear_velocity += linear_velocity.normalized() * amount

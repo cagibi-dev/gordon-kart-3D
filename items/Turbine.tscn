@@ -1,12 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://materials/White.material" type="Material" id=1]
+[ext_resource path="res://materials/Red.material" type="Material" id=2]
 
 [sub_resource type="CylinderMesh" id=15]
+material = ExtResource( 1 )
 bottom_radius = 2.0
 height = 20.0
 radial_segments = 5
 rings = 0
 
 [sub_resource type="CylinderMesh" id=16]
+material = ExtResource( 2 )
 top_radius = 1.5
 bottom_radius = 2.0
 height = 4.0
@@ -14,6 +19,8 @@ radial_segments = 7
 rings = 0
 
 [sub_resource type="PrismMesh" id=17]
+material = ExtResource( 1 )
+left_to_right = 2.0
 size = Vector3( 3, 12, 0.5 )
 
 [sub_resource type="Animation" id=18]
@@ -116,3 +123,4 @@ layers = 12
 light_color = Color( 1, 0, 0, 1 )
 light_energy = 2.0
 omni_range = 6.0
+omni_shadow_mode = 0
