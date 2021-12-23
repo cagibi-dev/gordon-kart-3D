@@ -175,7 +175,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -24.0
 rect_min_size = Vector2( 0, 32 )
-text = "FUEL: 0"
+text = "FUEL: 100"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

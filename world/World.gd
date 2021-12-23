@@ -29,16 +29,24 @@ var time_of_day := 0
 
 
 func _input(event):
-	if event.is_action_pressed("ui_accept") and $Kart/StartCamera.current:
+	if event.is_action_pressed("brake") and $Kart/StartCamera.current:
 		$CamPivot/Camera.set_deferred("current", true)
 		AudioServer.set_bus_effect_enabled(1, 0, true)
+		$HUD/Start.hide()
 	if event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_prev"):
 		if $CamPivot/Camera.current:
 			$Kart/FirstPersonCamera.current = true
 		elif $Kart/FirstPersonCamera.current:
 			$CamPivot/Camera.current = true
 	
-	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "gear_down", "gear_up", "ui_focus_next", "brake", "reset"]
+	if event.is_action_pressed("set_sfx"):
+		AudioServer.set_bus_mute(2, not AudioServer.is_bus_mute(2))
+	if event.is_action_pressed("set_music"):
+		next_music()
+	if event.is_action_pressed("set_env"):
+		next_env()
+	
+	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "gear_down", "gear_up", "ui_focus_next", "brake", "reset", "set_sfx", "set_music", "set_env"]
 	var bs := $HUD/LiveControls.get_children()
 	for i in range(len(bs)):
 		bs[i].frame = 1 if Input.is_action_pressed(acts[i]) else 0
@@ -86,33 +94,40 @@ func _on_Midway_body_entered(_body):
 	can_finish = true
 
 
-func _on_LightOnOff_toggled(button_pressed):
-	$Lights.visible = button_pressed
-
-
-func _on_AudioOnOff_toggled(button_pressed):
-	AudioServer.set_bus_mute(2, not button_pressed)
-
-
-func _on_Music_pressed() -> void:
+func next_music() -> void:
 	current_song += 1
 	if current_song >= len(playlist):
 		current_song = 0
 	$Music.stop()
 	$Music.stream = playlist[current_song][0]
-	$HUD/TopHud/Rows/Label.text = playlist[current_song][1]
+	$HUD/TopHud/Label.text = playlist[current_song][1]
 	$Music.play()
 
 
-func _on_TimeOfDay_pressed() -> void:
+func next_env() -> void:
+	var cams := [$CamPivot/Camera, $Kart/FirstPersonCamera, $Kart/StartCamera]
+	if time_of_day == 3:
+		if get_viewport().debug_draw == Viewport.DEBUG_DRAW_DISABLED:
+			# bonus: low perf mode
+			get_viewport().debug_draw = Viewport.DEBUG_DRAW_UNSHADED
+			for cam in cams:
+				cam.near *= 2
+				cam.far *= 0.5
+			$HUD/TopHud/Label.text = "low perf mode"
+			return
+		else:
+			get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED
+			for cam in cams:
+				cam.near *= 0.5
+				cam.far *= 2
 	time_of_day += 1
 	if time_of_day >= len(daylist):
 		time_of_day = 0
-	for cam in [$CamPivot/Camera, $Kart/FirstPersonCamera, $Kart/StartCamera]:
+	$HUD/TopHud/Label.text = ["time: golden hour", "time: dusk", "time: midnight", "time: afternoon"][time_of_day]
+	for cam in cams:
 		cam.environment = daylist[time_of_day]
 		cam.cull_mask &= ~30
 		cam.cull_mask |= int(pow(2, time_of_day+1))
-		print(int(pow(2, time_of_day+1)))
 
 	$Lights/SunLight.hide()
 	$Lights/DayLight.hide()
