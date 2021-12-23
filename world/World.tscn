@@ -296,6 +296,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Hard" type="Label" parent="HUD"]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Hard mode activated"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="FinishLine" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, -14 )
 collision_layer = 0
@@ -817,3 +829,4 @@ omni_shadow_mode = 0
 [connection signal="body_entered" from="FinishLine" to="." method="_on_FinishLine_body_entered"]
 [connection signal="body_exited" from="FinishLine" to="." method="_on_FinishLine_body_exited"]
 [connection signal="body_entered" from="Midway" to="." method="_on_Midway_body_entered"]
+[connection signal="body_entered" from="Vinyl" to="." method="_on_Vinyl_body_entered"]

@@ -136,3 +136,16 @@ func next_env() -> void:
 			$Lights/SunLight.show()
 		3: # day
 			$Lights/DayLight.show()
+
+
+func _on_Vinyl_body_entered(_body: Node) -> void:
+	$HUD/TopHud.hide()
+	$HUD/LiveControls.hide()
+	$Kart/Dashboard.hide()
+	$Kart/Fuel.hide()
+	$Interactables.queue_free()
+	$Vinyl.queue_free()
+
+	$HUD/Hard.show()
+	yield(get_tree().create_timer(5.0), "timeout")
+	$HUD/Hard.hide()

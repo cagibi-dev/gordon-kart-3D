@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://items/vinyl.png" type="Texture" id=1]
-[ext_resource path="res://items/Vinyl.gd" type="Script" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_transparent = true
@@ -51,7 +50,6 @@ tracks/0/keys = {
 [node name="Vinyl" type="Area"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 2 )
@@ -64,5 +62,3 @@ shape = SubResource( 3 )
 autoplay = "spin"
 anims/RESET = SubResource( 4 )
 anims/spin = SubResource( 5 )
-
-[connection signal="body_entered" from="." to="." method="_on_Vinyl_body_entered"]
