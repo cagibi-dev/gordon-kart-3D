@@ -38,6 +38,7 @@ func _input(event):
 	if event.is_action_pressed("brake") and $Kart/StartCamera.current:
 		# START THE GAME
 		$CamPivot/Camera.set_deferred("current", true)
+		$Kart/StartCamera/Anim.queue_free()
 		AudioServer.set_bus_effect_enabled(1, 0, true)
 		$HUD/Start.hide()
 		# we don't need his face anymore.
@@ -116,10 +117,14 @@ func next_env() -> void:
 		if get_viewport().debug_draw == Viewport.DEBUG_DRAW_DISABLED:
 			# bonus: low perf mode
 			get_viewport().debug_draw = Viewport.DEBUG_DRAW_UNSHADED
+			for a in get_tree().get_nodes_in_group("anim"):
+				a.stop()
 			$HUD/TopHud/Label.text = "low perf mode"
 			return
 		else:
 			get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED
+			for a in get_tree().get_nodes_in_group("anim"):
+				a.play("spin")
 	time_of_day += 1
 	if time_of_day >= len(daylist):
 		time_of_day = 0

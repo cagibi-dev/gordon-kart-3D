@@ -106,7 +106,7 @@ fov = 80.0
 near = 0.5
 far = 64.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Kart/StartCamera"]
+[node name="Anim" type="AnimationPlayer" parent="Kart/StartCamera"]
 autoplay = "wow"
 anims/wow = SubResource( 1 )
 

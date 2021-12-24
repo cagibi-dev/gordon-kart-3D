@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://materials/pizza.material" type="Material" id=1]
-[ext_resource path="res://materials/cardboard.material" type="Material" id=2]
+[ext_resource path="res://urbankit/props/concreteSmooth.material" type="Material" id=2]
 [ext_resource path="res://items/pizzas/Pizza.gd" type="Script" id=3]
 [ext_resource path="res://items/pizzas/noise_02.ogg" type="AudioStream" id=4]
 
@@ -41,13 +41,9 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 5 ), Vector3( 0, 270, 5 ), Vector3( 0, 0, 5 ) ]
 }
 
-[sub_resource type="CylinderMesh" id=1]
+[sub_resource type="CubeMesh" id=6]
 material = ExtResource( 1 )
-top_radius = 0.7
-bottom_radius = 0.7
-height = 0.2
-radial_segments = 8
-rings = 0
+size = Vector3( 0.2, 1.5, 1.5 )
 
 [sub_resource type="CubeMesh" id=3]
 material = ExtResource( 2 )
@@ -62,7 +58,7 @@ script = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 shape = SubResource( 2 )
 
-[node name="Anim" type="AnimationPlayer" parent="."]
+[node name="Anim" type="AnimationPlayer" parent="." groups=["anim"]]
 autoplay = "spin"
 anims/RESET = SubResource( 4 )
 anims/spin = SubResource( 5 )
@@ -70,19 +66,13 @@ anims/spin = SubResource( 5 )
 [node name="Meshes" type="Spatial" parent="."]
 
 [node name="Pizza" type="MeshInstance" parent="Meshes"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.1, 0 )
-mesh = SubResource( 1 )
-skeleton = NodePath("../..")
-material/0 = null
-
-[node name="Board" type="MeshInstance" parent="Meshes"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.1, 0 )
-mesh = SubResource( 3 )
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.1, -0.1, 0 )
+mesh = SubResource( 6 )
 skeleton = NodePath("../..")
 material/0 = null
 
 [node name="Board2" type="MeshInstance" parent="Meshes"]
-transform = Transform( -0.258819, -0.965926, 0, 0.965926, -0.258819, 0, 0, 0, 1, -0.7, 0.5, 0 )
+transform = Transform( -0.258819, -0.965926, 0, 0.965926, -0.258819, 0, 0, 0, 1, -0.8, 0.6, 0 )
 mesh = SubResource( 3 )
 skeleton = NodePath("../..")
 material/0 = null

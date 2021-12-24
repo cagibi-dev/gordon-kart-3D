@@ -58,7 +58,7 @@ material/0 = null
 [node name="Shape" type="CollisionShape" parent="."]
 shape = SubResource( 3 )
 
-[node name="Anim" type="AnimationPlayer" parent="."]
+[node name="Anim" type="AnimationPlayer" parent="." groups=["anim"]]
 autoplay = "spin"
 anims/RESET = SubResource( 4 )
 anims/spin = SubResource( 5 )

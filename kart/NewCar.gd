@@ -2,14 +2,16 @@ extends VehicleBody
 
 
 var gear := 1
-var fuel := 100.0
+var fuel := 10.0
 var can_acc := true
 var music_filter: AudioEffectLowPassFilter
+var engine_filter: AudioEffectHighPassFilter
 onready var start_pos := transform
 
 
 func _ready():
 	music_filter = AudioServer.get_bus_effect(1, 0)
+	engine_filter = AudioServer.get_bus_effect(3, 0)
 	AudioServer.set_bus_effect_enabled(1, 0, false)
 
 
@@ -35,6 +37,12 @@ func _physics_process(delta: float) -> void:
 		$Fuel.text = "OUT OF FUEL"
 	else:
 		fuel -= 0.8 * abs(acc) * delta
+		if fuel < 5:
+			engine_filter.cutoff_hz = 300
+		elif fuel < 10:
+			engine_filter.cutoff_hz = 150
+		else:
+			engine_filter.cutoff_hz = 50
 		$Fuel.text = "FUEL: " + str(round(fuel))
 
 	if acc != 0 and not $Engine.playing:
