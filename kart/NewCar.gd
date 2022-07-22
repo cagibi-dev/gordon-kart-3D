@@ -2,7 +2,6 @@ extends VehicleBody
 
 
 var gear := 1
-var fuel := 10.0
 var can_acc := true
 var music_filter: AudioEffectLowPassFilter
 var engine_filter: AudioEffectHighPassFilter
@@ -32,18 +31,6 @@ func _physics_process(delta: float) -> void:
 	var acc := Input.get_action_strength("accelerate") - Input.get_action_strength("accelerate_backwards")
 	if not can_acc:
 		acc = 0
-	if fuel <= 0:
-		acc = 0
-		$Fuel.text = "OUT OF FUEL"
-	else:
-		fuel -= 0.8 * abs(acc) * delta
-		if fuel < 5:
-			engine_filter.cutoff_hz = 300
-		elif fuel < 10:
-			engine_filter.cutoff_hz = 150
-		else:
-			engine_filter.cutoff_hz = 50
-		$Fuel.text = "FUEL: " + str(round(fuel))
 
 	if acc != 0 and not $Engine.playing:
 		$Engine.play()
@@ -104,14 +91,6 @@ func set_gear(new_gear: int):
 func respawn():
 	transform = start_pos
 	get_parent().can_finish = false # FIXME
-	if fuel < 0.2:
-		fuel = 10
-
-
-func refuel(amount: int):
-	fuel += amount
-	if fuel > 100:
-		fuel = 100
 
 
 func boost(amount: float):

@@ -171,12 +171,14 @@ set_env={
 
 [physics]
 
+common/physics_fps=15
 3d/active_soft_world=false
+common/physics_interpolation=true
 common/enable_object_picking=false
 
 [rendering]
 
-quality/intended_usage/framebuffer_allocation=3
+threads/thread_model=0
 quality/directional_shadow/size=2048
 quality/shadow_atlas/size=512
 quality/shadow_atlas/size.mobile=512

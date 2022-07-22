@@ -62,7 +62,7 @@ func _input(event):
 		bs[i].frame = 1 if Input.is_action_pressed(acts[i]) else 0
 
 
-func _process(delta: float):
+func _physics_process(delta: float):
 	$CamPivot.translation = lerp($CamPivot.translation, $Kart.translation, 15*delta)
 	$CamPivot.rotation.y = lerp_angle($CamPivot.rotation.y, $Kart.rotation.y, 15*delta)
 	if running:
@@ -91,9 +91,8 @@ func _on_FinishLine_body_entered(_body):
 		emit_signal("finished")
 
 
-func _on_FinishLine_body_exited(body: CollisionObject):
+func _on_FinishLine_body_exited(_body: CollisionObject):
 	running = true
-	body.refuel(10)
 	for n in get_tree().get_nodes_in_group("turn_local"):
 		n.turn()
 
@@ -147,7 +146,6 @@ func _on_Vinyl_body_entered(_body: Node) -> void:
 	$HUD/TopHud.hide()
 	$HUD/LiveControls.hide()
 	$Kart/Dashboard.hide()
-	$Kart/Fuel.hide()
 	$Interactables.queue_free()
 	$Vinyl.queue_free()
 
