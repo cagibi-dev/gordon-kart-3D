@@ -7,7 +7,7 @@
 [ext_resource path="res://items/airplane_prop.ogg" type="AudioStream" id=5]
 [ext_resource path="res://world/World.gd" type="Script" id=6]
 [ext_resource path="res://world/bonus.wav" type="AudioStream" id=7]
-[ext_resource path="res://world/explosion.ogg" type="AudioStream" id=8]
+[ext_resource path="res://world/new_highscore.wav" type="AudioStream" id=8]
 [ext_resource path="res://effects/explosion1-Sheet.png" type="Texture" id=9]
 [ext_resource path="res://items/pizzas/Pizza.tscn" type="PackedScene" id=12]
 [ext_resource path="res://items/Turbine.tscn" type="PackedScene" id=13]
@@ -307,7 +307,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Explosion" type="AudioStreamPlayer" parent="FinishLine"]
+[node name="NewHighscore" type="AudioStreamPlayer" parent="FinishLine"]
 stream = ExtResource( 8 )
 volume_db = -6.0
 bus = "Sfx"
@@ -435,7 +435,6 @@ shadow_enabled = true
 shadow_color = Color( 0.12549, 0, 1, 1 )
 shadow_bias = 1.0
 directional_shadow_mode = 0
-directional_shadow_depth_range = 1
 directional_shadow_max_distance = 32.0
 __meta__ = {
 "_edit_lock_": true

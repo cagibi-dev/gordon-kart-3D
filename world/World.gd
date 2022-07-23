@@ -30,7 +30,6 @@ var time_of_day := 0
 
 
 func _ready():
-	Camera
 	"""for _i in range(64):
 		var crate := preload("res://items/barrel/Crate.tscn").instance()
 		crate.translation = Vector3(rand_range(-60, 60), 12, rand_range(-60, 60))
@@ -120,12 +119,11 @@ func _on_FinishLine_body_entered(_body):
 		if running and current_time < best_time:
 			best_time = current_time
 			$HUD/Scores/Best.text = "Best time: " + nice_stringify(best_time) + " s"
-			$FinishLine/Explosion.play()
+			$FinishLine/NewHighscore.play()
 			Engine.time_scale = 0.1
 			yield(get_tree().create_timer(0.1), "timeout")
 			Engine.time_scale = 1
-		else:
-			$FinishLine/EndTurn.play()
+		$FinishLine/EndTurn.play()
 		current_time = 0.0
 		running = false
 		can_finish = false
