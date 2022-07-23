@@ -57,70 +57,77 @@ script = ExtResource( 3 )
 
 [node name="Head" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0.799188, 0.158734 )
+cast_shadow = 0
 mesh = SubResource( 1 )
-material/0 = null
 
 [node name="Head2" type="MeshInstance" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 0.660814, 0.75055, 0, -0.75055, 0.660814, 0, 0.0222683, -0.111683 )
+cast_shadow = 0
 mesh = SubResource( 2 )
-material/0 = null
 
 [node name="Mouth" type="MeshInstance" parent="Head/Head2"]
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.2, 0.1 )
+cast_shadow = 0
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
 
 [node name="RightEye" type="MeshInstance" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0640398, 0.176306, 0.135441 )
+cast_shadow = 0
 mesh = SubResource( 4 )
-material/0 = null
 
 [node name="Pupil" type="MeshInstance" parent="Head/RightEye"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0514732, -0.000861049 )
+cast_shadow = 0
 mesh = SubResource( 5 )
 material/0 = ExtResource( 1 )
 
 [node name="LeftEye" type="MeshInstance" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0634833, 0.176306, 0.135441 )
+cast_shadow = 0
 mesh = SubResource( 4 )
-material/0 = null
 
 [node name="Pupil" type="MeshInstance" parent="Head/LeftEye"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00667426, 0.0514732, -0.000861049 )
+cast_shadow = 0
 mesh = SubResource( 5 )
 material/0 = ExtResource( 1 )
 
 [node name="Nose" type="MeshInstance" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.05 )
+cast_shadow = 0
 mesh = SubResource( 4 )
-material/0 = null
 
 [node name="EyeBrows" type="MeshInstance" parent="Head"]
 transform = Transform( 1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 0, 0.179603, 0.211535 )
+cast_shadow = 0
 mesh = SubResource( 6 )
 material/0 = ExtResource( 1 )
 
 [node name="RightEar" type="MeshInstance" parent="Head"]
 transform = Transform( 0.707107, 1.49012e-08, -0.707107, 0.183013, 0.965926, 0.183013, 0.683013, -0.258819, 0.683012, 0.15, 0.05, 0.2 )
+cast_shadow = 0
 mesh = SubResource( 10 )
-material/0 = null
 
 [node name="LeftEar" type="MeshInstance" parent="Head"]
 transform = Transform( -0.707107, -1.49012e-08, -0.707107, 0.183013, 0.965926, -0.183013, 0.683013, -0.258819, -0.683012, -0.15, 0.05, 0.2 )
+cast_shadow = 0
 mesh = SubResource( 10 )
-material/0 = null
 
 [node name="Body" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.677428, 0.735589, 0, -0.735589, 0.677428, 0, 0.308424, 0.0653615 )
+cast_shadow = 0
 mesh = SubResource( 8 )
 material/0 = ExtResource( 2 )
 
 [node name="RightArm" type="MeshInstance" parent="."]
 transform = Transform( -0.5, -0.866025, -6.45239e-09, 0.860975, -0.497084, 0.107843, -0.093395, 0.0539216, 0.994168, 0.2, 0.4, -0.1 )
+cast_shadow = 0
 mesh = SubResource( 11 )
 material/0 = ExtResource( 4 )
 
 [node name="LeftArm" type="MeshInstance" parent="."]
 transform = Transform( -0.866026, -0.5, -7.45058e-09, 0.497084, -0.860974, 0.107843, -0.0539216, 0.0933949, 0.994168, -0.2, 0.4, -0.1 )
+cast_shadow = 0
 mesh = SubResource( 11 )
 material/0 = ExtResource( 4 )

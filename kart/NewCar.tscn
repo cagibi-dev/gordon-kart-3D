@@ -1,12 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://kart/car6_mat.material" type="Material" id=1]
 [ext_resource path="res://kart/Gordon.tscn" type="PackedScene" id=2]
-[ext_resource path="res://items/pizzas/pizza.png" type="Texture" id=4]
+[ext_resource path="res://materials/pizza.material" type="Material" id=3]
 [ext_resource path="res://kart/NewCar.gd" type="Script" id=5]
-[ext_resource path="res://items/crate/crate.tscn" type="PackedScene" id=6]
 [ext_resource path="res://kart/engine_loop_cc0.wav" type="AudioStream" id=7]
-[ext_resource path="res://kart/switch_02.ogg" type="AudioStream" id=8]
 [ext_resource path="res://kart/brake.ogg" type="AudioStream" id=9]
 
 [sub_resource type="PhysicsMaterial" id=6]
@@ -27,18 +25,16 @@ surfaces/0 = {
 "vertex_count": 632
 }
 
-[sub_resource type="SpatialMaterial" id=4]
-albedo_texture = ExtResource( 4 )
-
 [sub_resource type="CylinderMesh" id=5]
-material = SubResource( 4 )
+material = ExtResource( 3 )
 top_radius = 0.4
 bottom_radius = 0.4
-height = 0.2
+height = 0.3
 radial_segments = 8
 rings = 0
 
-[sub_resource type="ConvexPolygonShape" id=2]
+[sub_resource type="ConvexPolygonShape" id=7]
+margin = 0.2
 points = PoolVector3Array( -1.24022, -2.0369, -0.89029, -1.16859, -1.54011, -1.04607, -1.10061, -2.30832, -1.19484, -1.02219, -3.07218, -1.11074, -1.11785, -3.15248, -0.687966, -1.21934, -2.20249, -0.466537, -1.23852, -1.99955, -0.626567, -1.24022, -1.78664, -0.670003, -1.24022, 1.21897, -0.854201, -0.846641, -1.12301, -1.5456, -0.75802, -1.22698, -1.66823, -1.17151, 1.05898, -0.981409, -1.10061, 1.21897, -1.0931, -1.09187, -1.59739, -1.18831, -0.75802, 0.294502, -1.66742, 0, -3.12758, -1.11074, 0, -1.28861, -1.66823, 1.11761, -3.15248, -0.687966, -1.06055, -3.15248, -0.180605, -1.15184, -2.31642, -0.0300465, -1.18025, -1.24379, 0, -1.23463, -1.36705, -0.471436, -1.24022, -1.58369, -0.633425, -1.24022, 1.21897, -0.520424, -1.19749, 2.17705, -0.633425, -1.01053, 2.95958, -0.760143, 0.757777, -1.22698, -1.66823, 0, 0.400334, -1.66742, 0, 3.05608, -0.782188, 1.02194, -3.07218, -1.11074, 1.0603, -3.15248, -0.180605, 1.24022, -2.0369, -0.89029, 1.2191, -2.20249, -0.466537, 1.1516, -2.31642, -0.0300465, 1.18, -1.24379, 0, -1.17563, 1.41009, 0, -1.18559, 2.37004, -0.48303, -1.05423, 3.1009, -0.520424, 0.846398, -1.12301, -1.5456, 1.10037, -2.30832, -1.19484, 0.757777, 0.294502, -1.66742, 0, 3.20735, -0.520424, 1.05399, 3.1009, -0.520424, 1.01029, 2.95958, -0.760143, 1.24022, -1.78664, -0.670003, 1.23828, -1.99955, -0.626567, 1.16835, -1.54011, -1.04607, 1.24022, 1.21897, -0.854201, 1.23439, -1.36705, -0.471436, 1.24022, 1.21897, -0.520424, 1.17539, 1.41009, 0, -1.12368, 2.51758, 0, -1.04719, 2.95398, 0, 0, 3.06043, 0, 1.09163, -1.59739, -1.18831, 1.10037, 1.21897, -1.0931, 1.17126, 1.05898, -0.981409, 1.04695, 2.95398, 0, 1.18535, 2.37004, -0.48303, 1.19724, 2.17705, -0.633425, 1.24022, -1.58369, -0.633425, 1.12343, 2.51758, 0 )
 
 [node name="NewCar" type="VehicleBody"]
@@ -50,22 +46,19 @@ script = ExtResource( 5 )
 
 [node name="Car6" type="MeshInstance" parent="."]
 transform = Transform( 0.8, 0, 0, 0, -3.49691e-08, -0.8, 0, 0.8, -3.49691e-08, 0, 0, 0 )
+cast_shadow = 0
+extra_cull_margin = 1.0
 mesh = SubResource( 1 )
 
-[node name="Crate" parent="Car6" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, -7.10543e-15, 0, 7.10543e-15, 1, 0, -0.738831, -0.9 )
-collision_layer = 0
-collision_mask = 0
-mode = 1
-
 [node name="Pizza" type="MeshInstance" parent="Car6"]
-transform = Transform( 1.25, 1.33227e-14, 4.44089e-15, -4.44089e-15, -5.46392e-08, 1.25, 1.33227e-14, -1.25, -5.46392e-08, -0.6, 0.5, -1 )
+transform = Transform( 1.5, 1.59872e-14, 6.98824e-22, -1.00974e-28, -6.55671e-08, 1.5, 1.59872e-14, -1.5, -6.55671e-08, 0, -1.54602, -1 )
+cast_shadow = 0
 mesh = SubResource( 5 )
 skeleton = NodePath("../..")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.8, 0, 0, 0, -3.49691e-08, -0.8, 0, 0.8, -3.49691e-08, 0, 0, 0 )
-shape = SubResource( 2 )
+transform = Transform( 0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, 0, 0 )
+shape = SubResource( 7 )
 
 [node name="Gordon" parent="." instance=ExtResource( 2 )]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.25, 0.5, 0.75 )
@@ -76,9 +69,12 @@ wheel_radius = 0.4
 wheel_friction_slip = 6.0
 suspension_travel = 0.5
 suspension_stiffness = 50.0
+damping_compression = 0.3
+damping_relaxation = 0.5
 
 [node name="Wheel" type="MeshInstance" parent="WheelBL"]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+cast_shadow = 0
 mesh = SubResource( 5 )
 skeleton = NodePath("../..")
 
@@ -88,9 +84,12 @@ wheel_radius = 0.4
 wheel_friction_slip = 6.0
 suspension_travel = 0.5
 suspension_stiffness = 50.0
+damping_compression = 0.3
+damping_relaxation = 0.5
 
 [node name="Wheel" type="MeshInstance" parent="WheelBR"]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+cast_shadow = 0
 mesh = SubResource( 5 )
 skeleton = NodePath("../..")
 
@@ -102,9 +101,12 @@ wheel_radius = 0.4
 wheel_friction_slip = 8.0
 suspension_travel = 0.5
 suspension_stiffness = 50.0
+damping_compression = 0.3
+damping_relaxation = 0.5
 
 [node name="Wheel" type="MeshInstance" parent="WheelFL"]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+cast_shadow = 0
 mesh = SubResource( 5 )
 skeleton = NodePath("../..")
 
@@ -116,93 +118,34 @@ wheel_radius = 0.4
 wheel_friction_slip = 8.0
 suspension_travel = 0.5
 suspension_stiffness = 50.0
+damping_compression = 0.3
+damping_relaxation = 0.5
 
 [node name="Wheel" type="MeshInstance" parent="WheelFR"]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+cast_shadow = 0
 mesh = SubResource( 5 )
 skeleton = NodePath("../..")
 
-[node name="Engine" type="AudioStreamPlayer3D" parent="."]
+[node name="Engine" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-unit_size = 2.0
-max_db = 0.0
 bus = "kart"
-
-[node name="GearUp" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 8 )
-attenuation_model = 3
-bus = "Sfx"
-
-[node name="GearDown" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 8 )
-attenuation_model = 3
-pitch_scale = 0.5
-bus = "Sfx"
 
 [node name="Brake" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 9 )
 attenuation_model = 3
 bus = "Sfx"
 
-[node name="Dashboard" type="HBoxContainer" parent="."]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -102.0
-margin_bottom = 19.0
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Gear" type="Label" parent="Dashboard"]
-margin_left = 545.0
-margin_top = 51.0
-margin_right = 599.0
-margin_bottom = 70.0
-text = "gear:  "
-
-[node name="G1" type="Label" parent="Dashboard"]
-margin_left = 603.0
-margin_top = 51.0
-margin_right = 607.0
-margin_bottom = 70.0
-text = "1"
-
-[node name="G2" type="Label" parent="Dashboard"]
-modulate = Color( 1, 1, 1, 0.317647 )
-margin_left = 611.0
-margin_top = 51.0
-margin_right = 621.0
-margin_bottom = 70.0
-text = "2"
-
-[node name="G3" type="Label" parent="Dashboard"]
-modulate = Color( 1, 1, 1, 0.317647 )
-margin_left = 625.0
-margin_top = 51.0
-margin_right = 635.0
-margin_bottom = 70.0
-text = "3"
-
-[node name="Control" type="Control" parent="Dashboard"]
-margin_left = 639.0
-margin_right = 679.0
-margin_bottom = 121.0
-rect_min_size = Vector2( 40, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Speed" type="Label" parent="Dashboard"]
-margin_left = 683.0
-margin_top = 51.0
-margin_right = 734.0
-margin_bottom = 70.0
+[node name="Speed" type="Label" parent="."]
+margin_left = 316.0
+margin_top = 329.0
+margin_right = 367.0
+margin_bottom = 348.0
 text = "0 km/h"
 
 [node name="SpotLight" type="SpotLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.996195, 0.0871556, 0, -0.0871556, -0.996195, 0, 1, 2 )
+visible = false
 layers = 12
 light_color = Color( 1, 0.913725, 0.521569, 1 )
 light_energy = 2.0
@@ -212,6 +155,7 @@ spot_angle_attenuation = 0.5
 
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2 )
+visible = false
 layers = 12
 light_color = Color( 1, 0.188235, 0.0823529, 1 )
 light_energy = 1.5

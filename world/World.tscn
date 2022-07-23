@@ -1,20 +1,18 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=34 format=2]
 
-[ext_resource path="res://items/crate/crate.tscn" type="PackedScene" id=2]
+[ext_resource path="res://items/barrel/Crate.tscn" type="PackedScene" id=1]
+[ext_resource path="res://items/barrel/Barrel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://items/Jetliner.tscn" type="PackedScene" id=3]
-[ext_resource path="res://materials/motif-2x2-dithering.png" type="Texture" id=4]
+[ext_resource path="res://effects/explode8.wav" type="AudioStream" id=4]
 [ext_resource path="res://items/airplane_prop.ogg" type="AudioStream" id=5]
 [ext_resource path="res://world/World.gd" type="Script" id=6]
 [ext_resource path="res://world/bonus.wav" type="AudioStream" id=7]
 [ext_resource path="res://world/explosion.ogg" type="AudioStream" id=8]
-[ext_resource path="res://world/crowd/raving-crowd.ogg" type="AudioStream" id=9]
-[ext_resource path="res://menu/CoolPanel.material" type="Material" id=10]
+[ext_resource path="res://effects/explosion1-Sheet.png" type="Texture" id=9]
 [ext_resource path="res://items/pizzas/Pizza.tscn" type="PackedScene" id=12]
 [ext_resource path="res://items/Turbine.tscn" type="PackedScene" id=13]
 [ext_resource path="res://urbankit/urbankit.meshlib" type="MeshLibrary" id=14]
 [ext_resource path="res://kart/NewCar.tscn" type="PackedScene" id=15]
-[ext_resource path="res://items/Vinyl.tscn" type="PackedScene" id=16]
-[ext_resource path="res://materials/dither.shader" type="Shader" id=17]
 [ext_resource path="res://menu/controls.png" type="Texture" id=18]
 
 [sub_resource type="Animation" id=1]
@@ -33,10 +31,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector3( 1, 1, 3 ), Vector3( 2, 1, 3 ) ]
 }
-
-[sub_resource type="ShaderMaterial" id=11]
-shader = ExtResource( 17 )
-shader_param/matrix = ExtResource( 4 )
 
 [sub_resource type="BoxShape" id=12]
 margin = 0.5
@@ -78,6 +72,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector3( 64.17, 12, -91.052 ), Vector3( 20.5505, 11.36, -19.6754 ), Vector3( -72.141, 10, 112 ) ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 12 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "reset_physics_interpolation"
+} ]
+}
 
 [sub_resource type="OccluderShapePolygon" id=18]
 polygon_points = PoolVector2Array( 10, -10, -25, 12, -70, 12, -70, -10 )
@@ -92,6 +100,49 @@ polygon_points = PoolVector2Array( -17.0281, -10.2413, -19.2991, 15.833, -64.003
 polygon_points = PoolVector2Array( -20.1156, -2.48802, -19.2576, 17.2084, -50.1625, 16.5266, -69.7757, -2.96579 )
 hole_points = PoolVector2Array( -47.6476, 2.99354, -44.6409, 2.66492, -47.5009, -0.183844, -44.6126, -0.234562 )
 
+[sub_resource type="OccluderShapePolygon" id=22]
+polygon_points = PoolVector2Array( 7.21271, -21.2938, 52.2025, -52.6058, -32.7549, 45.6341, -13.3916, 1.65782, -17.4783, 51.421, 42.361, -5.76229 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 9 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 9 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 9 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 9 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 9 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 9 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 9 )
+region = Rect2( 448, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=31]
+animations = [ {
+"frames": [ SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
+"loop": false,
+"name": "explode",
+"speed": 10.0
+} ]
+
 [node name="World" type="Spatial"]
 script = ExtResource( 6 )
 __meta__ = {
@@ -105,19 +156,19 @@ transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -50, 0.
 transform = Transform( 0.866026, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866026, 1, 1, 3 )
 cull_mask = 1048547
 current = true
-fov = 80.0
-near = 0.5
-far = 64.0
+near = 0.6
+far = 50.0
 
 [node name="Anim" type="AnimationPlayer" parent="Kart/StartCamera"]
 autoplay = "wow"
+playback_process_mode = 0
 anims/wow = SubResource( 1 )
 
 [node name="FirstPersonCamera" type="Camera" parent="Kart"]
 transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 1.25, 0.65 )
 cull_mask = 3
 doppler_tracking = 2
-fov = 90.0
+fov = 72.0
 near = 0.5
 far = 128.0
 
@@ -128,34 +179,17 @@ transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -50, 0.
 transform = Transform( -1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 0, 2.5, -2.5 )
 cull_mask = 1048547
 doppler_tracking = 2
-fov = 90.0
-near = 0.5
+fov = 80.0
+near = 1.0
 far = 128.0
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 volume_db = -6.0
+pitch_scale = 0.8
 autoplay = true
 bus = "Music"
 
 [node name="HUD" type="CanvasLayer" parent="."]
-
-[node name="TopHud" type="ColorRect" parent="HUD"]
-material = ExtResource( 10 )
-anchor_right = 1.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 0, 28 )
-color = Color( 0.372549, 0.694118, 0.603922, 1 )
-
-[node name="Label" type="Label" parent="HUD/TopHud"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-text = "---  G O R D O N K A R T  ---"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="LiveControls" type="Node2D" parent="HUD"]
 position = Vector2( 590, 260 )
@@ -186,20 +220,6 @@ texture = ExtResource( 18 )
 vframes = 2
 region_enabled = true
 region_rect = Rect2( 16, 0, 16, 32 )
-
-[node name="B5" type="Sprite" parent="HUD/LiveControls"]
-position = Vector2( -18, 0 )
-texture = ExtResource( 18 )
-vframes = 2
-region_enabled = true
-region_rect = Rect2( 64, 0, 16, 32 )
-
-[node name="B6" type="Sprite" parent="HUD/LiveControls"]
-position = Vector2( 18, 0 )
-texture = ExtResource( 18 )
-vframes = 2
-region_enabled = true
-region_rect = Rect2( 48, 0, 16, 32 )
 
 [node name="B7" type="Sprite" parent="HUD/LiveControls"]
 position = Vector2( -40, 0 )
@@ -243,48 +263,25 @@ vframes = 2
 region_enabled = true
 region_rect = Rect2( 96, 32, 16, 32 )
 
-[node name="BottomHud" type="ColorRect" parent="HUD"]
-material = ExtResource( 10 )
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -28.0
-rect_min_size = Vector2( 0, 28 )
-color = Color( 0.372549, 0.694118, 0.603922, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Scores" type="HBoxContainer" parent="HUD/BottomHud"]
+[node name="Scores" type="HBoxContainer" parent="HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
+margin_top = 327.0
 margin_right = -10.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = -3.0
 
-[node name="Current" type="Label" parent="HUD/BottomHud/Scores"]
-margin_top = 4.0
-margin_right = 1256.0
-margin_bottom = 23.0
+[node name="Current" type="Label" parent="HUD/Scores"]
+margin_top = 5.0
+margin_right = 616.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 
-[node name="Best" type="Label" parent="HUD/BottomHud/Scores"]
-margin_left = 1260.0
-margin_top = 4.0
-margin_right = 1260.0
-margin_bottom = 23.0
-
-[node name="ColorRect" type="ColorRect" parent="HUD"]
-visible = false
-material = SubResource( 11 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Best" type="Label" parent="HUD/Scores"]
+margin_left = 620.0
+margin_top = 5.0
+margin_right = 620.0
+margin_bottom = 24.0
 
 [node name="Start" type="Label" parent="HUD"]
 anchor_right = 1.0
@@ -292,21 +289,15 @@ anchor_bottom = 1.0
 text = "press space to start"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Hard" type="Label" parent="HUD"]
-visible = false
-modulate = Color( 1, 0, 0, 1 )
+[node name="Label" type="Label" parent="HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Hard mode activated"
+margin_bottom = -330.0
+size_flags_horizontal = 3
+text = "---  G O R D O N K A R T  ---"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="FinishLine" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, -14 )
@@ -341,18 +332,6 @@ collision_mask = 2
 [node name="CollisionShape" type="CollisionShape" parent="Midway"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 shape = SubResource( 14 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Crowd" type="AudioStreamPlayer3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 7, 1 )
-stream = ExtResource( 9 )
-unit_size = 5.0
-max_db = 0.0
-max_distance = 40.0
-bus = "Sfx"
-area_mask = 0
 __meta__ = {
 "_edit_lock_": true
 }
@@ -393,43 +372,10 @@ doppler_tracking = 2
 [node name="Turbine" parent="." instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -4 )
 
-[node name="Vinyl" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -1, -26 )
-
 [node name="Interactables" type="Spatial" parent="."]
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="Crate" parent="Interactables" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 6 )
-
-[node name="Crate2" parent="Interactables" instance=ExtResource( 2 )]
-transform = Transform( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 2, -3, 7 )
-
-[node name="Crate3" parent="Interactables" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1.64449, 6.42114 )
-
-[node name="Crate4" parent="Interactables" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1.35551, 52.4211 )
-
-[node name="Crate5" parent="Interactables" instance=ExtResource( 2 )]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 11, 1.35551, 55.4211 )
-
-[node name="Crate6" parent="Interactables" instance=ExtResource( 2 )]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -7.38478, -0.64449, 41.5216 )
-
-[node name="Crate7" parent="Interactables" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 1, 29 )
-
-[node name="Crate8" parent="Interactables" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 1, -33 )
-
-[node name="Crate9" parent="Interactables" instance=ExtResource( 2 )]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -47, 1, -35 )
-
-[node name="Crate10" parent="Interactables" instance=ExtResource( 2 )]
-transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -46, 1, -32 )
 
 [node name="Pizza" parent="Interactables" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 1, 1 )
@@ -467,6 +413,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 7, -32 )
 [node name="Pizza12" parent="Interactables" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -57, 1, -30 )
 
+[node name="Crate" parent="Interactables" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 1, -26 )
+
+[node name="Barrel" parent="Interactables" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -52.6968, 1.24364, -23.0433 )
+
 [node name="Lights" type="Spatial" parent="."]
 __meta__ = {
 "_edit_lock_": true
@@ -474,317 +426,36 @@ __meta__ = {
 
 [node name="SunLight" type="DirectionalLight" parent="Lights"]
 transform = Transform( 0.965926, 0.0669873, 0.25, 0, -0.965926, 0.258819, 0.258819, -0.25, -0.933013, 0, 10, 0 )
+visible = false
 layers = 2
+light_color = Color( 1, 0.188235, 0, 1 )
+light_energy = 0.6
 light_cull_mask = 4293918723
 shadow_enabled = true
+shadow_color = Color( 0.12549, 0, 1, 1 )
 shadow_bias = 1.0
 directional_shadow_mode = 0
 directional_shadow_depth_range = 1
-directional_shadow_max_distance = 72.0
+directional_shadow_max_distance = 32.0
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="DayLight" type="DirectionalLight" parent="Lights"]
 transform = Transform( 0.5, -0.75, -0.433013, -4.37114e-08, -0.5, 0.866025, -0.866025, -0.433013, -0.25, 0, 10, 0 )
-visible = false
 layers = 16
+light_color = Color( 1, 0.941176, 0.462745, 1 )
+light_energy = 0.5
 light_cull_mask = 4293918723
 shadow_enabled = true
+shadow_color = Color( 0.298039, 0, 0.843137, 1 )
 shadow_bias = 1.0
 directional_shadow_mode = 0
-directional_shadow_depth_range = 1
-directional_shadow_max_distance = 72.0
+directional_shadow_normal_bias = 0.1
+directional_shadow_max_distance = 32.0
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="L1" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 61, 3, 10 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L2" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 61, 3, -20 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L3" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 61, 3, 26 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L4" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 3, 46 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L5" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 3, 58 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L6" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 3, 50 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L7" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, 50 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L8" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 57 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L9" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 1, 27 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L10" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 1, 33 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L11" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 5, 27 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L12" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 5, 49 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L13" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 9, 62 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L14" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 9, 34 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L15" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 9, 18 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L16" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 9, -34 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L17" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 9, -54 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L18" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, -34 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L19" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 7 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L20" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 13 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L21" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -1, 5 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L22" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -1, -1 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L23" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -1, -13 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L24" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34, -1, -7 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L25" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -21 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L26" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 3, 42 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L27" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 3, 14 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L28" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 3, 4 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L29" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -57, 3, 10 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L30" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -57, 3, -10 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L31" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 3, -10 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L32" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 3, -22 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L33" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 3, -23 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L34" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 3, -42 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L35" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -56, 3, -38 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L36" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 3, -61 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L37" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -55 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L38" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 9, -61 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L39" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 9, -22 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L40" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 9, -10 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
-
-[node name="L41" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9, 22 )
-layers = 12
-light_color = Color( 1, 0.807843, 0.054902, 1 )
-omni_range = 8.0
-omni_shadow_mode = 0
 
 [node name="Occluders" type="Spatial" parent="."]
 
@@ -804,7 +475,27 @@ shape = SubResource( 20 )
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -11, 0, 12 )
 shape = SubResource( 21 )
 
+[node name="Occluder5" type="Occluder" parent="Occluders"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5, 0 )
+shape = SubResource( 22 )
+
+[node name="Explode" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
+attenuation_model = 3
+bus = "Sfx"
+
+[node name="Visual" type="AnimatedSprite3D" parent="Explode"]
+cast_shadow = 0
+offset = Vector2( 0, 32 )
+pixel_size = 0.1
+billboard = 1
+transparent = false
+double_sided = false
+alpha_cut = 1
+frames = SubResource( 31 )
+animation = "explode"
+frame = 7
+
 [connection signal="body_entered" from="FinishLine" to="." method="_on_FinishLine_body_entered"]
 [connection signal="body_exited" from="FinishLine" to="." method="_on_FinishLine_body_exited"]
 [connection signal="body_entered" from="Midway" to="." method="_on_Midway_body_entered"]
-[connection signal="body_entered" from="Vinyl" to="." method="_on_Vinyl_body_entered"]

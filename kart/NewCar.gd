@@ -2,7 +2,6 @@ extends VehicleBody
 
 
 var gear := 1
-var can_acc := true
 var music_filter: AudioEffectLowPassFilter
 var engine_filter: AudioEffectHighPassFilter
 onready var start_pos := transform
@@ -17,7 +16,7 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	# steer
 	var steering_target = Input.get_action_strength("move_left") - Input.get_action_strength("move_right")
-	steering = lerp(steering, steering_target, 2*delta)
+	steering = lerp(steering, steering_target, 2 * delta)
 
 	# brake
 	brake = 50 * Input.get_action_strength("brake")
@@ -29,8 +28,6 @@ func _physics_process(delta: float) -> void:
 
 	# accelerate according to gear
 	var acc := Input.get_action_strength("accelerate") - Input.get_action_strength("accelerate_backwards")
-	if not can_acc:
-		acc = 0
 
 	if acc != 0 and not $Engine.playing:
 		$Engine.play()
@@ -38,25 +35,26 @@ func _physics_process(delta: float) -> void:
 		$Engine.stop()
 
 	var vel: float = abs($WheelFL.get_rpm() + $WheelFR.get_rpm()) / 48
-	$Dashboard/Speed.text = str(floor(vel*3.6)) + " km/h"
+	$Speed.text = str(floor(vel*3.6)) + " km/h"
 	music_filter.cutoff_hz = min(500 + 400 * vel, 22000)
 	match gear:
 		1:
-			if vel < 6:
-				engine_force = 3200 * acc
-			else:
-				engine_force = 0
-			$Engine.pitch_scale = 0.5+vel/6.0
+			engine_force = 3600 * acc
 		2:
-			if vel < 13:
-				engine_force = 1500 * acc
-			else:
-				engine_force = 0
-				$Engine.pitch_scale = 1.5
-			$Engine.pitch_scale = 0.5+vel/13.0
+			engine_force = 1800 * acc
 		3:
-			engine_force = 1000 * acc
-			$Engine.pitch_scale = 0.5+vel/18.0
+			engine_force = 1200 * acc
+	$Engine.pitch_scale = 0.5+vel/18.0
+
+	# auto gear
+	if vel > 8 and gear == 1:
+		set_gear(2)
+	if vel > 14 and gear == 2:
+		set_gear(3)
+	if vel < 12 and gear == 3:
+		set_gear(2)
+	if vel < 6 and gear == 2:
+		set_gear(1)
 
 	# Respawn if out of bounds or self-destructing
 	if translation.y < -20:
@@ -64,28 +62,12 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("gear_down") and gear > 1:
-		set_gear(gear - 1)
-		$GearDown.play()
-
-	if event.is_action_pressed("gear_up") and gear < 3:
-		set_gear(gear + 1)
-		$GearUp.play()
-
-	if Input.is_action_pressed("reset"):
+	if event.is_action_pressed("reset"):
 		respawn()
 
 
 func set_gear(new_gear: int):
 	gear = new_gear
-	$Dashboard/G1.modulate.a = 1.0 if gear == 1 else 0.3
-	$Dashboard/G2.modulate.a = 1.0 if gear == 2 else 0.3
-	$Dashboard/G3.modulate.a = 1.0 if gear == 3 else 0.3
-	# delay if gearing while accelerating (more interesting)
-	if Input.is_action_pressed("accelerate"):
-		can_acc = false
-		yield(get_tree().create_timer(0.25), "timeout")
-		can_acc = true
 
 
 func respawn():

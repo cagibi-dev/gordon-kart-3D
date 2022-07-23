@@ -23,12 +23,53 @@ var playlist := [
 var current_song := 0
 
 var daylist := [
-	preload("res://world/environments/env_sunset.tres"),
-	preload("res://world/environments/env_dusk.tres"),
-	preload("res://world/environments/env_night.tres"),
 	preload("res://world/environments/env_day.tres"),
+	preload("res://world/environments/env_sunset.tres"),
 ]
 var time_of_day := 0
+
+
+func _ready():
+	Camera
+	"""for _i in range(64):
+		var crate := preload("res://items/barrel/Crate.tscn").instance()
+		crate.translation = Vector3(rand_range(-60, 60), 12, rand_range(-60, 60))
+		add_child(crate)
+		var barrel := preload("res://items/barrel/Barrel.tscn").instance()
+		barrel.translation = Vector3(rand_range(-60, 60), 12, rand_range(-60, 60))
+		add_child(barrel)"""
+	make_props_destructible()
+
+
+func make_props_destructible():
+	var shape := BoxShape.new()
+	shape.extents = Vector3(1, 1, 1)
+	for cell in $GridMap.get_used_cells():
+		var type: int = $GridMap.get_cell_item(cell.x, cell.y, cell.z)
+		if type in [5, 6, 7, 8, 9, 15, 16, 17, 18, 19, 41, 43]:
+			var area := Area.new()
+			area.translation = $GridMap.map_to_world(cell.x, cell.y, cell.z)
+			area.collision_layer = 0
+			area.collision_mask = 2
+			var shapenode := CollisionShape.new()
+			shapenode.shape = shape
+			add_child(area)
+			area.add_child(shapenode)
+			var err := area.connect("body_entered", self, "make_cell_explode", [ area, cell ])
+			assert(err == OK)
+
+
+func make_cell_explode(body: PhysicsBody, area: Area, cell: Vector3):
+	area.queue_free()
+	$Explode.reset_physics_interpolation()
+	$Explode.translation = area.translation
+	$Explode.play()
+	$Explode/Visual.frame = 0
+	$Explode/Visual.play("explode")
+	if body and body.has_method("apply_central_impulse"):
+		body.apply_central_impulse((area.global_translation - body.global_translation).normalized() * -2000)
+	yield(get_tree(), "physics_frame")
+	$GridMap.set_cell_item(cell.x, cell.y, cell.z, -1)
 
 
 func _input(event):
@@ -56,7 +97,7 @@ func _input(event):
 	if event.is_action_pressed("set_env"):
 		next_env()
 
-	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "gear_down", "gear_up", "ui_focus_next", "brake", "reset", "set_sfx", "set_music", "set_env"]
+	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "ui_focus_next", "brake", "reset", "set_sfx", "set_music", "set_env"]
 	var bs := $HUD/LiveControls.get_children()
 	for i in range(len(bs)):
 		bs[i].frame = 1 if Input.is_action_pressed(acts[i]) else 0
@@ -67,7 +108,7 @@ func _physics_process(delta: float):
 	$CamPivot.rotation.y = lerp_angle($CamPivot.rotation.y, $Kart.rotation.y, 15*delta)
 	if running:
 		current_time += delta
-		$HUD/BottomHud/Scores/Current.text = "T: " + nice_stringify(current_time) + " s"
+		$HUD/Scores/Current.text = "T: " + nice_stringify(current_time) + " s"
 
 
 func nice_stringify(number: float):
@@ -78,7 +119,7 @@ func _on_FinishLine_body_entered(_body):
 	if can_finish:
 		if running and current_time < best_time:
 			best_time = current_time
-			$HUD/BottomHud/Scores/Best.text = "Best time: " + nice_stringify(best_time) + " s"
+			$HUD/Scores/Best.text = "Best time: " + nice_stringify(best_time) + " s"
 			$FinishLine/Explosion.play()
 			Engine.time_scale = 0.1
 			yield(get_tree().create_timer(0.1), "timeout")
@@ -107,7 +148,7 @@ func next_music() -> void:
 		current_song = 0
 	$Music.stop()
 	$Music.stream = playlist[current_song][0]
-	$HUD/TopHud/Label.text = playlist[current_song][1]
+	$HUD/Label.text = playlist[current_song][1]
 	$Music.play()
 
 
@@ -118,7 +159,7 @@ func next_env() -> void:
 			get_viewport().debug_draw = Viewport.DEBUG_DRAW_UNSHADED
 			for a in get_tree().get_nodes_in_group("anim"):
 				a.stop()
-			$HUD/TopHud/Label.text = "low perf mode"
+			$HUD/Label.text = "low perf mode"
 			return
 		else:
 			get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED
@@ -127,7 +168,7 @@ func next_env() -> void:
 	time_of_day += 1
 	if time_of_day >= len(daylist):
 		time_of_day = 0
-	$HUD/TopHud/Label.text = ["time: golden hour", "time: dusk", "time: midnight", "time: afternoon"][time_of_day]
+	$HUD/Label.text = ["time: afternoon", "time: golden hour"][time_of_day]
 	for cam in cams:
 		cam.environment = daylist[time_of_day]
 		cam.cull_mask &= ~30
@@ -137,18 +178,6 @@ func next_env() -> void:
 	$Lights/DayLight.hide()
 	match time_of_day:
 		0: # sunset
-			$Lights/SunLight.show()
-		3: # day
 			$Lights/DayLight.show()
-
-
-func _on_Vinyl_body_entered(_body: Node) -> void:
-	$HUD/TopHud.hide()
-	$HUD/LiveControls.hide()
-	$Kart/Dashboard.hide()
-	$Interactables.queue_free()
-	$Vinyl.queue_free()
-
-	$HUD/Hard.show()
-	yield(get_tree().create_timer(5.0), "timeout")
-	$HUD/Hard.hide()
+		1: # day
+			$Lights/SunLight.show()
