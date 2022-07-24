@@ -1,7 +1,6 @@
 extends VehicleBody
 
 
-var gear := 1
 var music_filter: AudioEffectLowPassFilter
 var engine_filter: AudioEffectHighPassFilter
 onready var start_pos := transform
@@ -37,24 +36,13 @@ func _physics_process(delta: float) -> void:
 	var vel: float = abs($WheelFL.get_rpm() + $WheelFR.get_rpm()) / 48
 	$Speed.text = str(floor(vel*3.6)) + " km/h"
 	music_filter.cutoff_hz = min(500 + 400 * vel, 22000)
-	match gear:
-		1:
-			engine_force = 3600 * acc
-		2:
-			engine_force = 1800 * acc
-		3:
-			engine_force = 1200 * acc
+	if vel < 6:
+		engine_force = 3600 * acc
+	elif vel < 12:
+		engine_force = 1800 * acc
+	else:
+		engine_force = 1200 * acc
 	$Engine.pitch_scale = 0.5+vel/18.0
-
-	# auto gear
-	if vel > 8 and gear == 1:
-		set_gear(2)
-	if vel > 14 and gear == 2:
-		set_gear(3)
-	if vel < 12 and gear == 3:
-		set_gear(2)
-	if vel < 6 and gear == 2:
-		set_gear(1)
 
 	# Respawn if out of bounds or self-destructing
 	if translation.y < -20:
@@ -64,10 +52,6 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reset"):
 		respawn()
-
-
-func set_gear(new_gear: int):
-	gear = new_gear
 
 
 func respawn():

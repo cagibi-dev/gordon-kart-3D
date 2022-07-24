@@ -82,7 +82,7 @@ func _input(event):
 		AudioServer.set_bus_effect_enabled(1, 0, true)
 		$HUD/Start.hide()
 		# we don't need his face anymore.
-		$Kart/Gordon.hide_face()
+		$Kart/Gordon.toggle_face(false)
 	if event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_prev"):
 		if $CamPivot/Camera.current:
 			$Kart/FirstPersonCamera.current = true
@@ -96,10 +96,10 @@ func _input(event):
 	if event.is_action_pressed("set_env"):
 		next_env()
 
-	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "ui_focus_next", "brake", "reset", "set_sfx", "set_music", "set_env"]
-	var bs := $HUD/LiveControls.get_children()
-	for i in range(len(bs)):
-		bs[i].frame = 1 if Input.is_action_pressed(acts[i]) else 0
+	#var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "ui_focus_next", "brake", "reset", "set_sfx", "set_music", "set_env"]
+	#var bs := $HUD/LiveControls.get_children()
+	#for i in range(len(bs)):
+	#	bs[i].frame = 1 if Input.is_action_pressed(acts[i]) else 0
 
 
 func _physics_process(delta: float):
@@ -110,8 +110,9 @@ func _physics_process(delta: float):
 		$HUD/Scores/Current.text = "T: " + nice_stringify(current_time) + " s"
 
 
-func nice_stringify(number: float):
-	return str(stepify(number, 0.01)+0.001).trim_suffix("1")
+func nice_stringify(number: float) -> String:
+	return str(stepify(number, 0.01))
+	#return str(stepify(number, 0.01)+0.001).trim_suffix("1")
 
 
 func _on_FinishLine_body_entered(_body):

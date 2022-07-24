@@ -8,14 +8,12 @@ colors = PoolColorArray( 0.0595703, 0.0937881, 0.25, 1, 0.206326, 0.234898, 0.35
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
-width = 256
+width = 16
 
 [resource]
 background_mode = 2
 background_sky = ExtResource( 1 )
-fog_color = Color( 0.141176, 0.380392, 0.498039, 1 )
-fog_depth_begin = 50.0
-fog_depth_end = 200.0
+background_color = Color( 0.4, 0.803922, 0.898039, 1 )
 auto_exposure_scale = 1.0
 ssao_radius = 2.0
 ssao_radius2 = 0.5

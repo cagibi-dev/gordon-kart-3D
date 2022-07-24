@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://urbankit/urbankit.meshlib" type="MeshLibrary" id=1]
+[ext_resource path="res://kart/RunningGordon.tscn" type="PackedScene" id=2]
 
 [node name="SmallLevel" type="Spatial"]
 
@@ -17,7 +18,19 @@ __meta__ = {
 "_editor_floor_": Vector3( 0, 0, 0 )
 }
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -10, 2, 10 )
+[node name="Sun" type="DirectionalLight" parent="."]
+transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 10, 2 )
+light_color = Color( 1, 0.945098, 0.596078, 1 )
+light_energy = 0.8
+shadow_enabled = true
+shadow_color = Color( 0, 0.564706, 0.870588, 1 )
+directional_shadow_mode = 0
+directional_shadow_max_distance = 16.0
+
+[node name="RunningGordon" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 4.53115 )
+
+[node name="Camera" type="Camera" parent="RunningGordon"]
+transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2, 2 )
 near = 0.5
 far = 32.0

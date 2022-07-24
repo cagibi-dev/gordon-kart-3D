@@ -1,6 +1,6 @@
 extends Spatial
 
 
-func hide_face():
+func toggle_face(new_visible: bool = false):
 	for n in [$Head/LeftEye, $Head/RightEye, $Head/EyeBrows, $Head/Nose, $Head/Head2/Mouth]:
-		n.hide()
+		n.visible = new_visible
