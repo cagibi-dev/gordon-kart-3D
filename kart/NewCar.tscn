@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://kart/car6_mat.material" type="Material" id=1]
 [ext_resource path="res://kart/Gordon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://materials/pizza.material" type="Material" id=3]
+[ext_resource path="res://urbankit/props/_defaultMat.material" type="Material" id=4]
 [ext_resource path="res://kart/NewCar.gd" type="Script" id=5]
 [ext_resource path="res://kart/engine_loop_cc0.wav" type="AudioStream" id=7]
 [ext_resource path="res://kart/brake.ogg" type="AudioStream" id=9]
@@ -36,6 +37,14 @@ rings = 0
 [sub_resource type="ConvexPolygonShape" id=7]
 margin = 0.2
 points = PoolVector3Array( -1.24022, -2.0369, -0.89029, -1.16859, -1.54011, -1.04607, -1.10061, -2.30832, -1.19484, -1.02219, -3.07218, -1.11074, -1.11785, -3.15248, -0.687966, -1.21934, -2.20249, -0.466537, -1.23852, -1.99955, -0.626567, -1.24022, -1.78664, -0.670003, -1.24022, 1.21897, -0.854201, -0.846641, -1.12301, -1.5456, -0.75802, -1.22698, -1.66823, -1.17151, 1.05898, -0.981409, -1.10061, 1.21897, -1.0931, -1.09187, -1.59739, -1.18831, -0.75802, 0.294502, -1.66742, 0, -3.12758, -1.11074, 0, -1.28861, -1.66823, 1.11761, -3.15248, -0.687966, -1.06055, -3.15248, -0.180605, -1.15184, -2.31642, -0.0300465, -1.18025, -1.24379, 0, -1.23463, -1.36705, -0.471436, -1.24022, -1.58369, -0.633425, -1.24022, 1.21897, -0.520424, -1.19749, 2.17705, -0.633425, -1.01053, 2.95958, -0.760143, 0.757777, -1.22698, -1.66823, 0, 0.400334, -1.66742, 0, 3.05608, -0.782188, 1.02194, -3.07218, -1.11074, 1.0603, -3.15248, -0.180605, 1.24022, -2.0369, -0.89029, 1.2191, -2.20249, -0.466537, 1.1516, -2.31642, -0.0300465, 1.18, -1.24379, 0, -1.17563, 1.41009, 0, -1.18559, 2.37004, -0.48303, -1.05423, 3.1009, -0.520424, 0.846398, -1.12301, -1.5456, 1.10037, -2.30832, -1.19484, 0.757777, 0.294502, -1.66742, 0, 3.20735, -0.520424, 1.05399, 3.1009, -0.520424, 1.01029, 2.95958, -0.760143, 1.24022, -1.78664, -0.670003, 1.23828, -1.99955, -0.626567, 1.16835, -1.54011, -1.04607, 1.24022, 1.21897, -0.854201, 1.23439, -1.36705, -0.471436, 1.24022, 1.21897, -0.520424, 1.17539, 1.41009, 0, -1.12368, 2.51758, 0, -1.04719, 2.95398, 0, 0, 3.06043, 0, 1.09163, -1.59739, -1.18831, 1.10037, 1.21897, -1.0931, 1.17126, 1.05898, -0.981409, 1.04695, 2.95398, 0, 1.18535, 2.37004, -0.48303, 1.19724, 2.17705, -0.633425, 1.24022, -1.58369, -0.633425, 1.12343, 2.51758, 0 )
+
+[sub_resource type="CylinderMesh" id=8]
+material = ExtResource( 4 )
+top_radius = 0.1
+bottom_radius = 0.1
+height = 100.0
+radial_segments = 4
+rings = 0
 
 [node name="NewCar" type="VehicleBody"]
 collision_layer = 2
@@ -136,27 +145,44 @@ attenuation_model = 3
 bus = "Sfx"
 
 [node name="Speed" type="Label" parent="."]
-margin_left = 316.0
-margin_top = 329.0
-margin_right = 367.0
-margin_bottom = 348.0
+modulate = Color( 0.854902, 0.878431, 0.152941, 1 )
+margin_left = 128.95
+margin_top = 160.0
+margin_right = 179.95
+margin_bottom = 180.0
 text = "0 km/h"
 
-[node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.996195, 0.0871556, 0, -0.0871556, -0.996195, 0, 1, 2 )
-visible = false
-layers = 12
-light_color = Color( 1, 0.913725, 0.521569, 1 )
-light_energy = 2.0
-spot_range = 20.0
-spot_attenuation = 0.5
-spot_angle_attenuation = 0.5
+[node name="SecretWheel" type="VehicleWheel" parent="."]
+transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 1.40452, 0.748458 )
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.1
+suspension_travel = 0.1
 
-[node name="OmniLight" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2 )
+[node name="SecretWheel2" type="VehicleWheel" parent="."]
+transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0.453797, 1.40452, -1.06134 )
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.1
+suspension_travel = 0.1
+
+[node name="SecretWheel3" type="VehicleWheel" parent="."]
+transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.454, 1.405, -1.061 )
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.1
+suspension_travel = 0.1
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 1, 2 )
 visible = false
-layers = 12
-light_color = Color( 1, 0.188235, 0.0823529, 1 )
-light_energy = 1.5
-omni_attenuation = 0.5
-omni_shadow_mode = 0
+light_energy = 1000.0
+spot_range = 100.0
+spot_attenuation = 0.1
+spot_angle = 10.0
+spot_angle_attenuation = 0.1
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 52 )
+visible = false
+mesh = SubResource( 8 )

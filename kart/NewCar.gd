@@ -56,7 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func respawn():
 	transform = start_pos
-	get_parent().can_finish = false # FIXME
+	#get_parent().can_finish = false # FIXME
 
 
 func boost(amount: float):

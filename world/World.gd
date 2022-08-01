@@ -42,7 +42,7 @@ func _ready():
 
 func make_props_destructible():
 	var shape := BoxShape.new()
-	shape.extents = Vector3(1, 1, 1)
+	shape.extents = Vector3(1, 2, 1)
 	for cell in $GridMap.get_used_cells():
 		var type: int = $GridMap.get_cell_item(cell.x, cell.y, cell.z)
 		if type in [5, 6, 7, 8, 9, 15, 16, 17, 18, 19, 41, 43]:
@@ -107,19 +107,18 @@ func _physics_process(delta: float):
 	$CamPivot.rotation.y = lerp_angle($CamPivot.rotation.y, $Kart.rotation.y, 15*delta)
 	if running:
 		current_time += delta
-		$HUD/Scores/Current.text = "T: " + nice_stringify(current_time) + " s"
+		$HUD/Current.text = "T: " + nice_stringify(current_time) + " s"
 
 
 func nice_stringify(number: float) -> String:
-	return str(stepify(number, 0.01))
-	#return str(stepify(number, 0.01)+0.001).trim_suffix("1")
+	return str(stepify(number, 0.01)+0.001).trim_suffix("1")
 
 
 func _on_FinishLine_body_entered(_body):
 	if can_finish:
 		if running and current_time < best_time:
 			best_time = current_time
-			$HUD/Scores/Best.text = "Best time: " + nice_stringify(best_time) + " s"
+			$HUD/Best.text = "Best time: " + nice_stringify(best_time) + " s"
 			$FinishLine/NewHighscore.play()
 			Engine.time_scale = 0.1
 			yield(get_tree().create_timer(0.1), "timeout")
@@ -152,22 +151,15 @@ func next_music() -> void:
 
 
 func next_env() -> void:
-	if time_of_day == 3:
-		if get_viewport().debug_draw == Viewport.DEBUG_DRAW_DISABLED:
-			# bonus: low perf mode
-			get_viewport().debug_draw = Viewport.DEBUG_DRAW_UNSHADED
-			for a in get_tree().get_nodes_in_group("anim"):
-				a.stop()
-			$HUD/Label.text = "low perf mode"
-			return
-		else:
-			get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED
-			for a in get_tree().get_nodes_in_group("anim"):
-				a.play("spin")
 	time_of_day += 1
 	if time_of_day >= len(daylist):
 		time_of_day = 0
-	$HUD/Label.text = ["time: afternoon", "time: golden hour"][time_of_day]
+	var hour := ""
+	if time_of_day == 0:
+		hour = "13:" + str(20 + randi() % 25)
+	else:
+		hour = "19:" + str(10 + randi() % 45)
+	$HUD/Label.text = hour
 	for cam in cams:
 		cam.environment = daylist[time_of_day]
 		cam.cull_mask &= ~30

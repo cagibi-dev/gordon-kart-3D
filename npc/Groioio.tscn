@@ -1,0 +1,136 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://materials/Red.material" type="Material" id=1]
+[ext_resource path="res://urbankit/props/metal.material" type="Material" id=2]
+[ext_resource path="res://urbankit/props/dirt.material" type="Material" id=3]
+[ext_resource path="res://urbankit/props/asphalt.material" type="Material" id=4]
+[ext_resource path="res://materials/gilded.material" type="Material" id=5]
+[ext_resource path="res://materials/scales.material" type="Material" id=6]
+
+[sub_resource type="CapsuleMesh" id=1]
+material = ExtResource( 5 )
+radial_segments = 5
+rings = 1
+
+[sub_resource type="SphereMesh" id=2]
+material = ExtResource( 6 )
+height = 1.6
+radial_segments = 5
+rings = 3
+
+[sub_resource type="CylinderMesh" id=3]
+material = ExtResource( 2 )
+top_radius = 0.2
+bottom_radius = 0.0
+height = 0.5
+radial_segments = 4
+rings = 0
+
+[sub_resource type="QuadMesh" id=4]
+material = ExtResource( 1 )
+size = Vector2( 0.4, 0.6 )
+
+[sub_resource type="CylinderMesh" id=5]
+material = ExtResource( 5 )
+top_radius = 0.3
+bottom_radius = 0.1
+height = 0.8
+radial_segments = 4
+rings = 0
+
+[sub_resource type="SphereMesh" id=6]
+material = ExtResource( 4 )
+radius = 0.3
+height = 0.4
+radial_segments = 5
+rings = 2
+
+[sub_resource type="QuadMesh" id=7]
+material = ExtResource( 3 )
+size = Vector2( 1.5, 1.5 )
+
+[node name="Groioio" type="Spatial"]
+
+[node name="Chonk" type="MeshInstance" parent="."]
+transform = Transform( 2, 0, 0, 0, 0.388228, 0.965926, 0, -1.44889, 0.258819, 0, 0, 0 )
+mesh = SubResource( 1 )
+
+[node name="Chonk2" type="MeshInstance" parent="Chonk"]
+transform = Transform( 0.75, 0, 0, 0, -0.194114, -0.724445, 0, 0.724445, -0.194114, 0, 0.779771, -0.519017 )
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+
+[node name="Head3" type="MeshInstance" parent="Chonk"]
+transform = Transform( 1.2, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, 0.461618, 0.429267 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 1.68358, 0.426944 )
+
+[node name="Head2" type="MeshInstance" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+
+[node name="Head" type="MeshInstance" parent="Head"]
+transform = Transform( -4.23187e-08, 0.250414, 0.968139, 1.09459e-08, 0.968139, -0.250414, -1, 0, -4.37114e-08, -0.2, 0, 0 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+
+[node name="Tooth" type="MeshInstance" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 0.947406, 0.320034, 0, -0.320034, 0.947406, 0.528157, -0.632434, 0.545587 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../..")
+
+[node name="Tooth2" type="MeshInstance" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 0.947406, 0.320034, 0, -0.320034, 0.947406, -0.528, -0.632, 0.546 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../..")
+
+[node name="Tongue" type="MeshInstance" parent="Head"]
+transform = Transform( 0.989967, -0.136782, -0.035438, 0.141299, 0.958326, 0.248286, 0, -0.250802, 0.968038, 0.00499463, -0.641026, 0.687941 )
+mesh = SubResource( 4 )
+
+[node name="Horn" type="MeshInstance" parent="Head"]
+transform = Transform( 0.886276, 0.454216, 0.0905636, 0.463157, -0.869168, -0.173298, 0, 0.195535, -0.980697, -0.767819, 0.813038, 0.00276887 )
+mesh = SubResource( 5 )
+skeleton = NodePath("../..")
+
+[node name="Horn2" type="MeshInstance" parent="Head"]
+transform = Transform( 0.862443, -0.496384, -0.0989711, -0.506154, -0.845795, -0.168638, 0, 0.195535, -0.980697, 0.768, 0.813, 0.00299999 )
+mesh = SubResource( 5 )
+skeleton = NodePath("../..")
+
+[node name="Eye" type="MeshInstance" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 0.814268, -0.58049, 0, 0.58049, 0.814268, -0.370985, 0.267371, 0.721226 )
+mesh = SubResource( 6 )
+
+[node name="Eye2" type="MeshInstance" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 0.814268, -0.58049, 0, 0.58049, 0.814268, 0.520243, 0.34052, 0.57616 )
+mesh = SubResource( 6 )
+
+[node name="Hair" type="MeshInstance" parent="Head"]
+transform = Transform( 0.113865, -0.574134, 0.810805, 0.0798445, 0.818761, 0.568555, -0.990283, 0, 0.139069, 0, 0.685, -0.765 )
+mesh = SubResource( 7 )
+skeleton = NodePath("../..")
+
+[node name="Hair2" type="MeshInstance" parent="Head"]
+transform = Transform( -0.106594, -0.642266, -0.759034, 0.0893195, -0.766482, 0.636025, -0.990283, 0, 0.139069, 0, 0.685, -0.765 )
+mesh = SubResource( 7 )
+skeleton = NodePath("../..")
+
+[node name="Hair3" type="MeshInstance" parent="Head"]
+transform = Transform( 0.0240559, -0.984926, 0.171297, 0.136973, 0.172978, 0.975355, -0.990283, 0, 0.139069, 0, 0.459045, -0.765 )
+mesh = SubResource( 7 )
+skeleton = NodePath("../..")
+
+[node name="Hair4" type="MeshInstance" parent="Head"]
+transform = Transform( -3.78552e-08, -0.5, -0.866025, -2.18557e-08, 0.866025, -0.5, 1, 0, -4.37114e-08, 0, -0.183072, -1 )
+mesh = SubResource( 7 )
+skeleton = NodePath("../..")
+
+[node name="Hair5" type="MeshInstance" parent="Head"]
+transform = Transform( 3.78552e-08, -0.5, 0.866025, -2.18557e-08, -0.866025, -0.5, 1, 0, -4.37114e-08, 0, -0.183072, -1 )
+mesh = SubResource( 7 )
+skeleton = NodePath("../..")
