@@ -23,9 +23,9 @@ boot_splash/bg_color=Color( 0.0627451, 0.0313726, 0.12549, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
-[debug]
+[audio]
 
-settings/fps/force_fps=30
+mix_rate=22050
 
 [display]
 
@@ -186,6 +186,9 @@ quality/shading/force_vertex_shading=true
 quality/shading/force_lambert_over_burley=true
 quality/shading/force_blinn_over_ggx=true
 quality/filters/use_nearest_mipmap_filter=true
+gles3/shaders/shader_compilation_mode=1
+gles3/shaders/shader_compilation_mode.mobile=1
+gles3/shaders/shader_compilation_mode.web=1
 quality/lightmapping/use_bicubic_sampling=false
 quality/reflections/atlas_size=64
 quality/reflections/atlas_subdiv=2

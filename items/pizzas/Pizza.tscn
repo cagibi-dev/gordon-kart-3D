@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://materials/pizza.material" type="Material" id=1]
-[ext_resource path="res://urbankit/props/concreteSmooth.material" type="Material" id=2]
+[ext_resource path="res://urbankit/concreteSmooth.material" type="Material" id=2]
 [ext_resource path="res://items/pizzas/Pizza.gd" type="Script" id=3]
 [ext_resource path="res://items/pizzas/noise_02.ogg" type="AudioStream" id=4]
 
@@ -89,5 +89,8 @@ light_color = Color( 0.87451, 1, 0, 1 )
 omni_range = 3.0
 omni_attenuation = 0.5
 omni_shadow_mode = 0
+
+[node name="VisibilityEnabler" type="VisibilityEnabler" parent="."]
+max_distance = 60.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

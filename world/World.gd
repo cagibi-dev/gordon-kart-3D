@@ -10,7 +10,7 @@ var can_finish := false
 # available cameras
 onready var cams := [$CamPivot/Camera, $Kart/FirstPersonCamera, $Kart/StartCamera]
 
-var playlist := [
+"""var playlist := [
 	[null, "silence"],
 	[preload("res://music/Buster_Prototype_Fluidvolt.ogg"), "Buster Prototype (© Fluidvolt)"],
 	[preload("res://music/Rocket_Glider_Fluidvolt.ogg"), "Rocket Glider (© Fluidvolt)"],
@@ -20,7 +20,7 @@ var playlist := [
 	[preload("res://music/jazzy-blues.ogg"), "Jazzy Blues (CC0 LushoGames)"],
 	[preload("res://music/Funkorama.ogg"), "Funkorama (CC-BY Kevin MacLeod)"],
 ]
-var current_song := 0
+var current_song := 0"""
 
 var daylist := [
 	preload("res://world/environments/env_day.tres"),
@@ -30,14 +30,41 @@ var time_of_day := 0
 
 
 func _ready():
-	"""for _i in range(64):
-		var crate := preload("res://items/barrel/Crate.tscn").instance()
-		crate.translation = Vector3(rand_range(-60, 60), 12, rand_range(-60, 60))
-		add_child(crate)
-		var barrel := preload("res://items/barrel/Barrel.tscn").instance()
-		barrel.translation = Vector3(rand_range(-60, 60), 12, rand_range(-60, 60))
-		add_child(barrel)"""
+	make_everything_unshaded()
 	make_props_destructible()
+
+
+func make_everything_unshaded(unshaded := true):
+	$Lights.visible = unshaded
+	var mats := [
+		preload("res://items/barrel/barrel.material"),
+		preload("res://kart/car6_mat.material"),
+		preload("res://materials/Grey.material"),
+		preload("res://materials/Red.material"),
+		preload("res://materials/White.material"),
+		preload("res://materials/gilded.material"),
+		preload("res://materials/pizza.material"),
+		preload("res://materials/scales.material"),
+		preload("res://urbankit/asphalt.material"),
+		preload("res://urbankit/concrete.material"),
+		preload("res://urbankit/concreteSmooth.material"),
+		preload("res://urbankit/dirt.material"),
+		preload("res://urbankit/doors.material"),
+		preload("res://urbankit/grass2.material"),
+		preload("res://urbankit/metal.material"),
+		preload("res://urbankit/roof.material"),
+		preload("res://urbankit/roof_plates.material"),
+		preload("res://urbankit/treeA.material"),
+		preload("res://urbankit/treeB.material"),
+		preload("res://urbankit/truck.material"),
+		preload("res://urbankit/truck_alien.material"),
+		preload("res://urbankit/wall.material"),
+		preload("res://urbankit/wall_garage.material"),
+		preload("res://urbankit/wall_lines.material"),
+		preload("res://urbankit//wall_metal.material"),
+	]
+	for mat in mats:
+		mat.set_flag(0, unshaded)
 
 
 func make_props_destructible():
@@ -60,13 +87,13 @@ func make_props_destructible():
 
 func make_cell_explode(body: PhysicsBody, area: Area, cell: Vector3):
 	area.queue_free()
-	$Explode.reset_physics_interpolation()
+	# $Explode.reset_physics_interpolation()
 	$Explode.translation = area.translation
 	$Explode.play()
 	$Explode/Visual.frame = 0
 	$Explode/Visual.play("explode")
 	if body and body.has_method("apply_central_impulse"):
-		body.apply_central_impulse((area.global_translation - body.global_translation).normalized() * -2000)
+		body.apply_central_impulse((area.global_transform.origin - body.global_transform.origin).normalized() * -2000)
 	yield(get_tree(), "physics_frame")
 	$GridMap.set_cell_item(cell.x, cell.y, cell.z, -1)
 
@@ -141,13 +168,14 @@ func _on_Midway_body_entered(_body):
 
 
 func next_music() -> void:
-	current_song += 1
+	$HUD/Label.text = "music not found"
+	"""current_song += 1
 	if current_song >= len(playlist):
 		current_song = 0
 	$Music.stop()
 	$Music.stream = playlist[current_song][0]
 	$HUD/Label.text = playlist[current_song][1]
-	$Music.play()
+	$Music.play()"""
 
 
 func next_env() -> void:

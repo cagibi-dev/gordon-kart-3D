@@ -91,3 +91,8 @@ autoplay = "spin"
 playback_process_mode = 0
 anims/RESET = SubResource( 18 )
 anims/spin = SubResource( 19 )
+
+[node name="VisibilityEnabler" type="VisibilityEnabler" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0 )
+aabb = AABB( -8, -15, -1, 16, 30, 2 )
+max_distance = 64.0

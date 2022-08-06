@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://materials/Red.material" type="Material" id=1]
-[ext_resource path="res://urbankit/props/metal.material" type="Material" id=2]
-[ext_resource path="res://urbankit/props/dirt.material" type="Material" id=3]
-[ext_resource path="res://urbankit/props/asphalt.material" type="Material" id=4]
+[ext_resource path="res://urbankit/metal.material" type="Material" id=2]
+[ext_resource path="res://urbankit/asphalt.material" type="Material" id=3]
+[ext_resource path="res://urbankit/dirt.material" type="Material" id=4]
 [ext_resource path="res://materials/gilded.material" type="Material" id=5]
 [ext_resource path="res://materials/scales.material" type="Material" id=6]
 
@@ -39,14 +39,14 @@ radial_segments = 4
 rings = 0
 
 [sub_resource type="SphereMesh" id=6]
-material = ExtResource( 4 )
+material = ExtResource( 3 )
 radius = 0.3
 height = 0.4
 radial_segments = 5
 rings = 2
 
 [sub_resource type="QuadMesh" id=7]
-material = ExtResource( 3 )
+material = ExtResource( 4 )
 size = Vector2( 1.5, 1.5 )
 
 [node name="Groioio" type="Spatial"]

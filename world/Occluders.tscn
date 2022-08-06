@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="OccluderShapePolygon" id=18]
+polygon_points = PoolVector2Array( 10, -10, -25, 12, -70, 12, -70, -10 )
+
+[sub_resource type="OccluderShapePolygon" id=19]
+polygon_points = PoolVector2Array( -20, -6, -28, 17, -56, 17, -56, -10 )
+
+[sub_resource type="OccluderShapePolygon" id=20]
+polygon_points = PoolVector2Array( -17.0281, -10.2413, -19.2991, 15.833, -64.0033, 5.12577, -69.2309, -11.3296 )
+
+[sub_resource type="OccluderShapePolygon" id=21]
+polygon_points = PoolVector2Array( -20.1156, -2.48802, -19.2576, 17.2084, -50.1625, 16.5266, -69.7757, -2.96579 )
+hole_points = PoolVector2Array( -47.6476, 2.99354, -44.6409, 2.66492, -47.5009, -0.183844, -44.6126, -0.234562 )
+
+[sub_resource type="OccluderShapePolygon" id=22]
+polygon_points = PoolVector2Array( 7.21271, -21.2938, 52.2025, -52.6058, -32.7549, 45.6341, -13.3916, 1.65782, -17.4783, 51.421, 42.361, -5.76229 )
+
+[node name="Occluders" type="Spatial"]
+
+[node name="Occluder" type="Occluder" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22 )
+shape = SubResource( 18 )
+
+[node name="Occluder2" type="Occluder" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 32 )
+shape = SubResource( 19 )
+
+[node name="Occluder3" type="Occluder" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 0, -26 )
+shape = SubResource( 20 )
+
+[node name="Occluder4" type="Occluder" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -11, 0, 12 )
+shape = SubResource( 21 )
+
+[node name="Occluder5" type="Occluder" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5, 0 )
+shape = SubResource( 22 )
