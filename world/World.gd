@@ -7,8 +7,13 @@ var current_time := 0.0
 var running := false
 var can_finish := false
 
-# available cameras
-onready var cams := [$CamPivot/Camera, $Kart/FirstPersonCamera, $Kart/StartCamera]
+onready var cameras := [$CamPivot/Camera, $Kart/FirstPersonCamera, $Kart/StartCamera]
+onready var sunset_light: DirectionalLight = $Lights/SunLight
+onready var day_light: DirectionalLight = $Lights/DayLight
+onready var cam_pivot: Spatial = $CamPivot
+onready var kart_node: Spatial = $Kart
+onready var current_time_node: Label = $HUD/Current
+
 
 """var playlist := [
 	[null, "silence"],
@@ -30,12 +35,11 @@ var time_of_day := 0
 
 
 func _ready():
-	make_everything_unshaded()
 	make_props_destructible()
 
 
 func make_everything_unshaded(unshaded := true):
-	$Lights.visible = unshaded
+	$Lights.visible = not unshaded
 	var mats := [
 		preload("res://items/barrel/barrel.material"),
 		preload("res://kart/car6_mat.material"),
@@ -43,7 +47,6 @@ func make_everything_unshaded(unshaded := true):
 		preload("res://materials/Red.material"),
 		preload("res://materials/White.material"),
 		preload("res://materials/gilded.material"),
-		preload("res://materials/pizza.material"),
 		preload("res://materials/scales.material"),
 		preload("res://urbankit/asphalt.material"),
 		preload("res://urbankit/concrete.material"),
@@ -61,7 +64,7 @@ func make_everything_unshaded(unshaded := true):
 		preload("res://urbankit/wall.material"),
 		preload("res://urbankit/wall_garage.material"),
 		preload("res://urbankit/wall_lines.material"),
-		preload("res://urbankit//wall_metal.material"),
+		preload("res://urbankit/wall_metal.material"),
 	]
 	for mat in mats:
 		mat.set_flag(0, unshaded)
@@ -87,7 +90,7 @@ func make_props_destructible():
 
 func make_cell_explode(body: PhysicsBody, area: Area, cell: Vector3):
 	area.queue_free()
-	# $Explode.reset_physics_interpolation()
+	$Explode.reset_physics_interpolation()
 	$Explode.translation = area.translation
 	$Explode.play()
 	$Explode/Visual.frame = 0
@@ -120,21 +123,22 @@ func _input(event):
 		AudioServer.set_bus_mute(2, not AudioServer.is_bus_mute(2))
 	if event.is_action_pressed("set_music"):
 		next_music()
+		make_everything_unshaded($Lights.visible)
 	if event.is_action_pressed("set_env"):
 		next_env()
 
-	#var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "ui_focus_next", "brake", "reset", "set_sfx", "set_music", "set_env"]
-	#var bs := $HUD/LiveControls.get_children()
-	#for i in range(len(bs)):
-	#	bs[i].frame = 1 if Input.is_action_pressed(acts[i]) else 0
+	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "ui_focus_next", "brake", "reset", "set_sfx", "set_music", "set_env"]
+	var bs := $HUD/LiveControls.get_children()
+	for i in range(len(bs)):
+		bs[i].frame = 1 if Input.is_action_pressed(acts[i]) else 0
 
 
 func _physics_process(delta: float):
-	$CamPivot.translation = lerp($CamPivot.translation, $Kart.translation, 15*delta)
-	$CamPivot.rotation.y = lerp_angle($CamPivot.rotation.y, $Kart.rotation.y, 15*delta)
+	cam_pivot.translation = lerp(cam_pivot.translation, kart_node.translation, 15*delta)
+	cam_pivot.rotation.y = lerp_angle(cam_pivot.rotation.y, kart_node.rotation.y, 15*delta)
 	if running:
 		current_time += delta
-		$HUD/Current.text = "T: " + nice_stringify(current_time) + " s"
+		current_time_node.text = "T: " + nice_stringify(current_time) + " s"
 
 
 func nice_stringify(number: float) -> String:
@@ -188,15 +192,15 @@ func next_env() -> void:
 	else:
 		hour = "19:" + str(10 + randi() % 45)
 	$HUD/Label.text = hour
-	for cam in cams:
+	for cam in cameras:
 		cam.environment = daylist[time_of_day]
 		cam.cull_mask &= ~30
 		cam.cull_mask |= int(pow(2, time_of_day+1))
 
-	$Lights/SunLight.hide()
-	$Lights/DayLight.hide()
+	sunset_light.hide()
+	day_light.hide()
 	match time_of_day:
 		0: # sunset
-			$Lights/DayLight.show()
+			day_light.show()
 		1: # day
-			$Lights/SunLight.show()
+			sunset_light.show()
