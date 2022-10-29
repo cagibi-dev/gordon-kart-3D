@@ -16,7 +16,7 @@ _global_script_class_icons={
 
 config/name="Gordon Kart 3D"
 config/description="Low poly racing game with the Nantes University's mascot"
-run/main_scene="res://world/World.tscn"
+run/main_scene="res://circuits/Circuit.tscn"
 boot_splash/image="res://splashscreen.png"
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0.0627451, 0.0313726, 0.12549, 1 )
@@ -30,7 +30,7 @@ mix_rate=22050
 [display]
 
 window/size/width=640
-window/size/height=360
+window/size/height=400
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 window/stretch/shrink=2.0

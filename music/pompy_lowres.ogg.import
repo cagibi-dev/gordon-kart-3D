@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/pompy_lowres.ogg-efad427d65a9f99fd5851d22b506e427.oggstr"
+
+[deps]
+
+source_file="res://music/pompy_lowres.ogg"
+dest_files=[ "res://.import/pompy_lowres.ogg-efad427d65a9f99fd5851d22b506e427.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

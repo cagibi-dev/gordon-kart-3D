@@ -7,7 +7,9 @@ var current_time := 0.0
 var running := false
 var can_finish := false
 
-onready var cameras := [$CamPivot/Camera, $Kart/FirstPersonCamera, $Kart/StartCamera]
+onready var camera_start: Camera = $Kart/StartCamera
+onready var camera_tps: Camera = $CamPivot/Camera
+onready var camera_fps: Camera = $Kart/FirstPersonCamera
 onready var sunset_light: DirectionalLight = $Lights/SunLight
 onready var day_light: DirectionalLight = $Lights/DayLight
 onready var cam_pivot: Spatial = $CamPivot
@@ -105,29 +107,27 @@ func _input(event):
 	if not event.is_action_type():
 		return
 
-	if event.is_action_pressed("brake") and $Kart/StartCamera.current:
+	if event.is_action_pressed("brake") and camera_start.current:
 		# START THE GAME
-		$CamPivot/Camera.set_deferred("current", true)
-		$Kart/StartCamera/Anim.queue_free()
+		camera_tps.set_deferred("current", true)
+		camera_start.get_node("Anim").queue_free()
 		AudioServer.set_bus_effect_enabled(1, 0, true)
 		$HUD/Start.hide()
-		# we don't need his face anymore.
-		$Kart/Gordon.toggle_face(false)
 	if event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_prev"):
-		if $CamPivot/Camera.current:
-			$Kart/FirstPersonCamera.current = true
-		elif $Kart/FirstPersonCamera.current:
-			$CamPivot/Camera.current = true
+		if camera_tps.current:
+			camera_fps.current = true
+			$Gordon.hide()
+		elif camera_fps.current:
+			camera_tps.current = true
+			$Gordon.show()
 
-	if event.is_action_pressed("set_sfx"):
-		AudioServer.set_bus_mute(2, not AudioServer.is_bus_mute(2))
 	if event.is_action_pressed("set_music"):
 		next_music()
 		make_everything_unshaded($Lights.visible)
 	if event.is_action_pressed("set_env"):
 		next_env()
 
-	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "ui_focus_next", "brake", "reset", "set_sfx", "set_music", "set_env"]
+	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "ui_focus_next", "brake", "reset", "set_music", "set_env"]
 	var bs := $HUD/LiveControls.get_children()
 	for i in range(len(bs)):
 		bs[i].frame = 1 if Input.is_action_pressed(acts[i]) else 0
@@ -164,7 +164,7 @@ func _on_FinishLine_body_entered(_body):
 func _on_FinishLine_body_exited(_body: CollisionObject):
 	running = true
 	for n in get_tree().get_nodes_in_group("turn_local"):
-		n.turn()
+		n.restore()
 
 
 func _on_Midway_body_entered(_body):
@@ -192,7 +192,7 @@ func next_env() -> void:
 	else:
 		hour = "19:" + str(10 + randi() % 45)
 	$HUD/Label.text = hour
-	for cam in cameras:
+	for cam in [camera_fps, camera_tps, camera_start]:
 		cam.environment = daylist[time_of_day]
 		cam.cull_mask &= ~30
 		cam.cull_mask |= int(pow(2, time_of_day+1))

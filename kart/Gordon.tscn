@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://materials/Grey.material" type="Material" id=1]
 [ext_resource path="res://materials/Red.material" type="Material" id=2]
@@ -40,6 +40,10 @@ material = ExtResource( 4 )
 left_to_right = 1.0
 size = Vector3( 0.1, 0.05, 0.1 )
 
+[sub_resource type="CapsuleShape" id=12]
+radius = 0.2
+height = 0.4
+
 [sub_resource type="CapsuleMesh" id=8]
 material = ExtResource( 4 )
 radius = 0.25
@@ -47,87 +51,147 @@ mid_height = 0.3
 radial_segments = 4
 rings = 1
 
+[sub_resource type="ConvexPolygonShape" id=13]
+points = PoolVector3Array( 0.25, 0, 0.149961, 0, 0.25, 0.149961, 0.176733, 0, 0.326703, 0, -0.176782, 0.326703, 0, -0.25, 0.149961, 0.25, 0, -0.150039, -0.25, 0, 0.149961, -0.176782, 0, 0.326703, 0, 0.176733, 0.326703, 0, 0.25, -0.150039, 0, 0, 0.399922, 0, -0.25, -0.150039, 0, -0.176782, -0.326782, 0.176733, 0, -0.326782, -0.25, 0, -0.150039, 0, 0.176733, -0.326782, -0.176782, 0, -0.326782, 0, 0, -0.4 )
+
 [sub_resource type="PrismMesh" id=11]
 left_to_right = 1.0
 size = Vector3( 0.2, 0.2, 0.5 )
+
+[sub_resource type="ConvexPolygonShape" id=14]
+points = PoolVector3Array( 0.1, 0.1, 0.25, 0.1, -0.1, 0.25, 0.1, 0.1, -0.25, -0.1, -0.1, 0.25, 0.1, -0.1, -0.25, -0.1, -0.1, -0.25 )
+
+[sub_resource type="ConvexPolygonShape" id=15]
+points = PoolVector3Array( 0.1, 0.1, 0.25, 0.1, -0.1, 0.25, 0.1, 0.1, -0.25, -0.1, -0.1, 0.25, 0.1, -0.1, -0.25, -0.1, -0.1, -0.25 )
 
 [node name="Gordon" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
 script = ExtResource( 3 )
 
-[node name="Head" type="MeshInstance" parent="."]
+[node name="Head" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0.799188, 0.158734 )
+
+[node name="Head" type="MeshInstance" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 cast_shadow = 0
 mesh = SubResource( 1 )
+skeleton = NodePath("../..")
 
-[node name="Head2" type="MeshInstance" parent="Head"]
+[node name="Head2" type="MeshInstance" parent="Head/Head"]
 transform = Transform( 1, 0, 0, 0, 0.660814, 0.75055, 0, -0.75055, 0.660814, 0, 0.0222683, -0.111683 )
 cast_shadow = 0
 mesh = SubResource( 2 )
 
-[node name="Mouth" type="MeshInstance" parent="Head/Head2"]
+[node name="Mouth" type="MeshInstance" parent="Head/Head/Head2"]
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.2, 0.1 )
 cast_shadow = 0
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
 
-[node name="RightEye" type="MeshInstance" parent="Head"]
+[node name="RightEye" type="MeshInstance" parent="Head/Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0640398, 0.176306, 0.135441 )
 cast_shadow = 0
 mesh = SubResource( 4 )
 
-[node name="Pupil" type="MeshInstance" parent="Head/RightEye"]
+[node name="Pupil" type="MeshInstance" parent="Head/Head/RightEye"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0514732, -0.000861049 )
 cast_shadow = 0
 mesh = SubResource( 5 )
 material/0 = ExtResource( 1 )
 
-[node name="LeftEye" type="MeshInstance" parent="Head"]
+[node name="LeftEye" type="MeshInstance" parent="Head/Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0634833, 0.176306, 0.135441 )
 cast_shadow = 0
 mesh = SubResource( 4 )
 
-[node name="Pupil" type="MeshInstance" parent="Head/LeftEye"]
+[node name="Pupil" type="MeshInstance" parent="Head/Head/LeftEye"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00667426, 0.0514732, -0.000861049 )
 cast_shadow = 0
 mesh = SubResource( 5 )
 material/0 = ExtResource( 1 )
 
-[node name="Nose" type="MeshInstance" parent="Head"]
+[node name="Nose" type="MeshInstance" parent="Head/Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.05 )
 cast_shadow = 0
 mesh = SubResource( 4 )
 
-[node name="EyeBrows" type="MeshInstance" parent="Head"]
+[node name="EyeBrows" type="MeshInstance" parent="Head/Head"]
 transform = Transform( 1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 0, 0.179603, 0.211535 )
 cast_shadow = 0
 mesh = SubResource( 6 )
 material/0 = ExtResource( 1 )
 
-[node name="RightEar" type="MeshInstance" parent="Head"]
+[node name="RightEar" type="MeshInstance" parent="Head/Head"]
 transform = Transform( 0.707107, 1.49012e-08, -0.707107, 0.183013, 0.965926, 0.183013, 0.683013, -0.258819, 0.683012, 0.15, 0.05, 0.2 )
 cast_shadow = 0
 mesh = SubResource( 10 )
 
-[node name="LeftEar" type="MeshInstance" parent="Head"]
+[node name="LeftEar" type="MeshInstance" parent="Head/Head"]
 transform = Transform( -0.707107, -1.49012e-08, -0.707107, 0.183013, 0.965926, -0.183013, 0.683013, -0.258819, -0.683012, -0.15, 0.05, 0.2 )
 cast_shadow = 0
 mesh = SubResource( 10 )
 
-[node name="Body" type="MeshInstance" parent="."]
+[node name="HeadShape" type="CollisionShape" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00154296, -0.0956267 )
+shape = SubResource( 12 )
+
+[node name="Torso" type="RigidBody" parent="."]
+
+[node name="Body" type="MeshInstance" parent="Torso"]
 transform = Transform( 1, 0, 0, 0, 0.677428, 0.735589, 0, -0.735589, 0.677428, 0, 0.308424, 0.0653615 )
 cast_shadow = 0
 mesh = SubResource( 8 )
+skeleton = NodePath("../..")
 material/0 = ExtResource( 2 )
 
-[node name="RightArm" type="MeshInstance" parent="."]
+[node name="CollisionShape" type="CollisionShape" parent="Torso"]
+transform = Transform( 1, 0, 0, 0, 0.677428, 0.735589, 0, -0.735589, 0.677428, 0, 0.308424, 0.0653615 )
+shape = SubResource( 13 )
+
+[node name="RightArm" type="RigidBody" parent="."]
 transform = Transform( -0.5, -0.866025, -6.45239e-09, 0.860975, -0.497084, 0.107843, -0.093395, 0.0539216, 0.994168, 0.2, 0.4, -0.1 )
+
+[node name="RightArm" type="MeshInstance" parent="RightArm"]
+transform = Transform( 1, 3.25963e-09, 7.45058e-09, -1.86265e-09, 1, 3.72529e-09, 0, 0, 1, 0, 0, 0 )
 cast_shadow = 0
 mesh = SubResource( 11 )
+skeleton = NodePath("../..")
 material/0 = ExtResource( 4 )
 
-[node name="LeftArm" type="MeshInstance" parent="."]
+[node name="CollisionShape" type="CollisionShape" parent="RightArm"]
+transform = Transform( 1, 3.25963e-09, 7.45058e-09, -1.86265e-09, 1, 3.72529e-09, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="LeftArm" type="RigidBody" parent="."]
 transform = Transform( -0.866026, -0.5, -7.45058e-09, 0.497084, -0.860974, 0.107843, -0.0539216, 0.0933949, 0.994168, -0.2, 0.4, -0.1 )
+
+[node name="LeftArm" type="MeshInstance" parent="LeftArm"]
+transform = Transform( 1, 2.79397e-09, 0, -2.79397e-09, 1, 7.45058e-09, 0, 0, 1, 0, 0, 0 )
 cast_shadow = 0
 mesh = SubResource( 11 )
+skeleton = NodePath("../..")
 material/0 = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="LeftArm"]
+transform = Transform( 1, 2.79397e-09, 0, -2.79397e-09, 1, 7.45058e-09, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 15 )
+
+[node name="Neck" type="ConeTwistJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.633784, 0.372136 )
+nodes/node_a = NodePath("../Head")
+nodes/node_b = NodePath("../Torso")
+swing_span = 15.0
+twist_span = 15.0
+softness = 0.2
+
+[node name="RightElbow" type="ConeTwistJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14726, 0.516755, 0.150515 )
+nodes/node_a = NodePath("../Torso")
+nodes/node_b = NodePath("../RightArm")
+swing_span = 15.0
+
+[node name="LeftElbow" type="ConeTwistJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.151066, 0.516755, 0.152719 )
+nodes/node_a = NodePath("../Torso")
+nodes/node_b = NodePath("../LeftArm")
+swing_span = 15.0
