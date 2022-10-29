@@ -242,3 +242,9 @@ use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.1
 suspension_travel = 0.1
+
+[node name="NetworkUpdateTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="NetworkUpdateTimer" to="." method="_on_NetworkUpdateTimer_timeout"]

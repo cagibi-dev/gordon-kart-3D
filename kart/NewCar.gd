@@ -10,6 +10,8 @@ onready var speed_label: Label = $Speed
 onready var wheel1: VehicleWheel = $WheelFL
 onready var wheel2: VehicleWheel = $WheelFR
 
+var is_player := true
+
 
 func _ready():
 	music_filter = AudioServer.get_bus_effect(1, 0)
@@ -62,8 +64,18 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func respawn():
 	transform = start_pos
-	#get_parent().can_finish = false # FIXME
 
 
 func boost(amount: float):
 	linear_velocity += linear_velocity.normalized() * amount
+
+
+func _on_NetworkUpdateTimer_timeout():
+	if is_player and not Lobby.player_info.empty():
+		rpc("move_player", transform)
+
+
+remote func move_player(transform: Transform):
+	var id = get_tree().get_rpc_sender_id()
+	# print("player ", id, " has moved to ", transform)
+	Lobby.update_car(id, transform)

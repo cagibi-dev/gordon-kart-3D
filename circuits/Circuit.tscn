@@ -4,7 +4,7 @@
 [ext_resource path="res://circuits/Circuit.gd" type="Script" id=2]
 [ext_resource path="res://kart/NewCar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://effects/explosion1-Sheet.png" type="Texture" id=4]
-[ext_resource path="res://menu/panel.png" type="Texture" id=5]
+[ext_resource path="res://multiplayer/MultiManager.tscn" type="PackedScene" id=5]
 [ext_resource path="res://kart/Gordon.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/NoiseTerrain.tscn" type="PackedScene" id=7]
 [ext_resource path="res://effects/explode8.wav" type="AudioStream" id=8]
@@ -274,18 +274,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Sprite" type="Sprite" parent="HUD"]
-position = Vector2( 35.6671, 40.2101 )
-texture = ExtResource( 5 )
-
-[node name="Label" type="Label" parent="HUD/Sprite"]
-modulate = Color( 0.94902, 0.388235, 0.258824, 0.780392 )
-margin_left = -28.0758
-margin_top = -3.17838
-margin_right = 19.9242
-margin_bottom = 16.8216
-rect_scale = Vector2( 0.75, 0.75 )
-text = "ERROR."
+[node name="MultiManager" parent="HUD" instance=ExtResource( 5 )]
 
 [node name="FinishLine" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, -14 )
@@ -370,6 +359,7 @@ layers = 16
 light_color = Color( 1, 0.941176, 0.462745, 1 )
 light_energy = 0.5
 light_cull_mask = 4293918723
+shadow_enabled = true
 shadow_color = Color( 0, 0.466667, 0.843137, 1 )
 shadow_bias = 1.0
 directional_shadow_mode = 0

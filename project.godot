@@ -27,6 +27,10 @@ config/windows_native_icon="res://icon.ico"
 
 mix_rate=22050
 
+[autoload]
+
+Lobby="*res://multiplayer/Lobby.gd"
+
 [display]
 
 window/size/width=640
