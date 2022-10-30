@@ -1,5 +1,7 @@
 # Typical lobby implementation; imagine this being in /root/lobby.
 
+# see https://gotm.io/docs/multiplayer
+
 extends Node
 
 # Connect all functions
@@ -50,7 +52,7 @@ remote func register_player(info):
 
 
 func add_car(info):
-	var car := preload("res://kart/RemoteControlled.tscn").instance()
+	var car := preload("res://vehicles/RemoteControlled.tscn").instance()
 	add_child(car)
 	info.car = car
 	yield(get_tree().create_timer(0.5), "timeout")
@@ -61,5 +63,7 @@ func remove_car(info):
 	info.car.queue_free()
 
 
-func update_car(id, transform: Transform):
+func update_car(id, transform: Transform, engine: Dictionary):
 	player_info[id].car.transform = transform
+	player_info[id].car.remote_engine_sound.playing = engine.playing
+	player_info[id].car.remote_engine_sound.pitch_scale = engine.pitch

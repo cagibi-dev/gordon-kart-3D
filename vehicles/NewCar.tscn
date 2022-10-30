@@ -1,10 +1,10 @@
 [gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://kart/car6_mat.material" type="Material" id=1]
-[ext_resource path="res://materials/pizza.material" type="Material" id=3]
-[ext_resource path="res://kart/NewCar.gd" type="Script" id=5]
-[ext_resource path="res://kart/engine_loop_cc0.wav" type="AudioStream" id=7]
-[ext_resource path="res://kart/brake.ogg" type="AudioStream" id=9]
+[ext_resource path="res://vehicles/NewCar.gd" type="Script" id=1]
+[ext_resource path="res://materials/pizza.material" type="Material" id=2]
+[ext_resource path="res://vehicles/car6_mat.material" type="Material" id=3]
+[ext_resource path="res://vehicles/engine_loop_cc0.wav" type="AudioStream" id=4]
+[ext_resource path="res://vehicles/brake.ogg" type="AudioStream" id=5]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -18,14 +18,14 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 912,
-"material": ExtResource( 1 ),
+"material": ExtResource( 3 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 632
 }
 
 [sub_resource type="CylinderMesh" id=5]
-material = ExtResource( 3 )
+material = ExtResource( 2 )
 top_radius = 0.4
 bottom_radius = 0.4
 height = 0.3
@@ -71,12 +71,12 @@ points = PoolVector3Array( 0.252496, 3.16739, -0.468894, 0.247808, 3.15707, -0.5
 [sub_resource type="ConvexPolygonShape" id=22]
 points = PoolVector3Array( 0.657081, 0.454776, -1.64147, -0.304921, -1.41555, -1.58803, -0.304921, 0.508451, -1.58803, -0.304921, 0.454776, -1.69491, 0.657081, -1.30858, -1.69491, 0.657081, -1.36207, -1.58803, -0.304921, -1.36207, -1.69491, 0.657081, 0.454776, -1.58803, 0.657081, 0.401478, -1.69491, 0.550108, -1.36207, -1.69491, 0.44323, 0.508451, -1.64147, 0.389743, -1.41555, -1.58803, -0.304921, 0.508451, -1.64147, 0.44323, 0.508451, -1.58803 )
 
-[node name="NewCar" type="VehicleBody"]
+[node name="Car" type="VehicleBody"]
 collision_layer = 2
 mass = 500.0
 physics_material_override = SubResource( 6 )
 can_sleep = false
-script = ExtResource( 5 )
+script = ExtResource( 1 )
 
 [node name="Car6" type="MeshInstance" parent="."]
 transform = Transform( 0.75, 0, 0, 0, -3.27835e-08, -0.75, 0, 0.75, -3.27835e-08, 0, 0, 0 )
@@ -206,11 +206,11 @@ mesh = SubResource( 5 )
 skeleton = NodePath("../..")
 
 [node name="Engine" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
+stream = ExtResource( 4 )
 bus = "kart"
 
 [node name="Brake" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 9 )
+stream = ExtResource( 5 )
 attenuation_model = 3
 bus = "Sfx"
 
@@ -244,7 +244,7 @@ wheel_radius = 0.1
 suspension_travel = 0.1
 
 [node name="NetworkUpdateTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.2
 autostart = true
 
 [connection signal="timeout" from="NetworkUpdateTimer" to="." method="_on_NetworkUpdateTimer_timeout"]

@@ -6,8 +6,6 @@ func _ready():
 	err += get_tree().connect("network_peer_disconnected", self, "disconnected")
 	assert(err == OK)
 
-	$Username.grab_focus()
-
 
 func _on_CloseMulti_pressed():
 	$Explode.play()
@@ -21,7 +19,7 @@ func _on_Host_pressed():
 	$Status.text = "STARTED SESSION AS " + Lobby.my_info.name
 
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_server(23456, 20)
+	peer.create_server(8070, 8)
 	get_tree().network_peer = peer
 
 
@@ -31,7 +29,7 @@ func _on_Join_pressed():
 	$Status.text = "JOINED AS " + Lobby.my_info.name
 
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_client("localhost", 23456)
+	peer.create_client("127.0.0.1", 8070)
 	get_tree().network_peer = peer
 
 

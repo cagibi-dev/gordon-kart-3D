@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/brake.ogg-733cd5eff76822c99c51dc49056c5561.oggstr"
+
+[deps]
+
+source_file="res://vehicles/brake.ogg"
+dest_files=[ "res://.import/brake.ogg-733cd5eff76822c99c51dc49056c5561.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0.06

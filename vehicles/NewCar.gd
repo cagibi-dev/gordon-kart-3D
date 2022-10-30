@@ -72,10 +72,10 @@ func boost(amount: float):
 
 func _on_NetworkUpdateTimer_timeout():
 	if is_player and not Lobby.player_info.empty():
-		rpc("move_player", transform)
+		rpc("move_player", transform, { "playing": engine_sound.playing, "pitch": engine_sound.pitch_scale })
 
 
-remote func move_player(transform: Transform):
+remote func move_player(transform: Transform, engine: Dictionary):
 	var id = get_tree().get_rpc_sender_id()
 	# print("player ", id, " has moved to ", transform)
-	Lobby.update_car(id, transform)
+	Lobby.update_car(id, transform, engine)

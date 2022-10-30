@@ -2,7 +2,7 @@
 
 [ext_resource path="res://materials/Grey.material" type="Material" id=1]
 [ext_resource path="res://materials/Red.material" type="Material" id=2]
-[ext_resource path="res://kart/Gordon.gd" type="Script" id=3]
+[ext_resource path="res://vehicles/Gordon.gd" type="Script" id=3]
 [ext_resource path="res://materials/White.material" type="Material" id=4]
 
 [sub_resource type="CapsuleMesh" id=1]
