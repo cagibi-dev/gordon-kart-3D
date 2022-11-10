@@ -30,6 +30,7 @@ vertical_alignment = 2
 
 [node name="NetworkUpdateTimer" parent="." index="25"]
 wait_time = 0.08
+autostart = false
 
 [node name="RemoteEngine" type="AudioStreamPlayer3D" parent="." index="26"]
 stream = SubResource( 26 )

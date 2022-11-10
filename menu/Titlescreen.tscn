@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://urbankit/tileset.meshlib" type="MeshLibrary" id=1]
+[ext_resource path="res://menu/Titlescreen.gd" type="Script" id=2]
+[ext_resource path="res://menu/DiegeticLabel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://items/pizzas/Pizza.tscn" type="PackedScene" id=5]
+[ext_resource path="res://icon.png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "wonky"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("DiegeticLabel:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.5, 2, -1 ), Vector3( -0.6, 1.8, -0.8 ) ]
+}
+
+[node name="Titlescreen" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 1, 1, 1 )
+fov = 60.0
+near = 0.5
+far = 8.0
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 2, 1, 2 )
+cell_center_y = false
+cell_scale = 2.0
+data = {
+"cells": PoolIntArray( 2, 0, 1441832, 65534, 0, 47, 131074, 0, 655401, 196606, 0, 1441840, -65536, 0, 1441818, -65535, 0, 1441806, -1, 0, 1048602, 0, 65534, 52, 1, 65534, 42, 65535, 65534, 42, 131072, 65534, 52, 131073, 65534, 655401, 196606, 65534, 47, 196607, 65534, 52, -65535, 65534, 25, -1, 65534, 25, 1, 65535, 655370, 2, 65535, 655401, 65534, 65535, 1048619, 131074, 65535, 655401, 196606, 65535, 1441840, -65536, 65535, 1048598, -65535, 65535, 1441806, -2, 65535, 25, -1, 65535, 655382 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 0, 0 )
+}
+
+[node name="DiegeticLabel" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.866528, -0.032067, 0.498097, 0.0868241, 0.992404, -0.0871557, -0.491519, 0.11877, 0.86273, -0.5, 2, -1 )
+pixel_size = 0.04
+shaded = false
+modulate = Color( 0.85098, 1, 0, 1 )
+text = "GORDONKART"
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+autoplay = "wonky"
+anims/wonky = SubResource( 1 )
+
+[node name="Pizza" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0.5, -1 )
+
+[node name="OmniLight" type="OmniLight" parent="."]
+light_color = Color( 1, 0.678431, 0, 1 )
+light_energy = 2.0
+omni_range = 3.0
+
+[node name="MainPanel" type="Node2D" parent="."]
+position = Vector2( 27, 124 )
+scale = Vector2( 2, 2 )
+
+[node name="PlaySolo" type="Button" parent="MainPanel"]
+margin_left = 4.0
+margin_top = 18.0
+margin_right = 88.0
+margin_bottom = 44.0
+rect_rotation = -6.02562
+text = "Play solo"
+
+[node name="PlayMulti" type="Button" parent="MainPanel"]
+margin_left = 11.6185
+margin_top = 41.0
+margin_right = 111.618
+margin_bottom = 67.0
+rect_rotation = -0.516076
+text = "Play online"
+
+[node name="Options" type="Button" parent="MainPanel"]
+margin_left = 9.0
+margin_top = 61.0
+margin_right = 87.0
+margin_bottom = 87.0
+rect_rotation = 8.0
+text = "TODO"
+
+[node name="Credits" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.914125, 1.48547, -1.94048 )
+pixel_size = 0.015
+text = "cagibi.itch.io
+(c) 2020-2022"
+
+[node name="GordonPicture" type="Sprite3D" parent="."]
+transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1, 1, 1, -2.1 )
+texture = ExtResource( 6 )
+
+[connection signal="pressed" from="MainPanel/PlaySolo" to="." method="_on_PlaySolo_pressed"]
+[connection signal="pressed" from="MainPanel/PlayMulti" to="." method="_on_PlayMulti_pressed"]

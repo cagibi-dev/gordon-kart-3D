@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="DiegeticLabel" type="Label3D"]
+pixel_size = 0.05
+shaded = true
+double_sided = false
+alpha_cut = 1
+text = "Test label"

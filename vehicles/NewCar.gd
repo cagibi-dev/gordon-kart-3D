@@ -1,22 +1,14 @@
 extends VehicleBody
 
+signal shoot
 
-var music_filter: AudioEffectLowPassFilter
-var engine_filter: AudioEffectHighPassFilter
 onready var start_pos := transform
-onready var brake_sound: AudioStreamPlayer3D = $Brake
+onready var drift_sound: AudioStreamPlayer3D = $Drift
 onready var engine_sound: AudioStreamPlayer = $Engine
-onready var speed_label: Label = $Speed
-onready var wheel1: VehicleWheel = $WheelFL
-onready var wheel2: VehicleWheel = $WheelFR
+onready var speed_label: Label3D = $Speed
+onready var wheels: Array = [$WheelFL, $WheelFR, $WheelBL, $WheelBR]
 
 var is_player := true
-
-
-func _ready():
-	music_filter = AudioServer.get_bus_effect(1, 0)
-	engine_filter = AudioServer.get_bus_effect(3, 0)
-	AudioServer.set_bus_effect_enabled(1, 0, false)
 
 
 func _physics_process(delta: float) -> void:
@@ -24,54 +16,70 @@ func _physics_process(delta: float) -> void:
 	var steering_target = Input.get_axis("move_right", "move_left")
 	steering = lerp(steering, steering_target, 2 * delta)
 
-	# brake
-	brake = 50 * Input.get_action_strength("brake")
-	if brake and wheel1.get_rpm() > 10 and wheel1.is_in_contact() \
-		and wheel2.get_rpm() > 10 and wheel2.is_in_contact():
-		if not brake_sound.playing:
-			brake_sound.play()
-	elif brake_sound.playing:
-		brake_sound.stop()
+	# get acceleration input
+	var acc := Input.get_axis("reverse", "accelerate")
+	# calculate speed in m/s
+	var vel: float = (wheels[0].get_rpm() + wheels[1].get_rpm()) / 48
 
+	# if going pretty fast and reverse: brake
+	if acc < 0 and vel > 0.5:
+		brake = 200
+		acc = 0
+	else:
+		brake = 0
+
+	var play_drift := false
+	for wheel in wheels:
+		if wheel.get_skidinfo() < 0.5:
+			play_drift = true
+	if play_drift and not drift_sound.playing:
+		drift_sound.play()
+	if not play_drift and drift_sound.playing:
+		drift_sound.stop()
+
+	speed_label.text = str(floor(abs(vel) * 3.6)) + " km/h"
 	# accelerate according to gear
-	var acc := Input.get_axis("accelerate_backwards", "accelerate")
-
-	if acc != 0 and not engine_sound.playing:
-		engine_sound.play()
-	if acc == 0 and engine_sound.playing:
-		engine_sound.stop()
-
-	var vel: float = abs(wheel1.get_rpm() + wheel2.get_rpm()) / 48
-	speed_label.text = str(floor(vel*3.6)) + " km/h"
-	music_filter.cutoff_hz = min(500 + 400 * vel, 22050)
-	if vel < 6:
+	if abs(vel) < 6:
 		engine_force = 3600 * acc
-	elif vel < 12:
+	elif abs(vel) < 12:
 		engine_force = 1800 * acc
 	else:
 		engine_force = 1200 * acc
-	engine_sound.pitch_scale = 0.5+vel/18.0
+
+	# modulate engine sound
+	if acc:
+		engine_sound.pitch_scale = 0.5 + abs(vel) / 18.0
+	else:
+		engine_sound.pitch_scale = lerp(engine_sound.pitch_scale, 0.5, delta)
 
 	# Respawn if out of bounds or self-destructing
 	if translation.y < -20:
 		respawn()
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("reset"):
-		respawn()
+func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("jump"):
+		jump()
+	if event.is_action_pressed("shoot"):
+		emit_signal("shoot")
 
 
 func respawn():
 	transform = start_pos
+	linear_velocity = Vector3()
 
 
 func boost(amount: float):
 	linear_velocity += linear_velocity.normalized() * amount
 
 
+func jump():
+	linear_velocity *= 1.6
+	set_axis_velocity(Vector3(0, 4, 0))
+
+
 func _on_NetworkUpdateTimer_timeout():
-	if is_player and not Lobby.player_info.empty():
+	if not Lobby.player_info.empty():
 		rpc("move_player", transform, { "playing": engine_sound.playing, "pitch": engine_sound.pitch_scale })
 
 

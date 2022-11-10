@@ -1,9 +1,6 @@
 extends Node
 
-var best_time := 999999.0
-var current_time := 0.0
-var running := false
-var can_finish := false
+var target_rotation := 0.0
 
 onready var camera_tps: Camera = $CamPivot/Camera
 onready var camera_fps: Camera = $Kart/FirstPersonCamera
@@ -56,7 +53,7 @@ func make_props_destructible():
 			var area := Area.new()
 			area.translation = $GridMap.map_to_world(cell.x, cell.y, cell.z)
 			area.collision_layer = 0
-			area.collision_mask = 2
+			area.collision_mask = 10
 			var shapenode := CollisionShape.new()
 			shapenode.shape = shape
 			add_child(area)
@@ -67,22 +64,25 @@ func make_props_destructible():
 
 func make_cell_explode(body: PhysicsBody, area: Area, cell: Vector3):
 	area.queue_free()
-	$Explode.reset_physics_interpolation()
-	$Explode.translation = area.translation
-	$Explode.play()
-	$Explode/Visual.frame = 0
-	$Explode/Visual.play("explode")
+	create_explosion(area.translation)
 	if body and body.has_method("apply_central_impulse"):
 		body.apply_central_impulse((area.global_transform.origin - body.global_transform.origin).normalized() * -2000)
 	yield(get_tree(), "physics_frame")
 	$GridMap.set_cell_item(cell.x, cell.y, cell.z, -1)
 
 
-func _input(event):
-	if not event.is_action_type():
-		return
+func create_explosion(pos: Vector3):
+	$Explode.reset_physics_interpolation()
+	$Explode.translation = pos
+	$Explode.play()
+	$Explode/Visual.frame = 0
+	$Explode/Visual.play("explode")
+	shake_screen()
 
-	if event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_prev"):
+
+
+func _input(event):
+	if event.is_action_pressed("ui_focus_next"):
 		if camera_tps.current:
 			camera_fps.current = true
 			$Gordon.hide()
@@ -90,10 +90,42 @@ func _input(event):
 			camera_tps.current = true
 			$Gordon.show()
 
-	if event.is_action_pressed("set_music"):
-		make_everything_unshaded($Lights.visible)
-
 
 func _physics_process(delta: float):
+	#if kart_node.linear_velocity.length_squared() > 4.0:
+	#	target_rotation = kart_node.linear_velocity.signed_angle_to(Vector3.BACK, Vector3.DOWN)
+	target_rotation = kart_node.rotation.y
+
 	cam_pivot.translation = lerp(cam_pivot.translation, kart_node.translation, 15*delta)
-	cam_pivot.rotation.y = lerp_angle(cam_pivot.rotation.y, kart_node.rotation.y, 15*delta)
+	cam_pivot.rotation.y = lerp_angle(cam_pivot.rotation.y, target_rotation, 15*delta)
+
+
+func _on_Kart_shoot():
+	var bullet := preload("res://items/Bullet.tscn").instance()
+	bullet.transform = $Kart/Visor.global_transform
+	var impulse: Vector3 = bullet.transform.basis * Vector3(0, 100, 1000)
+	$Shoot.play()
+	bullet.apply_central_impulse(impulse)
+	$Kart.apply_central_impulse(-impulse)
+	add_child(bullet)
+	var err := bullet.connect("dead", self, "on_bullet_dead")
+	assert(err == OK)
+
+	shake_screen()
+
+
+func shake_screen():
+	var cam := get_viewport().get_camera()
+	cam.h_offset = 0.2
+	yield(get_tree().create_timer(0.05), "timeout")
+	cam.h_offset = -0.2
+	yield(get_tree().create_timer(0.05), "timeout")
+	cam.h_offset = 0.1
+	yield(get_tree().create_timer(0.05), "timeout")
+	cam.h_offset = -0.1
+	yield(get_tree().create_timer(0.05), "timeout")
+	cam.h_offset = 0
+
+
+func on_bullet_dead(pos: Vector3):
+	create_explosion(pos)
