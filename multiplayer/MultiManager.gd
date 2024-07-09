@@ -3,7 +3,8 @@ extends Node2D
 
 func _ready():
 	var err := get_tree().connect("network_peer_connected", self, "connected")
-	err += get_tree().connect("network_peer_disconnected", self, "disconnected")
+	assert(err == OK)
+	err = get_tree().connect("network_peer_disconnected", self, "disconnected")
 	assert(err == OK)
 
 

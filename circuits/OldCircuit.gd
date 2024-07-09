@@ -7,7 +7,6 @@ var current_time := 0.0
 var running := false
 var can_finish := false
 
-onready var camera_start: Camera = $Kart/StartCamera
 onready var camera_tps: Camera = $CamPivot/Camera
 onready var camera_fps: Camera = $Kart/FirstPersonCamera
 onready var sunset_light: DirectionalLight = $Lights/SunLight
@@ -17,7 +16,7 @@ onready var kart_node: Spatial = $Kart
 onready var current_time_node: Label = $HUD/Current
 
 
-"""var playlist := [
+var playlist := [
 	[null, "silence"],
 	[preload("res://music/Buster_Prototype_Fluidvolt.ogg"), "Buster Prototype (© Fluidvolt)"],
 	[preload("res://music/Rocket_Glider_Fluidvolt.ogg"), "Rocket Glider (© Fluidvolt)"],
@@ -27,7 +26,7 @@ onready var current_time_node: Label = $HUD/Current
 	[preload("res://music/jazzy-blues.ogg"), "Jazzy Blues (CC0 LushoGames)"],
 	[preload("res://music/Funkorama.ogg"), "Funkorama (CC-BY Kevin MacLeod)"],
 ]
-var current_song := 0"""
+var current_song := 0
 
 var daylist := [
 	preload("res://world/environments/env_day.tres"),
@@ -75,12 +74,6 @@ func _input(event):
 	if not event.is_action_type():
 		return
 
-	if event.is_action_pressed("brake") and camera_start.current:
-		# START THE GAME
-		camera_tps.set_deferred("current", true)
-		camera_start.get_node("Anim").queue_free()
-		AudioServer.set_bus_effect_enabled(1, 0, true)
-		$HUD/Start.hide()
 	if event.is_action_pressed("ui_focus_next") or event.is_action_pressed("ui_focus_prev"):
 		if camera_tps.current:
 			camera_fps.current = true
@@ -88,16 +81,6 @@ func _input(event):
 		elif camera_fps.current:
 			camera_tps.current = true
 			$Gordon.show()
-
-	if event.is_action_pressed("set_music"):
-		next_music()
-	if event.is_action_pressed("set_env"):
-		next_env()
-
-	var acts := ["accelerate", "accelerate_backwards", "move_right", "move_left", "ui_focus_next", "brake", "reset", "set_music", "set_env"]
-	var bs := $HUD/LiveControls.get_children()
-	for i in range(len(bs)):
-		bs[i].frame = 1 if Input.is_action_pressed(acts[i]) else 0
 
 
 func _physics_process(delta: float):
@@ -159,8 +142,8 @@ func next_env() -> void:
 	else:
 		hour = "19:" + str(10 + randi() % 45)
 	$HUD/Label.text = hour
-	for cam in [camera_fps, camera_tps, camera_start]:
-		cam.environment = daylist[time_of_day]
+	$Env.environment = daylist[time_of_day]
+	for cam in [camera_fps, camera_tps]:
 		cam.cull_mask &= ~30
 		cam.cull_mask |= int(pow(2, time_of_day+1))
 

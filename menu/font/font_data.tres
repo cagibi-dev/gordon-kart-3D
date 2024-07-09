@@ -1,0 +1,6 @@
+[gd_resource type="DynamicFontData" format=2]
+
+[resource]
+antialiased = false
+hinting = 0
+font_path = "res://menu/font/Ac437_IBM_VGA_8x16.ttf"

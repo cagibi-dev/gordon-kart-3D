@@ -13,7 +13,7 @@ var is_player := true
 
 func _physics_process(delta: float) -> void:
 	# steer
-	var steering_target = Input.get_axis("move_right", "move_left")
+	var steering_target = Input.get_axis("move_right", "move_left") * 0.75
 	steering = lerp(steering, steering_target, 2 * delta)
 
 	# get acceleration input
@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 	if not play_drift and drift_sound.playing:
 		drift_sound.stop()
 
-	speed_label.text = str(floor(abs(vel) * 3.6)) + " km/h"
+	speed_label.text = str(floor(abs(vel) * 3.6 / 3.0) * 3.0) + " km/h"
 	# accelerate according to gear
 	if abs(vel) < 6:
 		engine_force = 3600 * acc

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://world/environments/env_sunset.tres" type="Environment" id=1]
 [ext_resource path="res://circuits/Circuit.gd" type="Script" id=2]
-[ext_resource path="res://vehicles/NewCar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://vehicles/Car.tscn" type="PackedScene" id=3]
 [ext_resource path="res://effects/explosion1-Sheet.png" type="Texture" id=4]
 [ext_resource path="res://urbankit/tileset.meshlib" type="MeshLibrary" id=5]
 [ext_resource path="res://vehicles/Gordon.tscn" type="PackedScene" id=6]
@@ -88,23 +88,6 @@ fov = 80.0
 near = 1.0
 far = 128.0
 
-[node name="HUD" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="HUD"]
-visible = false
-modulate = Color( 0.854902, 0.878431, 0.152941, 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = -330.0
-rect_rotation = 1.0
-size_flags_horizontal = 3
-text = "---  G O R D O N K A R T  ---"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 5 )
 cell_size = Vector3( 4, 2, 4 )
@@ -119,8 +102,8 @@ __meta__ = {
 [node name="SunLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.965926, 0.0669873, 0.25, 0, -0.965926, 0.258819, 0.258819, -0.25, -0.933013, 0, 10, 0 )
 layers = 2
-light_color = Color( 1, 0.188235, 0, 1 )
-light_energy = 0.6
+light_color = Color( 1, 0.4, 0, 1 )
+light_energy = 0.8
 light_cull_mask = 4293918723
 shadow_enabled = true
 shadow_color = Color( 0.12549, 0, 1, 1 )

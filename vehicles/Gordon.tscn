@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://materials/Grey.material" type="Material" id=1]
 [ext_resource path="res://materials/Red.material" type="Material" id=2]
-[ext_resource path="res://vehicles/Gordon.gd" type="Script" id=3]
 [ext_resource path="res://materials/White.material" type="Material" id=4]
 
 [sub_resource type="CapsuleMesh" id=1]
@@ -66,7 +65,6 @@ points = PoolVector3Array( 0.1, 0.1, 0.25, 0.1, -0.1, 0.25, 0.1, 0.1, -0.25, -0.
 
 [node name="Gordon" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
-script = ExtResource( 3 )
 
 [node name="Head" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0.799188, 0.158734 )

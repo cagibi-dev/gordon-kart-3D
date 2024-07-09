@@ -1,4 +1,4 @@
-extends "res://vehicles/NewCar.gd"
+extends "res://vehicles/Car.gd"
 
 
 onready var remote_engine_sound: AudioStreamPlayer3D = $RemoteEngine

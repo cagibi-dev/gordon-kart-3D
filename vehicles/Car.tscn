@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://vehicles/NewCar.gd" type="Script" id=1]
+[ext_resource path="res://vehicles/Car.gd" type="Script" id=1]
 [ext_resource path="res://materials/pizza.material" type="Material" id=2]
 [ext_resource path="res://vehicles/car6_mat.material" type="Material" id=3]
 [ext_resource path="res://vehicles/engine_loop_cc0.wav" type="AudioStream" id=4]
@@ -70,7 +70,7 @@ shape = SubResource( 7 )
 [node name="WheelBL" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, -1.34315 )
 wheel_radius = 0.4
-wheel_friction_slip = 2.0
+wheel_friction_slip = 4.0
 suspension_travel = 0.5
 suspension_stiffness = 50.0
 damping_compression = 0.3
@@ -85,7 +85,7 @@ skeleton = NodePath("../..")
 [node name="WheelBR" type="VehicleWheel" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.1, -1.34315 )
 wheel_radius = 0.4
-wheel_friction_slip = 2.0
+wheel_friction_slip = 4.0
 suspension_travel = 0.5
 suspension_stiffness = 50.0
 damping_compression = 0.3
@@ -102,7 +102,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, 1.46449 )
 use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.4
-wheel_friction_slip = 4.0
 suspension_travel = 0.5
 suspension_stiffness = 50.0
 damping_compression = 0.3
@@ -119,7 +118,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.1, 1.46449 )
 use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.4
-wheel_friction_slip = 4.0
 suspension_travel = 0.5
 suspension_stiffness = 50.0
 damping_compression = 0.3

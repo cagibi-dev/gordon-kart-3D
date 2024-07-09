@@ -59,43 +59,44 @@ anims/wonky = SubResource( 1 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 0.5, -1 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 light_color = Color( 1, 0.678431, 0, 1 )
 light_energy = 2.0
 omni_range = 3.0
 
 [node name="MainPanel" type="Node2D" parent="."]
-position = Vector2( 27, 124 )
+position = Vector2( 0, 208 )
 scale = Vector2( 2, 2 )
 
 [node name="PlaySolo" type="Button" parent="MainPanel"]
-margin_left = 4.0
-margin_top = 18.0
-margin_right = 88.0
-margin_bottom = 44.0
+margin_left = 20.0
+margin_top = -35.1823
+margin_right = 104.0
+margin_bottom = -9.18225
 rect_rotation = -6.02562
 text = "Play solo"
 
 [node name="PlayMulti" type="Button" parent="MainPanel"]
-margin_left = 11.6185
-margin_top = 41.0
-margin_right = 111.618
-margin_bottom = 67.0
+margin_left = 27.6185
+margin_top = -12.1823
+margin_right = 127.618
+margin_bottom = 13.8177
 rect_rotation = -0.516076
 text = "Play online"
 
-[node name="Options" type="Button" parent="MainPanel"]
-margin_left = 9.0
-margin_top = 61.0
-margin_right = 87.0
-margin_bottom = 87.0
+[node name="MoreGames" type="Button" parent="MainPanel"]
+margin_left = 25.0
+margin_top = 7.81774
+margin_right = 112.0
+margin_bottom = 33.8177
 rect_rotation = 8.0
-text = "TODO"
+text = "More games"
 
 [node name="Credits" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.914125, 1.48547, -1.94048 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.7, -1.9 )
 pixel_size = 0.015
 text = "cagibi.itch.io
-(c) 2020-2022"
+(c) 2020-2024"
 
 [node name="GordonPicture" type="Sprite3D" parent="."]
 transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1, 1, 1, -2.1 )
@@ -103,3 +104,4 @@ texture = ExtResource( 6 )
 
 [connection signal="pressed" from="MainPanel/PlaySolo" to="." method="_on_PlaySolo_pressed"]
 [connection signal="pressed" from="MainPanel/PlayMulti" to="." method="_on_PlayMulti_pressed"]
+[connection signal="pressed" from="MainPanel/MoreGames" to="." method="_on_MoreGames_pressed"]
