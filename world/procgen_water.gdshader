@@ -1,10 +1,10 @@
 shader_type spatial;
 render_mode unshaded;
 
-uniform sampler2D noise;
+uniform sampler2D heightmap;
 
 void fragment() {
-	float height = 2.0 * texture(noise, UV).r;
+	float height = 2.0 * texture(heightmap, UV).r;
 	ALBEDO.g = pow(height, 2.0);
 	ALBEDO.r = pow(height, 4.0);
 	

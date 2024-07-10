@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://world/environments/env_sunset.tres" type="Environment" id=1]
 [ext_resource path="res://circuits/Circuit.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://vehicles/Gordon.tscn" type="PackedScene" id=6]
 [ext_resource path="res://effects/sound_explosion_sharp.wav" type="AudioStream" id=7]
 [ext_resource path="res://effects/explode8.wav" type="AudioStream" id=8]
+[ext_resource path="res://menu/controls.png" type="Texture" id=9]
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 4 )
@@ -52,6 +53,38 @@ animations = [ {
 [sub_resource type="AudioStreamRandomPitch" id=32]
 audio_stream = ExtResource( 7 )
 
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 48, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 9 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 9 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 9 )
+region = Rect2( 16, 32, 24, 16 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 9 )
+region = Rect2( 16, 48, 24, 16 )
+
 [node name="Circuit" type="WorldEnvironment"]
 environment = ExtResource( 1 )
 script = ExtResource( 2 )
@@ -74,7 +107,7 @@ cull_mask = 3
 doppler_tracking = 2
 fov = 72.0
 near = 0.5
-far = 128.0
+far = 160.0
 
 [node name="CamPivot" type="Position3D" parent="."]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0 )
@@ -86,7 +119,7 @@ doppler_tracking = 2
 current = true
 fov = 80.0
 near = 1.0
-far = 128.0
+far = 160.0
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 5 )
@@ -109,7 +142,7 @@ shadow_enabled = true
 shadow_color = Color( 0.12549, 0, 1, 1 )
 shadow_bias = 1.0
 directional_shadow_mode = 0
-directional_shadow_max_distance = 32.0
+directional_shadow_max_distance = 64.0
 __meta__ = {
 "_edit_lock_": true
 }
@@ -135,6 +168,48 @@ frame = 7
 stream = SubResource( 32 )
 volume_db = -3.0
 bus = "Sfx"
+
+[node name="Controls" type="Node2D" parent="."]
+
+[node name="Accelerate" type="TouchScreenButton" parent="Controls"]
+modulate = Color( 1, 1, 1, 0.313726 )
+position = Vector2( 408, 176 )
+scale = Vector2( 4, 4 )
+normal = SubResource( 33 )
+pressed = SubResource( 34 )
+action = "accelerate"
+
+[node name="Reverse" type="TouchScreenButton" parent="Controls"]
+modulate = Color( 1, 1, 1, 0.313726 )
+position = Vector2( 408, 248 )
+scale = Vector2( 4, 4 )
+normal = SubResource( 35 )
+pressed = SubResource( 36 )
+action = "reverse"
+
+[node name="Left" type="TouchScreenButton" parent="Controls"]
+modulate = Color( 1, 1, 1, 0.313726 )
+position = Vector2( 8, 216 )
+scale = Vector2( 4, 4 )
+normal = SubResource( 37 )
+pressed = SubResource( 38 )
+action = "move_left"
+
+[node name="Right" type="TouchScreenButton" parent="Controls"]
+modulate = Color( 1, 1, 1, 0.313726 )
+position = Vector2( 144, 216 )
+scale = Vector2( -4, 4 )
+normal = SubResource( 37 )
+pressed = SubResource( 38 )
+action = "move_right"
+
+[node name="Fps" type="TouchScreenButton" parent="Controls"]
+modulate = Color( 1, 1, 1, 0.313726 )
+position = Vector2( 352, 280 )
+scale = Vector2( 2, 2 )
+normal = SubResource( 39 )
+pressed = SubResource( 40 )
+action = "ui_focus_next"
 
 [connection signal="shoot" from="Kart" to="." method="_on_Kart_shoot"]
 

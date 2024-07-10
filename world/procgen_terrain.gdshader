@@ -2,12 +2,12 @@ shader_type spatial;
 
 uniform sampler2D grass_tex;
 uniform sampler2D dirt_tex;
-uniform sampler2D noise;
+uniform sampler2D heightmap;
 
 varying float height;
 
 void vertex() {
-	height = 32.0 * texture(noise, UV).r;
+	height = 32.0 * texture(heightmap, UV).r;
 	VERTEX.y = height;
 }
 
