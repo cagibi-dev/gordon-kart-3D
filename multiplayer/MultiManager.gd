@@ -1,4 +1,8 @@
 extends Node2D
+class_name MultiManager
+
+
+signal pushed_message(text)
 
 
 func _ready():
@@ -8,38 +12,30 @@ func _ready():
 	assert(err == OK)
 
 
-func _on_CloseMulti_pressed():
-	$Explode.play()
-	$Popup.hide()
-	$Username.hide()
-
-
-func _on_Host_pressed():
-	_on_CloseMulti_pressed()
-	Lobby.my_info.name = $Username.text
-	$Status.text = "STARTED SESSION AS " + Lobby.my_info.name
+func host(username := "gordon", port := 8070):
+	Lobby.my_info.name = username
+	emit_signal("pushed_message", "You started session as " + username)
 
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_server(8070, 8)
+	peer.create_server(port, 8)
 	get_tree().network_peer = peer
 
 
-func _on_Join_pressed():
-	_on_CloseMulti_pressed()
-	Lobby.my_info.name = $Username.text
-	$Status.text = "JOINED AS " + Lobby.my_info.name
+func join(username := "gordon", ip := "127.0.0.1", port := 8070):
+	Lobby.my_info.name = username
+	emit_signal("pushed_message", "You joined as " + username)
 
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_client("127.0.0.1", 8070)
+	peer.create_client(ip, port)
 	get_tree().network_peer = peer
 
 
 func connected(id: int):
 	yield(get_tree().create_timer(0.2), "timeout")
 	$Connected.play()
-	$Status.text = str(Lobby.player_info[id].name) + " appears"
+	emit_signal("pushed_message", str(Lobby.player_info[id].name) + " joined the gang")
 
 
 func disconnected(id: int):
 	$Disconnected.play()
-	$Status.text = str(Lobby.player_info[id].name) + " is destroyed"
+	emit_signal("pushed_message", str(Lobby.player_info[id].name) + " blew up")

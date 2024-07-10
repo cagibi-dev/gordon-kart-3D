@@ -4,7 +4,7 @@ signal shoot
 
 onready var start_pos := transform
 onready var drift_sound: AudioStreamPlayer3D = $Drift
-onready var engine_sound: AudioStreamPlayer = $Engine
+onready var engine_sound: AudioStreamPlayer3D = $Engine
 onready var speed_label: Label3D = $Speed
 onready var wheels: Array = [$WheelFL, $WheelFR, $WheelBL, $WheelBR]
 

@@ -1,4 +1,4 @@
-extends Spatial
+extends Node
 
 signal finished
 
@@ -16,18 +16,6 @@ onready var kart_node: Spatial = $Kart
 onready var current_time_node: Label = $HUD/Current
 
 
-var playlist := [
-	[null, "silence"],
-	[preload("res://music/Buster_Prototype_Fluidvolt.ogg"), "Buster Prototype (© Fluidvolt)"],
-	[preload("res://music/Rocket_Glider_Fluidvolt.ogg"), "Rocket Glider (© Fluidvolt)"],
-	[preload("res://music/urbania.ogg"), "Urbania (CC-BY Dan Knoflicek)"],
-	[preload("res://music/Viktor Kraus - Well oiled, shiny Oscillators.ogg"), "Well oiled, shiny Oscillators (CC-BY Viktor Kraus)"],
-	[preload("res://music/Funked Up.ogg"), "Funked Up (CC0 Joth)"],
-	[preload("res://music/jazzy-blues.ogg"), "Jazzy Blues (CC0 LushoGames)"],
-	[preload("res://music/Funkorama.ogg"), "Funkorama (CC-BY Kevin MacLeod)"],
-]
-var current_song := 0
-
 var daylist := [
 	preload("res://world/environments/env_day.tres"),
 	preload("res://world/environments/env_sunset.tres"),
@@ -37,6 +25,7 @@ var time_of_day := 0
 
 func _ready():
 	make_props_destructible()
+	Globals.push_msg("You entered YE OLDE GORDONCITY")
 
 
 func make_props_destructible():
@@ -119,17 +108,6 @@ func _on_FinishLine_body_exited(_body: CollisionObject):
 
 func _on_Midway_body_entered(_body):
 	can_finish = true
-
-
-func next_music() -> void:
-	$HUD/Label.text = "music not found"
-	"""current_song += 1
-	if current_song >= len(playlist):
-		current_song = 0
-	$Music.stop()
-	$Music.stream = playlist[current_song][0]
-	$HUD/Label.text = playlist[current_song][1]
-	$Music.play()"""
 
 
 func next_env() -> void:

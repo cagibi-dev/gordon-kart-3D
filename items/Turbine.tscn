@@ -1,17 +1,17 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://materials/White.material" type="Material" id=1]
-[ext_resource path="res://materials/Red.material" type="Material" id=2]
+[ext_resource path="res://materials/pizza.material" type="Material" id=1]
+[ext_resource path="res://materials/gilded.material" type="Material" id=2]
 
 [sub_resource type="CylinderMesh" id=15]
-material = ExtResource( 1 )
+material = ExtResource( 2 )
 bottom_radius = 2.0
 height = 20.0
 radial_segments = 5
 rings = 0
 
 [sub_resource type="CylinderMesh" id=16]
-material = ExtResource( 2 )
+material = ExtResource( 1 )
 top_radius = 1.5
 bottom_radius = 2.0
 height = 4.0
@@ -19,7 +19,7 @@ radial_segments = 7
 rings = 0
 
 [sub_resource type="PrismMesh" id=17]
-material = ExtResource( 1 )
+material = ExtResource( 2 )
 left_to_right = 2.0
 size = Vector3( 3, 12, 0.5 )
 
@@ -69,7 +69,7 @@ mesh = SubResource( 16 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0 )
 
 [node name="Blade" type="MeshInstance" parent="Blades"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -1 )
+transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0, 7, -1 )
 cast_shadow = 0
 mesh = SubResource( 17 )
 skeleton = NodePath("../..")
@@ -95,4 +95,3 @@ anims/spin = SubResource( 19 )
 [node name="VisibilityEnabler" type="VisibilityEnabler" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0 )
 aabb = AABB( -8, -15, -1, 16, 30, 2 )
-max_distance = 64.0

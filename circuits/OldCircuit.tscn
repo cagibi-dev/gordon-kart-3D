@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://vehicles/Car.tscn" type="PackedScene" id=1]
 [ext_resource path="res://urbankit/urbankit_fromgltf.meshlib" type="MeshLibrary" id=2]
@@ -16,6 +16,10 @@
 [ext_resource path="res://npc/Groioio.tscn" type="PackedScene" id=14]
 [ext_resource path="res://world/environments/env_sunset.tres" type="Environment" id=15]
 [ext_resource path="res://menu/DiegeticLabel.tscn" type="PackedScene" id=16]
+[ext_resource path="res://world/terrain_noise.tres" type="Texture" id=17]
+[ext_resource path="res://items/Turbine.tscn" type="PackedScene" id=18]
+[ext_resource path="res://items/Jetliner.tscn" type="PackedScene" id=19]
+[ext_resource path="res://items/airplane_prop.ogg" type="AudioStream" id=20]
 
 [sub_resource type="BoxShape" id=12]
 margin = 0.5
@@ -97,6 +101,38 @@ region = Rect2( 16, 32, 24, 16 )
 atlas = ExtResource( 13 )
 region = Rect2( 16, 48, 24, 16 )
 
+[sub_resource type="Animation" id=40]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -79, 21, 112 ) ]
+}
+
+[sub_resource type="Animation" id=41]
+resource_name = "approach"
+length = 20.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 20 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 77, 21, -113 ), Vector3( -120, 21, 210 ) ]
+}
+
 [node name="Circuit" type="Spatial"]
 script = ExtResource( 11 )
 __meta__ = {
@@ -141,7 +177,7 @@ far = 160.0
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Current" type="Label" parent="HUD"]
-modulate = Color( 0.854902, 0.878431, 0.152941, 1 )
+modulate = Color( 0.866667, 0.933333, 0.133333, 1 )
 margin_top = 150.0
 margin_right = 100.0
 margin_bottom = 120.0
@@ -149,7 +185,7 @@ rect_rotation = 12.0
 size_flags_horizontal = 3
 
 [node name="Best" type="Label" parent="HUD"]
-modulate = Color( 0.854902, 0.878431, 0.152941, 1 )
+modulate = Color( 0.866667, 0.933333, 0.133333, 1 )
 margin_left = 296.0
 margin_top = 336.0
 margin_right = 496.0
@@ -269,6 +305,7 @@ frame = 7
 
 [node name="NoiseTerrain" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 132 )
+heightmap = ExtResource( 17 )
 
 [node name="GroioioTitle" type="Label3D" parent="."]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 27.8, 5, 153 )
@@ -362,6 +399,24 @@ scale = Vector2( 2, 2 )
 normal = SubResource( 38 )
 pressed = SubResource( 39 )
 action = "ui_focus_next"
+
+[node name="Turbine" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 12, -15 )
+
+[node name="Jetliner" parent="." instance=ExtResource( 19 )]
+transform = Transform( 1.73205, 0, -1, 0.258819, 1.93185, 0.448288, 0.965926, -0.517638, 1.67303, -79, 21, 112 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Jetliner"]
+autoplay = "approach"
+anims/RESET = SubResource( 40 )
+anims/approach = SubResource( 41 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Jetliner"]
+stream = ExtResource( 20 )
+unit_size = 12.0
+autoplay = true
+bus = "Sfx"
+doppler_tracking = 2
 
 [connection signal="body_entered" from="FinishLine" to="." method="_on_FinishLine_body_entered"]
 [connection signal="body_exited" from="FinishLine" to="." method="_on_FinishLine_body_exited"]

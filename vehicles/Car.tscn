@@ -54,7 +54,6 @@ script = ExtResource( 1 )
 
 [node name="Car6" type="MeshInstance" parent="."]
 transform = Transform( 0.75, 0, 0, 0, -3.27835e-08, -0.75, 0, 0.75, -3.27835e-08, 0, 0, 0 )
-cast_shadow = 0
 mesh = SubResource( 1 )
 
 [node name="Pizza" type="MeshInstance" parent="Car6"]
@@ -129,10 +128,12 @@ cast_shadow = 0
 mesh = SubResource( 5 )
 skeleton = NodePath("../..")
 
-[node name="Engine" type="AudioStreamPlayer" parent="."]
+[node name="Engine" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 4 )
+unit_size = 5.0
 autoplay = true
 bus = "kart"
+doppler_tracking = 2
 
 [node name="Drift" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource( 8 )

@@ -5,6 +5,7 @@
 [ext_resource path="res://menu/DiegeticLabel.tscn" type="PackedScene" id=3]
 
 [node name="Circuit" instance=ExtResource( 1 )]
+circuit_name = "a level still in progress"
 
 [node name="Gordon" parent="." index="0"]
 transform = Transform( 1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -34.6334, 4.76168, 8 )

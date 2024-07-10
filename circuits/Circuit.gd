@@ -2,6 +2,8 @@ extends Node
 
 var target_rotation := 0.0
 
+export (String) var circuit_name := "nowhere"
+
 onready var camera_tps: Camera = $CamPivot/Camera
 onready var camera_fps: Camera = $Kart/FirstPersonCamera
 onready var cam_pivot: Spatial = $CamPivot
@@ -10,6 +12,7 @@ onready var kart_node: Spatial = $Kart
 
 func _ready():
 	make_props_destructible()
+	Globals.push_msg("You entered " + circuit_name)
 
 
 func make_everything_unshaded(unshaded := true):

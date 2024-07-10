@@ -1,17 +1,15 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://music/Funked Up.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Globals.gd" type="Script" id=2]
 [ext_resource path="res://items/pizzas/noise_02.ogg" type="AudioStream" id=3]
+[ext_resource path="res://multiplayer/MultiManager.tscn" type="PackedScene" id=4]
 
 [node name="Globals" type="Node"]
 script = ExtResource( 2 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
 volume_db = -12.0
-pitch_scale = 0.7
-autoplay = true
+pitch_scale = 0.8
 bus = "Music"
 
 [node name="TestSound" type="AudioStreamPlayer" parent="."]
@@ -21,6 +19,7 @@ autoplay = true
 bus = "Sfx"
 
 [node name="Options" type="GridContainer" parent="."]
+modulate = Color( 0.866667, 0.933333, 0.133333, 1 )
 margin_left = -8.0
 margin_top = 280.0
 margin_right = 104.0
@@ -62,5 +61,40 @@ max_value = 1.2
 step = 0.2
 value = 1.0
 
+[node name="Shuffle" type="Button" parent="."]
+modulate = Color( 0.866667, 0.933333, 0.133333, 1 )
+margin_left = 108.0
+margin_top = 284.0
+margin_right = 135.0
+margin_bottom = 309.0
+text = ">>"
+
+[node name="MultiManager" parent="." instance=ExtResource( 4 )]
+
+[node name="Status1" type="Label" parent="."]
+modulate = Color( 0.866667, 0.933333, 0.133333, 1 )
+margin_left = 8.0
+margin_right = 472.0
+margin_bottom = 24.0
+valign = 1
+
+[node name="Status2" type="Label" parent="."]
+modulate = Color( 0.866667, 0.933333, 0.133333, 1 )
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 472.0
+margin_bottom = 40.0
+valign = 1
+
+[node name="Status3" type="Label" parent="."]
+modulate = Color( 0.866667, 0.933333, 0.133333, 1 )
+margin_left = 8.0
+margin_top = 32.0
+margin_right = 472.0
+margin_bottom = 56.0
+valign = 1
+
 [connection signal="value_changed" from="Options/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
 [connection signal="value_changed" from="Options/SfxSlider" to="." method="_on_SfxSlider_value_changed"]
+[connection signal="pressed" from="Shuffle" to="." method="_on_Shuffle_pressed"]
+[connection signal="pushed_message" from="MultiManager" to="." method="_on_MultiManager_pushed_message"]

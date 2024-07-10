@@ -16,14 +16,26 @@ func set_size(new_size: Vector2):
 	recreate_terrain()
 
 
+func _ready():
+	recreate_terrain()
+
+
+func _on_tex_changed():
+	recreate_terrain()
+
+
 func recreate_terrain():
 	if not is_inside_tree():
 		return
 	var sea_level_offset: float = $Hills.translation.y
-	#yield(heightmap, "changed")
+	if heightmap == null:
+		return clear_terrain()
+	
+	if not heightmap.is_connected("changed", self, "_on_tex_changed"):
+		heightmap.connect("changed", self, "_on_tex_changed")
 	var image := heightmap.get_data()
 	if image == null:
-		return
+		return clear_terrain()
 	image.lock()
 
 	var map := PoolRealArray()
@@ -46,8 +58,11 @@ func recreate_terrain():
 	image.unlock()
 
 	$CollisionShape.shape.map_data = map
+	$Hills.mesh.material.set_shader_param("heightmap", heightmap)
+	$Water.mesh.material.set_shader_param("heightmap", heightmap)
 
-	var mat: ShaderMaterial = $Hills.mesh.material
-	mat.set_shader_param("heightmap", heightmap)
-	mat = $Water.mesh.material
-	mat.set_shader_param("heightmap", heightmap)
+
+func clear_terrain() -> void:
+	$CollisionShape.shape.map_data = []
+	$Hills.mesh.material.set_shader_param("heightmap", null)
+	$Water.mesh.material.set_shader_param("heightmap", null)
