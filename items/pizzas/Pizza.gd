@@ -8,6 +8,7 @@ func _on_body_entered(body: Node) -> void:
 	hide()
 	$Got.play()
 
+
 func restore() -> void:
 	show()
 	monitoring = true

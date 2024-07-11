@@ -1,60 +1,54 @@
 extends Node
+class_name Circuit
 
 var target_rotation := 0.0
 
 export (String) var circuit_name := "nowhere"
 
-onready var camera_tps: Camera = $CamPivot/Camera
-onready var camera_fps: Camera = $Kart/FirstPersonCamera
+onready var cameras := [
+	$CamPivot/Camera,
+	$Kart/FirstPersonCamera,
+	$CamPivot/TopCam,
+]
+var current_cam := 0
+var explodable_tiles := [0, 1, 2, 3, 9, 10, 11, 12, 13, 33, 35]
 onready var cam_pivot: Spatial = $CamPivot
 onready var kart_node: Spatial = $Kart
+onready var grid_map: GridMap = $GridMap
 
 
 func _ready():
 	make_props_destructible()
 	Globals.push_msg("You entered " + circuit_name)
+	cam_pivot.position = kart_node.position
+	setup_env(Globals.current_env)
 
 
-func make_everything_unshaded(unshaded := true):
-	$SunLight.visible = not unshaded
-	var mats := [
-		preload("res://items/barrel/barrel.material"),
-		preload("res://vehicles/car6_mat.material"),
-		preload("res://materials/Grey.material"),
-		preload("res://materials/Red.material"),
-		preload("res://materials/White.material"),
-		preload("res://materials/gilded.material"),
-		preload("res://materials/scales.material"),
-		preload("res://urbankit/asphalt.material"),
-		preload("res://urbankit/concrete.material"),
-		preload("res://urbankit/concreteSmooth.material"),
-		preload("res://urbankit/dirt.material"),
-		preload("res://urbankit/doors.material"),
-		preload("res://urbankit/grass2.material"),
-		preload("res://urbankit/metal.material"),
-		preload("res://urbankit/roof.material"),
-		preload("res://urbankit/roof_plates.material"),
-		preload("res://urbankit/treeA.material"),
-		preload("res://urbankit/treeB.material"),
-		preload("res://urbankit/truck.material"),
-		preload("res://urbankit/truck_alien.material"),
-		preload("res://urbankit/wall.material"),
-		preload("res://urbankit/wall_garage.material"),
-		preload("res://urbankit/wall_lines.material"),
-		preload("res://urbankit/wall_metal.material"),
-	]
-	for mat in mats:
-		mat.set_flag(0, unshaded)
+func setup_env(env_id: int):
+	var sunset_light: DirectionalLight = $SunLight
+	var day_light: DirectionalLight = $DayLight
+
+	for cam in cameras:
+		cam.cull_mask &= ~30
+		cam.cull_mask |= int(pow(2, env_id + 1))
+	sunset_light.hide()
+	day_light.hide()
+	match env_id:
+		0: # sunset
+			sunset_light.show()
+		2: # day
+			day_light.show()
 
 
 func make_props_destructible():
+	print(grid_map)
 	var shape := BoxShape.new()
 	shape.extents = Vector3(1, 2, 1)
-	for cell in $GridMap.get_used_cells():
-		var type: int = $GridMap.get_cell_item(cell.x, cell.y, cell.z)
-		if type in [0, 1, 2, 3, 9, 10, 11, 12, 13, 33, 35]:
+	for cell in grid_map.get_used_cells():
+		var type: int = grid_map.get_cell_item(cell.x, cell.y, cell.z)
+		if type in explodable_tiles:
 			var area := Area.new()
-			area.translation = $GridMap.map_to_world(cell.x, cell.y, cell.z)
+			area.translation = grid_map.map_to_world(cell.x, cell.y, cell.z)
 			area.collision_layer = 0
 			area.collision_mask = 10
 			var shapenode := CollisionShape.new()
@@ -71,7 +65,7 @@ func make_cell_explode(body: PhysicsBody, area: Area, cell: Vector3):
 	if body and body.has_method("apply_central_impulse"):
 		body.apply_central_impulse((area.global_transform.origin - body.global_transform.origin).normalized() * -2000)
 	yield(get_tree(), "physics_frame")
-	$GridMap.set_cell_item(cell.x, cell.y, cell.z, -1)
+	grid_map.set_cell_item(int(cell.x), int(cell.y), int(cell.z), -1)
 
 
 func create_explosion(pos: Vector3):
@@ -86,12 +80,14 @@ func create_explosion(pos: Vector3):
 
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):
-		if camera_tps.current:
-			camera_fps.current = true
-			$Gordon.hide()
-		elif camera_fps.current:
-			camera_tps.current = true
-			$Gordon.show()
+		next_cam()
+
+
+func next_cam():
+	current_cam = (current_cam + 1) % len(cameras)
+	for i in range(len(cameras)):
+		cameras[i].current = (i == current_cam)
+	$Gordon.visible = (current_cam != 1)
 
 
 func _physics_process(delta: float):

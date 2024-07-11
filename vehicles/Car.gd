@@ -48,18 +48,18 @@ func _physics_process(delta: float) -> void:
 
 	# modulate engine sound
 	if acc:
-		engine_sound.pitch_scale = 0.5 + abs(vel) / 18.0
+		engine_sound.pitch_scale = clamp(0.5 + abs(vel) / 18.0, 0.5, 2.0)
 	else:
 		engine_sound.pitch_scale = lerp(engine_sound.pitch_scale, 0.5, delta)
 
-	# Respawn if out of bounds or self-destructing
+	# Respawn if out of bounds
 	if translation.y < -20:
 		respawn()
 
 
 func _unhandled_input(event: InputEvent):
-	if event.is_action_pressed("jump"):
-		jump()
+	#if event.is_action_pressed("jump"):
+	#	jump()
 	if event.is_action_pressed("shoot"):
 		emit_signal("shoot")
 

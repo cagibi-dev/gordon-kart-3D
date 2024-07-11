@@ -5,6 +5,10 @@ extends StaticBody
 export (Texture) var heightmap: Texture setget set_heightmap
 export (Vector2) var chunk_size := Vector2(32, 32) setget set_size
 
+onready var shape: HeightMapShape = $CollisionShape.shape
+onready var hills_mesh: PlaneMesh = $Hills.mesh
+onready var water_mesh: PlaneMesh = $Water.mesh
+
 
 func set_heightmap(new_hm: Texture):
 	heightmap = new_hm
@@ -38,6 +42,14 @@ func recreate_terrain():
 		return clear_terrain()
 	image.lock()
 
+	# update size
+	water_mesh.size = 4 * chunk_size
+	hills_mesh.size = 4 * chunk_size
+	hills_mesh.subdivide_width = int(chunk_size.x)
+	hills_mesh.subdivide_depth = int(chunk_size.y)
+	shape.map_width = int(chunk_size.x + 1)
+	shape.map_depth = int(chunk_size.y + 1)
+
 	var map := PoolRealArray()
 	var image_size := image.get_size() # assume square
 
@@ -57,12 +69,12 @@ func recreate_terrain():
 			map.append(height)
 	image.unlock()
 
-	$CollisionShape.shape.map_data = map
-	$Hills.mesh.material.set_shader_param("heightmap", heightmap)
-	$Water.mesh.material.set_shader_param("heightmap", heightmap)
+	shape.map_data = map
+	hills_mesh.material.set_shader_param("heightmap", heightmap)
+	water_mesh.material.set_shader_param("heightmap", heightmap)
 
 
 func clear_terrain() -> void:
-	$CollisionShape.shape.map_data = []
-	$Hills.mesh.material.set_shader_param("heightmap", null)
-	$Water.mesh.material.set_shader_param("heightmap", null)
+	shape.map_data = []
+	hills_mesh.material.set_shader_param("heightmap", null)
+	water_mesh.material.set_shader_param("heightmap", null)

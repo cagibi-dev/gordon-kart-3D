@@ -130,7 +130,7 @@ skeleton = NodePath("../..")
 
 [node name="Engine" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 4 )
-unit_size = 5.0
+unit_size = 3.0
 autoplay = true
 bus = "kart"
 doppler_tracking = 2
@@ -175,5 +175,22 @@ autostart = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.43696, 3.45608 )
 visible = false
 mesh = SubResource( 9 )
+
+[node name="FrontLights" type="SpotLight" parent="."]
+transform = Transform( -1, -1.13133e-08, -8.89122e-08, -3.394e-08, 0.965926, 0.258819, 8.29545e-08, 0.258819, -0.965926, 9.53674e-07, 1, 2 )
+layers = 4
+light_color = Color( 0.866667, 0.933333, 0.133333, 1 )
+light_energy = 2.0
+spot_range = 28.0
+spot_attenuation = 0.2
+spot_angle_attenuation = 2.0
+
+[node name="RearLights" type="OmniLight" parent="."]
+transform = Transform( -1, -1.13133e-08, -8.89122e-08, -3.394e-08, 0.965926, 0.258819, 8.29545e-08, 0.258819, -0.965926, 2.86102e-06, 1, -2 )
+layers = 4
+light_color = Color( 1, 0, 0.305882, 1 )
+light_energy = 2.0
+omni_attenuation = 0.5
+omni_shadow_mode = 0
 
 [connection signal="timeout" from="NetworkUpdateTimer" to="." method="_on_NetworkUpdateTimer_timeout"]

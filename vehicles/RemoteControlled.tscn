@@ -14,10 +14,14 @@ collision_layer = 1
 mode = 3
 script = ExtResource( 2 )
 
-[node name="Speed" parent="." index="20"]
+[node name="Speed" parent="." index="8"]
 visible = false
 
-[node name="Username" type="Label3D" parent="." index="24"]
+[node name="NetworkUpdateTimer" parent="." index="12"]
+wait_time = 0.08
+autostart = false
+
+[node name="Username" type="Label3D" parent="." index="14"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47759, 0 )
 pixel_size = 0.008
 billboard = 1
@@ -28,11 +32,9 @@ modulate = Color( 0, 1, 0, 1 )
 text = "xXx_ttbgdu32_xXx"
 vertical_alignment = 2
 
-[node name="NetworkUpdateTimer" parent="." index="25"]
-wait_time = 0.08
-autostart = false
-
-[node name="RemoteEngine" type="AudioStreamPlayer3D" parent="." index="26"]
+[node name="RemoteEngine" type="AudioStreamPlayer3D" parent="." index="15"]
 stream = SubResource( 26 )
 unit_size = 4.0
+autoplay = true
 bus = "Sfx"
+doppler_tracking = 2

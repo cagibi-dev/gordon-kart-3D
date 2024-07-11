@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://materials/White.material" type="Material" id=1]
+[ext_resource path="res://urbankit/roof_plates.material" type="Material" id=1]
+[ext_resource path="res://materials/gilded.material" type="Material" id=2]
+[ext_resource path="res://items/barrel/barrel.material" type="Material" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 12.0
@@ -13,7 +15,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 60,
-"material": ExtResource( 1 ),
+"material": ExtResource( 2 ),
 "name": "None",
 "primitive": 4,
 "skeleton_aabb": [  ],
@@ -26,7 +28,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 48,
-"material": ExtResource( 1 ),
+"material": ExtResource( 2 ),
 "name": "None",
 "primitive": 4,
 "skeleton_aabb": [  ],
@@ -52,7 +54,7 @@ surfaces/3 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 192,
-"material": ExtResource( 1 ),
+"material": ExtResource( 3 ),
 "name": "None",
 "primitive": 4,
 "skeleton_aabb": [  ],

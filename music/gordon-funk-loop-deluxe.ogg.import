@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/gordon-funk-loop-deluxe.ogg-77bea09e72ea6c4cb13a7c0c9d5756aa.oggstr"
+
+[deps]
+
+source_file="res://music/gordon-funk-loop-deluxe.ogg"
+dest_files=[ "res://.import/gordon-funk-loop-deluxe.ogg-77bea09e72ea6c4cb13a7c0c9d5756aa.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://world/environments/env_sunset.tres" type="Environment" id=1]
 [ext_resource path="res://Globals.gd" type="Script" id=2]
 [ext_resource path="res://items/pizzas/noise_02.ogg" type="AudioStream" id=3]
 [ext_resource path="res://multiplayer/MultiManager.tscn" type="PackedScene" id=4]
@@ -67,7 +68,15 @@ margin_left = 108.0
 margin_top = 284.0
 margin_right = 135.0
 margin_bottom = 309.0
-text = ">>"
+text = ">>|"
+
+[node name="NextEnv" type="Button" parent="."]
+modulate = Color( 0.866667, 0.933333, 0.133333, 1 )
+margin_left = 144.0
+margin_top = 284.0
+margin_right = 179.0
+margin_bottom = 309.0
+text = "..."
 
 [node name="MultiManager" parent="." instance=ExtResource( 4 )]
 
@@ -94,7 +103,11 @@ margin_right = 472.0
 margin_bottom = 56.0
 valign = 1
 
+[node name="Env" type="WorldEnvironment" parent="."]
+environment = ExtResource( 1 )
+
 [connection signal="value_changed" from="Options/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
 [connection signal="value_changed" from="Options/SfxSlider" to="." method="_on_SfxSlider_value_changed"]
 [connection signal="pressed" from="Shuffle" to="." method="_on_Shuffle_pressed"]
+[connection signal="pressed" from="NextEnv" to="." method="_on_NextEnv_pressed"]
 [connection signal="pushed_message" from="MultiManager" to="." method="_on_MultiManager_pushed_message"]
