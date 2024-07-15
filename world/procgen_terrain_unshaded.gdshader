@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode unshaded;
 
 uniform sampler2D grass_tex;
 uniform sampler2D dirt_tex;

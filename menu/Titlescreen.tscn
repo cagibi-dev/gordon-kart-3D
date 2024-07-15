@@ -48,7 +48,6 @@ __meta__ = {
 [node name="DiegeticLabel" parent="." instance=ExtResource( 4 )]
 transform = Transform( 0.866528, -0.032067, 0.498097, 0.0868241, 0.992404, -0.0871557, -0.491519, 0.11877, 0.86273, -0.5, 2, -1 )
 pixel_size = 0.04
-shaded = false
 modulate = Color( 0.85098, 1, 0, 1 )
 text = "GORDONKART"
 

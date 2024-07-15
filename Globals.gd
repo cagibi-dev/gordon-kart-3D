@@ -13,7 +13,7 @@ var playlist := [
 	[preload("res://music/Funked Up.ogg"), "Funked Up (CC0 Joth)"],
 	[preload("res://music/jazzy-blues.ogg"), "Jazzy Blues (CC0 LushoGames)"],
 	[preload("res://music/Funkorama.ogg"), "Funkorama (CC-BY Kevin MacLeod)"],
-	[preload("res://music/pompy_lowres.ogg"), "Pompy by madbr"],
+	[preload("res://music/pompy_lowres.ogg"), "Pompy by Hubert Lamontagne"],
 ]
 var current_song := 0
 
@@ -21,6 +21,7 @@ var env_list := [
 	preload("res://world/environments/env_sunset.tres"),
 	preload("res://world/environments/env_night.tres"),
 	preload("res://world/environments/env_day.tres"),
+	preload("res://world/environments/env_low_perf.tres"),
 ]
 var current_env := 0
 
@@ -66,7 +67,8 @@ func _on_NextEnv_pressed():
 		current_env = 0
 
 	$Env.environment = env_list[current_env]
-	push_msg("Time set to " + ["sunset", "night", "day"][current_env])
+	push_msg("Time set to " + ["sunset", "night", "day", "low-perf"][current_env])
+	make_everything_unshaded(current_env == 3)
 
 	if get_tree().current_scene is Circuit:
 		var level := (get_tree().current_scene as Circuit)
@@ -103,4 +105,10 @@ func make_everything_unshaded(unshaded := true):
 		preload("res://materials/pizza.material"),
 	]
 	for mat in mats:
+		assert(mat is Material3D)
 		mat.set_flag(0, unshaded)
+	var mat: ShaderMaterial = preload("res://materials/terrain_blend.material")
+	if unshaded:
+		mat.shader = preload("res://world/procgen_terrain_unshaded.gdshader")
+	else:
+		mat.shader = preload("res://world/procgen_terrain.gdshader")

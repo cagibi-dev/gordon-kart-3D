@@ -256,6 +256,7 @@ transform = Transform( 1.73205, 0, -1, 0.258819, 1.93185, 0.448288, 0.965926, -0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Jetliner" index="2"]
 autoplay = "approach"
+playback_process_mode = 0
 anims/RESET = SubResource( 34 )
 anims/approach = SubResource( 35 )
 

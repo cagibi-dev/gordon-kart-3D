@@ -33,13 +33,15 @@ func recreate_terrain():
 		return
 	var sea_level_offset: float = $Hills.translation.y
 	if heightmap == null:
-		return clear_terrain()
-	
+		clear_terrain()
+		return
+
 	if not heightmap.is_connected("changed", self, "_on_tex_changed"):
 		heightmap.connect("changed", self, "_on_tex_changed")
 	var image := heightmap.get_data()
 	if image == null:
-		return clear_terrain()
+		clear_terrain()
+		return
 	image.lock()
 
 	# update size

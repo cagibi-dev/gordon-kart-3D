@@ -15,6 +15,8 @@ var explodable_tiles := [0, 1, 2, 3, 9, 10, 11, 12, 13, 33, 35]
 onready var cam_pivot: Spatial = $CamPivot
 onready var kart_node: Spatial = $Kart
 onready var grid_map: GridMap = $GridMap
+onready var sunset_light: DirectionalLight = $SunLight
+onready var day_light: DirectionalLight = $DayLight
 
 
 func _ready():
@@ -25,9 +27,6 @@ func _ready():
 
 
 func setup_env(env_id: int):
-	var sunset_light: DirectionalLight = $SunLight
-	var day_light: DirectionalLight = $DayLight
-
 	for cam in cameras:
 		cam.cull_mask &= ~30
 		cam.cull_mask |= int(pow(2, env_id + 1))
@@ -41,7 +40,6 @@ func setup_env(env_id: int):
 
 
 func make_props_destructible():
-	print(grid_map)
 	var shape := BoxShape.new()
 	shape.extents = Vector3(1, 2, 1)
 	for cell in grid_map.get_used_cells():

@@ -7,8 +7,6 @@ var current_time := 0.0
 var running := false
 var can_finish := false
 
-onready var sunset_light: DirectionalLight = $Lights/SunLight
-onready var day_light: DirectionalLight = $Lights/DayLight
 onready var current_time_node: Label = $HUD/Current
 
 

@@ -93,6 +93,7 @@ spot_angle_attenuation = 4.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="JetPivot" index="1"]
 autoplay = "spin"
+playback_process_mode = 0
 anims/spin = SubResource( 1 )
 
 [node name="OmniLight" type="OmniLight" parent="Lights" index="0"]
